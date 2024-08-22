@@ -1,2 +1,2 @@
 node_modules
-backend/db.js
+backend/routes/db.js
