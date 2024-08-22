@@ -152,7 +152,7 @@ INSERT INTO Orders (member_id, order_type, total_price, notes) VALUES
 
 -- Dishes
 INSERT INTO Dishes (name, description, price, image_url, category) VALUES
-('שקשוקה', 'תבשיל מסורתי, במחבת לוהטת עם שתי ביצים, לחם הבית וסלט אישי, 63.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/shakshuka-3.jpg', 'ארוחת בוקר'),
+('שקשוקה','תבשיל מסורתי, במחבת לוהטת עם שתי ביצים, לחם הבית וסלט איש', 63.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/shakshuka-3.jpg', 'ארוחת בוקר'),
 ('פסטה פומודורו', 'פסטה ברוטב עגבניות טריות', 55.00, 'pasta.jpg', 'איטלקי'),
 ('קפה הפוך', 'קפה חלב עם אספרסו', 12.00, 'cappuccino.jpg', 'משקאות חמים');
 
