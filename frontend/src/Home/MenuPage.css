@@ -1,0 +1,49 @@
+.menu-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .refresh-button {
+    margin-bottom: 20px;
+  }
+  
+  .category-section {
+    margin-bottom: 40px;
+  }
+  
+  .category-title {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  .dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .dish-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: right;
+  }
+  
+  .dish-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .dish-name, .dish-description, .dish-price {
+    padding: 0 10px;
+  }
+  
+  .dish-name {
+    margin: 10px 0;
+  }
+  
+  .dish-price {
+    font-weight: bold;
+  }

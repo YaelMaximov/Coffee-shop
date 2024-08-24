@@ -1,19 +1,13 @@
 import React from 'react';
 import { useMenu } from '../MenuProvider';
+import './MenuPage.css'; // You'll need to create this CSS file
 
 export default function MenuPage() {
-  console.log('Rendering MenuPage');
-  const menuData = useMenu();
-  console.log('Menu data:', menuData);
+  const { menu, isLoading, error, refreshMenu } = useMenu();
 
-  const { menu, isLoading, error, refreshMenu } = menuData;
-
-  if (isLoading) {
-    return <p>טוען תפריט...</p>;
-  }
+  if (isLoading) return <p>טוען תפריט...</p>;
 
   if (error) {
-    console.error('Error in MenuPage:', error);
     return (
       <div>
         <p>שגיאה בטעינת התפריט: {error.toString()}</p>
@@ -23,7 +17,6 @@ export default function MenuPage() {
   }
 
   if (!menu || menu.length === 0) {
-    console.log('Menu is empty');
     return (
       <div>
         <p>אין פריטים בתפריט</p>
@@ -32,22 +25,33 @@ export default function MenuPage() {
     );
   }
 
-  console.log('Rendering menu items');
+  // Group menu items by category
+  const menuByCategory = menu.reduce((acc, dish) => {
+    if (!acc[dish.category]) {
+      acc[dish.category] = [];
+    }
+    acc[dish.category].push(dish);
+    return acc;
+  }, {});
+
   return (
-    <div>
-      <h1>תפריט</h1>
-      <button onClick={refreshMenu}>רענן תפריט</button>
-      <ul>
-        {menu.map(dish => (
-          <li key={dish.dish_id}>
-            <h2>{dish.name}</h2>
-            <p>{dish.description}</p>
-            <p>מחיר: {dish.price} ₪</p>
-            <img src={dish.image_url} alt={dish.name} width="150" />
-            <p>קטגוריה: {dish.category}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="menu-page">
+      <button onClick={refreshMenu} className="refresh-button">רענן תפריט</button>
+      {Object.entries(menuByCategory).map(([category, dishes]) => (
+        <div key={category} className="category-section">
+          <h2 className="category-title">{category}</h2>
+          <div className="dishes-grid">
+            {dishes.map(dish => (
+              <div key={dish.dish_id} className="dish-card">
+                <img src={dish.image_url} alt={dish.name} className="dish-image" />
+                <h3 className="dish-name">{dish.name}</h3>
+                <p className="dish-description">{dish.description}</p>
+                <p className="dish-price">{dish.price} ₪</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
