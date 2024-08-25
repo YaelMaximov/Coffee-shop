@@ -1,0 +1,16 @@
+.branch-page {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .button-group button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .button-group button:hover {
+    background-color: #ddd;
+  }
+  

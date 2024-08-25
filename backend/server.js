@@ -6,6 +6,8 @@ const cors = require('cors');
 const menuRoutes = require('./routes/menuRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 // const clubRoutes = require('./routes/orderRoutes');
+const branchRoutes = require('./routes/branchRoutes');
+
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
@@ -23,6 +25,7 @@ app.use((req, res, next) => {
 // app.use('/club', clubRoutes);
 app.use('/menu', menuRoutes);
 app.use('/orders', orderRoutes);
+app.use('/branch', branchRoutes);
 
 // Start the server
 app.listen(port, () => {
