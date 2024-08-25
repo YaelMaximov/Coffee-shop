@@ -3,14 +3,14 @@
     text-align: center;
   }
   
-  .button-group button {
+  button {
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
   }
   
-  .button-group button:hover {
+  button:hover {
     background-color: #ddd;
   }
   

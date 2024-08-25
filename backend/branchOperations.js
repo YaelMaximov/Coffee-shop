@@ -15,3 +15,14 @@ exports.getBranch = async (req, res) => {
     res.status(500).json({ error: 'Error retrieving the branch details' });
   }
 };
+
+// Endpoint to fetch all branches
+exports.getAll('/branches', async (req, res) => {
+  try {
+    const branches = await connection.query('SELECT * FROM branches');
+    res.json(branches.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});

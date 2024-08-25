@@ -2,10 +2,11 @@ import './App.css';
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import MenuPage from "./Home/ViewMenu";
-import OrderPage from './Home/OrderPage';
-import { MenuProvider } from './MenuProvider'; // וודא שהנתיב נכון
+import { MenuProvider } from './MenuProvider';
 import BranchPage from './Home/BranchPage';
-
+import OrderTypePage from './Home/OrderTypePage'; // Import the new page
+import LoginPage from './Login/LoginPage';
+import RegistrationPage from './Login/RegistrationPage';
 
 function App() {
   return (
@@ -13,12 +14,14 @@ function App() {
       <Router>
         <div>
           <Routes>          
-            {/* <Route path="/" element={<Navigate to="/branch/1" />} /> */}
-
-          <Route path="/" element={<MenuPage /> }  />
-            {/* שאר הנתיבים שלך כאן */}
-            {/* <Route path="/" element={<OrderPage  />} /> */}
-            {/* <Route path="/branch/:branchId" element={<BranchPage />} /> */}
+            <Route path="/" element={<Navigate to="/branch/1" />} />
+            <Route path="/menu" element={<MenuPage />} />
+            <Route path="/branch/:branchId" element={<BranchPage />} />
+            <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/order" element={<OrderTypePage />} /> {/* Add the new route */}
+              <Route path="/" element={<OrderPage  />} />
+            {/* Add more routes as needed */}
           </Routes>
         </div>
       </Router>
