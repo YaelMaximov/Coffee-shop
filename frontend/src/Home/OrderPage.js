@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useMenu } from '../MenuProvider';
 import './OrderPage.css'; 
-import DishPopup from './DishPopup'; // ייבוא קומפוננטת הפופאפ
+import DishPopup from './DishPopup'; 
 
 export default function OrderPage() {
   const { menu, isLoading, error } = useMenu();
   const [selectedCategory, setSelectedCategory] = useState('ארוחת בוקר');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDish, setSelectedDish] = useState(null); // state חדש למנה נבחרת
+  const [selectedDish, setSelectedDish] = useState(null); 
+  const [cart, setCart] = useState([]); // New cart state
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -23,9 +24,32 @@ export default function OrderPage() {
     dish.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // פונקציה לפתיחת הפופאפ
   const openDishPopup = (dish) => {
     setSelectedDish(dish);
+  };
+
+  // Function to add dish to the cart
+  const addToCart = (dish, quantity, selectedExtras, notes) => {
+    const selectedExtrasList = Object.keys(selectedExtras)
+      .filter(extraName => selectedExtras[extraName]);
+    
+    const extrasCost = selectedExtrasList.reduce((total, extraName) => {
+      const extra = dish.extras.find(e => e.name === extraName);
+      return total + (extra ? extra.price : 0);
+    }, 0);
+    
+    const totalCost = (dish.price + extrasCost) * quantity;
+
+    const newItem = {
+      ...dish,
+      quantity,
+      selectedExtras: selectedExtrasList,
+      notes,
+      totalCost
+    };
+
+    setCart(prevCart => [...prevCart, newItem]);
+    setSelectedDish(null); // Close the popup after adding to cart
   };
 
   return (
@@ -33,8 +57,18 @@ export default function OrderPage() {
       <div className="content-wrapper">
         <div className="cart-summary">
           <h3>סיכום הזמנה</h3>
-          <img src="https://cdn-icons-png.flaticon.com/512/3721/3721650.png" alt="Cart" width={200} />
-          <p>הסל שלך ריק</p>
+          {cart.length > 0 ? (
+            cart.map((item, index) => (
+              <div key={index} className="cart-item">
+                <h4>{item.name}</h4>
+                <p>כמות: {item.quantity}</p>
+                <p>תוספות: {item.selectedExtras.join(', ')}</p>
+                <p>סה"כ: ₪{item.totalCost}</p>
+              </div>
+            ))
+          ) : (
+            <p>הסל שלך ריק</p>
+          )}
           <button className="checkout-button">לתשלום</button>
         </div>
         
@@ -85,6 +119,7 @@ export default function OrderPage() {
         <DishPopup 
           dish={selectedDish} 
           onClose={() => setSelectedDish(null)}
+          onAddToCart={addToCart} // Pass the addToCart function to the popup
         />
       )}
     </div>

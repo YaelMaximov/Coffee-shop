@@ -7,6 +7,8 @@ const menuOperations = require('../menuOperations');
 // Route for getting all dishes
 router.get('/getMenu', menuOperations.getMenu);
 
+router.get('/:dishId/extras', menuOperations.getDishExtras);
+
 // // Route for getting all  categories
 // router.get('/getMenuCategories', getMenuCategories);
 

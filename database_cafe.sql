@@ -75,16 +75,16 @@ CREATE TABLE Order_Dishes (
 CREATE TABLE Extras (
     extra_id INT PRIMARY KEY AUTO_INCREMENT, -- Unique ID for each extra
     name VARCHAR(100) NOT NULL, -- Name of the extra
-    category ENUM('רטבים', 'סלטים', 'לחמים', 'פירות', 'בסיס לשייק', 'תוספות') NOT NULL -- Category of the extra
+    category ENUM('רטבים', 'סלטים', 'לחמים', 'פירות', 'בסיס לשייק') NOT NULL, -- Category of the extra
+    price DECIMAL(5,2) NOT NULL -- Price of the extra
 );
 
 -- Table: Dish_Extras (תוספות למנה)
-CREATE TABLE Dish_Extras (
-    dish_extra_id INT PRIMARY KEY AUTO_INCREMENT, -- Unique ID for each dish-extra relation
+CREATE TABLE Dish_Extra_Categories (
+    dish_extra_category_id INT PRIMARY KEY AUTO_INCREMENT, -- Unique ID for each dish-extra category relation
     dish_id INT NOT NULL, -- Foreign key for Dishes table
-    extra_id INT NOT NULL, -- Foreign key for Extras table
-    FOREIGN KEY (dish_id) REFERENCES Dishes(dish_id), -- Link to Dishes table
-    FOREIGN KEY (extra_id) REFERENCES Extras(extra_id) -- Link to Extras table
+    extra_category ENUM('רטבים', 'סלטים', 'לחמים', 'פירות', 'בסיס לשייק') NOT NULL, -- Category of the extra
+    FOREIGN KEY (dish_id) REFERENCES Dishes(dish_id) -- Link to Dishes table
 );
 
 -- Table: Order_Dish_Extras (תוספות למנה בהזמנה)
@@ -159,7 +159,7 @@ INSERT INTO Branches (address, phone, opening_hours, google_maps_link)
 VALUES ('רחוב יפו 123, ירושלים', '02-1234567', 'א׳-ה׳: 08:00-20:00, ו׳: 08:00-14:00', 'https://goo.gl/maps/exampleLink');
 
 
--- (ארוחת בוקר)
+-- (12ארוחת בוקר)
 INSERT INTO Dishes (name, description, price, image_url, category) VALUES
 ('וופל אמריקאי', 'קריספי וופל, בצל ופטריות מוקפצות ברוטב 4 גבינות, ביצים עלומות, בצל ירוק, מוגש עם סלט לבחירה.', 57.00, 'https://gregcafe.co.il/wp-content/uploads/2024/01/vafel-americai-2.jpg', 'ארוחת בוקר'),
 ('וופל נורווגי', 'קריספי וופל, סלמון מעושן, תרד ובצל מוקפצים בחמאה ורוטב גבינות, ביצי עין ובצל ירוק,  מוגש עם סלט לבחירה.', 69.00, 'https://gregcafe.co.il/wp-content/uploads/2024/01/vafel-norvegi.jpg', 'ארוחת בוקר'),
@@ -171,6 +171,7 @@ INSERT INTO Dishes (name, description, price, image_url, category) VALUES
 ('בוקר יחיד',  'ביצים/אומלט לבחירה, בולגרית וזעתר, לאבנה געלה , גבינת שמנת ובצל ירוק, גוואקמולי, סלט טונה, סלסת עגבניות ובלסמי ,קונפיטורה, רוגלך שוקולד, לחם הבית, סלט לבחירה. מוגש עם קפה קטן ושתייה קרה קטנה: תפוזים/גזר/אשכוליות/לימונדה *שינוי או הגדלת שתייה בתוספת תשלום * ניתן לקבל גרסה טבעונית של המנה', 79.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/דצמבר-23-747.jpg', 'ארוחת בוקר'),
 ('בורקס טורקי', 'בורקס במילוי גבינות, מוגש עם לאבנה געלה, משוויה, ביצה קשה, סלסת פלפלים, עגבניות מרוסקות ושמן זית מוגש עם מלפפון חמוץ וירקות טריים.', 59.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/burekas-turki.jpg', 'ארוחת בוקר'),
 ('בריוש צרפתי', 'בריוש, חמאת כמהין, רוטב אלפרדו פטריות, גבינת מוצרלה, ביצי עין ובצל ירוק. מוגש עם סלט אישי.', 67.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/brish-tsarfati.jpg', 'ארוחת בוקר'),
+('מעדן מוזלי', 'פירות העונה, יוגורט וגרנולה, לצד טחינה גולמית וסילאן', 36.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/musleu.jpg', 'ארוחת בוקר'),
 ('Eggs בנדיקט', 'בריוש, תרד, הולנדייז, ביצים עלומות, ריבת בצל, בצל ירוק ופלפל שחור. מוגש עם סלט לבחירה.', 67.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/benedict.jpg', 'ארוחת בוקר');
 
 -- (מנות פתיחה)
@@ -188,7 +189,7 @@ INSERT INTO Dishes (name, description, price, image_url, category) VALUES
 ("פרחי כרובית", "בציפוי פריך, קרם פרש, גרידת עגבניות, סלטון עלים, שקדים קלויים ופרמזן.", 49.00, "https://gregcafe.co.il/wp-content/uploads/2023/04/pirchei-kruvit-2.jpg", "מנות פתיחה");
 
 
--- (כריכים)
+-- (10כריכים)
 INSERT INTO Dishes (name, description, price, image_url, category)
 VALUES 
 ('כריך מוצרלה', 'מוצרלה, פסטו, עגבניה, חציל ועלי בזיליקום.', 58.00, 'https://gregcafe.co.il/wp-content/uploads/2024/01/charich-muzzarella.jpg', 'כריכים'),
@@ -199,8 +200,8 @@ VALUES
 ('טוסט גרג', 'בייגל, חמאה, גבינה צהובה, בצל, עגבנייה וביצה קשה. *ניתן לקבל גרסה טבעונית של המנה*', 53.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/toast-greg.jpg', 'כריכים'),
 ('טוסט גבינות יווני', 'בייגל, גבינת שמנת, גבינה צהובה, גבינה בולגרית וזיתי קלמטה. *ניתן לקבל גרסה טבעונית של המנה*', 56.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/toast-gvinot.jpg', 'כריכים'),
 ('טוסט אמריקאי', 'בייגל פתוח, פסטו וגבינת שמנת. מוקרם במוצרלה. *ניתן לקבל גרסה טבעונית של המנה*', 59.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/toast-americai.jpg', 'כריכים'),
-('טורטייה סביח מחוזק', '...', 57.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/tortia-sabich.jpg', 'כריכים'),
-('שווארמה גלילית טבעונית', 'טורטייה במילוי שווארמה טבעונית, מוקפצת עם בצל, עגבנייה, מלפפון חמוץ, טחינה, חלפיניו וסלט אישי לצד טחינה.', 57.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/shawarma-glilit.jpg', 'כריכים');
+('טורטייה סביח מחוזק', '...', 57.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/tortia-sabich.jpg', 'כריכים');
+
 
 -- סלטים
 INSERT INTO Dishes (name, description, price, image_url, category)
@@ -443,34 +444,86 @@ VALUES
 ('שייק פירות על בסיס מים/חלב/מיץ תפוזים/משקה סויה/משקה שקדים/משקה שיבולת שועל', 'פירות לבחירה: מנגו, תות, מלון, אננס, בננה, תמר.', 28.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/דצמבר-23-480.jpg', 'שייק פירות'),
 ('שייק פירות על בסיס יוגורט', 'פירות לבחירה: מנגו, תות, מלון, אננס, בננה, תמר.', 30.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/shake-yogurt-1.jpg', 'שייק פירות');
 
-INSERT INTO Extras (name, category) VALUES
--- רטבים (כבר הוספנו קודם, אבל אוסיף שוב למקרה שלא הרצת את הפקודה הקודמת)
-('וויניגרט', 'רטבים'),
-('שום שמיר', 'רטבים'),
-('אלף איים', 'רטבים'),
-('שמן זית', 'רטבים'),
-('שמן זית לימון', 'רטבים'),
+INSERT INTO Extras (name, category, price) VALUES
+-- רטבים
+('וויניגרט', 'רטבים', 5.00),
+('שום שמיר', 'רטבים', 4.50),
+('אלף איים', 'רטבים', 5.00),
+('שמן זית', 'רטבים', 6.00),
+('שמן זית לימון', 'רטבים', 6.50),
 
 -- סלטים
-('סלט ירוק', 'סלטים'),
-('סלט קצוץ', 'סלטים'),
-('ללא סלט', 'סלטים'),
+('סלט ירוק', 'סלטים', 12.00),
+('סלט קצוץ', 'סלטים', 10.00),
+('ללא סלט', 'סלטים', 0.00),
 
 -- לחמים
-("ג\'בטה שחורה", 'לחמים'),
-('לחם קל', 'לחמים'),
-('לחם ללא גלוטן', 'לחמים'),
-('לחם לבן', 'לחמים'),
+("ג'בטה שחורה", 'לחמים', 8.00),
+('לחם קל', 'לחמים', 6.00),
+('לחם ללא גלוטן', 'לחמים', 10.00),
+('לחם לבן', 'לחמים', 5.00),
 
-('בננה', 'פירות'),
-('מנגו', 'פירות'),
-('תות', 'פירות'),
-('אננס', 'פירות'),
-('תמר', 'פירות'),
+-- פירות
+('בננה', 'פירות', 4.00),
+('מנגו', 'פירות', 5.00),
+('תות', 'פירות', 5.00),
+('אננס', 'פירות', 6.00),
+('תמר', 'פירות', 3.50),
 
-('על מים', 'בסיס לשייק'),
-('על חלב', 'בסיס לשייק'),
-('על תפוזים', 'בסיס לשייק'),
-('על יוגורט', 'בסיס לשייק'),
-('חלב שקדים', 'בסיס לשייק'),
-('חלב סויה', 'בסיס לשייק');
+-- בסיס לשייק
+('על מים', 'בסיס לשייק', 0.00),
+('על חלב', 'בסיס לשייק', 2.00),
+('על תפוזים', 'בסיס לשייק', 3.00),
+('על יוגורט', 'בסיס לשייק', 4.00),
+('חלב שקדים', 'בסיס לשייק', 4.50),
+('חלב סויה', 'בסיס לשייק', 4.50);
+
+-- Adding 'רטבים' category to all breakfast dishes
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'רטבים' FROM Dishes WHERE dish_id BETWEEN 1 AND 12;
+
+-- Adding 'סלטים' category to all breakfast dishes
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'סלטים' FROM Dishes WHERE dish_id BETWEEN 1 AND 12;
+
+-- Adding 'לחמים' category to all breakfast dishes
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'לחמים' FROM Dishes WHERE dish_id BETWEEN 1 AND 12;
+
+
+-- Adding 'סלטים' category to sandwiches from 23 to 32
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'סלטים' FROM Dishes WHERE dish_id BETWEEN 23 AND 32
+ON DUPLICATE KEY UPDATE dish_id = VALUES(dish_id), extra_category = VALUES(extra_category);
+
+-- Adding 'לחמים' category to sandwiches from 23 to 32
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'לחמים' FROM Dishes WHERE dish_id BETWEEN 23 AND 32
+ON DUPLICATE KEY UPDATE dish_id = VALUES(dish_id), extra_category = VALUES(extra_category);
+
+-- Adding 'רטבים' category to dishes from 33 to 42
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'רטבים' FROM Dishes WHERE dish_id BETWEEN 33 AND 42
+ON DUPLICATE KEY UPDATE dish_id = VALUES(dish_id), extra_category = VALUES(extra_category);
+
+-- Adding 'לחמים' category to dishes from 33 to 42
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'לחמים' FROM Dishes WHERE dish_id BETWEEN 33 AND 42
+ON DUPLICATE KEY UPDATE dish_id = VALUES(dish_id), extra_category = VALUES(extra_category);
+
+-- Adding 'סלטים' category to Italian dishes from 43 to 53
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'סלטים' FROM Dishes WHERE dish_id BETWEEN 43 AND 53
+ON DUPLICATE KEY UPDATE dish_id = VALUES(dish_id), extra_category = VALUES(extra_category);
+
+-- Adding 'פירות' category to shakes from 115 to 116
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'פירות' FROM Dishes WHERE dish_id BETWEEN 115 AND 116
+ON DUPLICATE KEY UPDATE dish_id = VALUES(dish_id), extra_category = VALUES(extra_category);
+
+-- Adding 'בסיס לשייק' category to shakes from 115 to 116
+INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
+SELECT dish_id, 'בסיס לשייק' FROM Dishes WHERE dish_id BETWEEN 115 AND 116
+ON DUPLICATE KEY UPDATE dish_id = VALUES(dish_id), extra_category = VALUES(extra_category);
+
+
