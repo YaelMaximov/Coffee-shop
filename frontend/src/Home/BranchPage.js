@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './BranchPage.css';
 
 export default function BranchPage() {
@@ -7,6 +7,7 @@ export default function BranchPage() {
   const [branch, setBranch] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();  // Get the navigate function
 
   useEffect(() => {
     const fetchBranch = async () => {
@@ -39,11 +40,12 @@ export default function BranchPage() {
           <p><strong>Opening Hours:</strong> {branch.opening_hours}</p>
           <a href={branch.google_maps_link} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
           <div className="button-group">
-            <button onClick={() => window.location.href = `/menu`}>View Menu</button>
-            <button onClick={() => window.location.href = `/order`}>Place an Order</button>
-            <button onClick={() => window.location.href = `/contact`}>Contact Us</button>
+            <button onClick={() => navigate('/menu')}>View Menu</button>
+            <button onClick={() => navigate('/order')}>Place an Order</button>
+            <button onClick={() => navigate('/contact')}>Contact Us</button>          
           </div>
-        </>
+          <button onClick={() => navigate('/contact')}>התחברות</button>
+          </>
       ) : (
         <p>No branch details found.</p>
       )}
