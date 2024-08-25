@@ -155,6 +155,8 @@ CREATE TABLE Member_Discounts (
 -- );
 
 
+INSERT INTO Branches (address, phone, opening_hours, google_maps_link) 
+VALUES ('רחוב יפו 123, ירושלים', '02-1234567', 'א׳-ה׳: 08:00-20:00, ו׳: 08:00-14:00', 'https://goo.gl/maps/exampleLink');
 
 
 -- (ארוחת בוקר)
