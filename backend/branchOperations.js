@@ -17,12 +17,12 @@ exports.getBranch = async (req, res) => {
 };
 
 // Endpoint to fetch all branches
-exports.getAll('/branches', async (req, res) => {
-  try {
-    const branches = await connection.query('SELECT * FROM branches');
-    res.json(branches.rows);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
-  }
-});
+// exports.getAll('/branches', async (req, res) => {
+//   try {
+//     const branches = await connection.query('SELECT * FROM branches');
+//     res.json(branches.rows);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server error");
+//   }
+// });

@@ -28,17 +28,18 @@ export default function OrderTypePage() {
   }, []);
 
   const handleContinue = () => {
+    setError(''); // Reset error before validating
     if (orderType === 'delivery') {
       if (city.toLowerCase() !== 'jerusalem') {
         setError('The restaurant does not deliver to your area.');
       } else {
-        navigate('/delivery-details', { state: { address } });
+        navigate('/order-page', { state: { orderType, address } });
       }
     } else if (orderType === 'pickup') {
       if (branch === '') {
         setError('Please select a branch for pickup.');
       } else {
-        navigate(`/pickup-details/${branch}`);
+        navigate('/order-page', { state: { orderType, branch } });
       }
     }
   };
@@ -92,7 +93,7 @@ export default function OrderTypePage() {
 
       {error && <p className="error-message">{error}</p>}
 
-      <button onClick={handleContinue}>Continue</button>
+      <button onClick={() => navigate('/order')}>הזמנה</button>
     </div>
   );
 }

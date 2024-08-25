@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import MenuPage from "./Home/ViewMenu";
 import { MenuProvider } from './MenuProvider';
 import BranchPage from './Home/BranchPage';
+import OrderPage from './Home/OrderPage';
 import OrderTypePage from './Home/OrderTypePage'; // Import the new page
 import LoginPage from './Login/LoginPage';
 import RegistrationPage from './Login/RegistrationPage';
@@ -19,8 +20,8 @@ function App() {
             <Route path="/branch/:branchId" element={<BranchPage />} />
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/order" element={<OrderTypePage />} /> {/* Add the new route */}
-              <Route path="/" element={<OrderPage  />} />
+            <Route path="/orderType" element={<OrderTypePage />} /> {/* Add the new route */}
+            <Route path="/order" element={<OrderPage  />} />
             {/* Add more routes as needed */}
           </Routes>
         </div>

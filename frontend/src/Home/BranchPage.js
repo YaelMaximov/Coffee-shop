@@ -41,10 +41,10 @@ export default function BranchPage() {
           <a href={branch.google_maps_link} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
           <div className="button-group">
             <button onClick={() => navigate('/menu')}>View Menu</button>
-            <button onClick={() => navigate('/order')}>Place an Order</button>
+            <button onClick={() => navigate('/orderType')}>Place an Order</button>
             <button onClick={() => navigate('/contact')}>Contact Us</button>          
           </div>
-          <button onClick={() => navigate('/contact')}>התחברות</button>
+          <button onClick={() => navigate('/login')}>התחברות</button>
           </>
       ) : (
         <p>No branch details found.</p>
