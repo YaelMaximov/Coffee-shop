@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMenu } from '../MenuProvider';
-import './MenuPage.css'; // You'll need to create this CSS file
+import './MenuPage.css'; 
 
 export default function MenuPage() {
   const { menu, isLoading, error, refreshMenu } = useMenu();
