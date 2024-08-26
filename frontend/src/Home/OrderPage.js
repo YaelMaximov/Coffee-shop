@@ -32,15 +32,36 @@ export default function OrderPage() {
     return cart.reduce((total, item) => total + item.totalPrice, 0);
   };
 
+  const handleEditItem = (index) => {
+    // Implement edit functionality
+  };
+
+  const handleDeleteItem = (index) => {
+    // Implement delete functionality
+    setCart(cart.filter((_, i) => i !== index));
+  };
+
+  const handleQuantityChange = (index, newQuantity) => {
+    // Implement quantity change functionality
+    setCart(cart.map((item, i) =>
+      i === index ? { ...item, quantity: newQuantity, totalPrice: item.price * newQuantity } : item
+    ));
+  };
+
+  const handleResetOrder = () => {
+    setCart([]);
+  };
+
   return (
     <div className="order-page">
-      <div className="search-bar">
+      <div className="menu-header">
         <input
           type="text"
-          placeholder="חפש מנה..."
+          placeholder="חפש מנה"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <h2>{selectedCategory}</h2>
       </div>
       
       <div className="content-wrapper">
@@ -61,16 +82,26 @@ export default function OrderPage() {
                     extras.map(extra => extra.name)
                   ).join(', ')}</p>
                   <p>מחיר: ₪{item.totalPrice.toFixed(2)}</p>
+                  <div className="cart-item-actions">
+                    <button onClick={() => handleEditItem(index)}>ערוך</button>
+                    <button onClick={() => handleDeleteItem(index)}>מחק</button>
+                    <input
+                      type="number"
+                      min="1"
+                      value={item.quantity}
+                      onChange={(e) => handleQuantityChange(index, Number(e.target.value))}
+                    />
+                  </div>
                 </div>
               ))}
               <p className="total-price">סה"כ: ₪{getTotalPrice().toFixed(2)}</p>
+              <button className="reset-order" onClick={handleResetOrder}>אפס הזמנה</button>
             </div>
           )}
           <button className="checkout-button" disabled={cart.length === 0}>לתשלום</button>
         </div>
         
         <div className="menu-list">
-          <h2>{selectedCategory}</h2>
           {filteredMenu.map((dish) => (
             <div className="menu-item" key={dish.dish_id}>
               <div className="item-info">

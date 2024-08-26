@@ -7,6 +7,7 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
   const [selectedExtras, setSelectedExtras] = useState({});
   const [notes, setNotes] = useState('');
   const [error, setError] = useState('');
+  const [totalPrice, setTotalPrice] = useState(dish.price);
 
   useEffect(() => {
     const fetchExtras = async () => {
@@ -15,7 +16,6 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
         if (response.ok) {
           const data = await response.json();
           setExtras(data);
-          // יצירת אובייקט התחלתי של תוספות נבחרות
           const initialSelectedExtras = {};
           data.forEach(extra => {
             initialSelectedExtras[extra.category] = [];
@@ -33,6 +33,18 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
     }
   }, [dish]);
 
+  useEffect(() => {
+    // חישוב המחיר הכולל בכל שינוי בתוספות או בכמות
+    let updatedTotalPrice = parseFloat(dish.price);
+    Object.entries(selectedExtras).forEach(([category, extras]) => {
+      const sauceCount = extras.filter(extra => extra.category === 'רטבים').length;
+      if (sauceCount > 1) {
+          updatedTotalPrice += extras.slice(1).reduce((sum, extra) => parseFloat(sum) + parseFloat(extra.price), 0.00);        
+      } 
+    });
+    setTotalPrice(updatedTotalPrice * quantity);
+  }, [selectedExtras, quantity, dish.price]);
+
   const increaseQuantity = () => setQuantity(prev => prev + 1);
   const decreaseQuantity = () => setQuantity(prev => Math.max(1, prev - 1));
 
@@ -44,6 +56,11 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
       if (index !== -1) {
         updatedCategory.splice(index, 1);
       } else {
+        const maxQuantity = extra.max_quantity; // ניגשים ישירות למאפיין max_quantity של התוספת
+        if (updatedCategory.length >= maxQuantity) {
+          setError(maxQuantity > 1 ? `ניתן לבחור רק ${maxQuantity} פריטים מקטגוריה זו` : `ניתן לבחור רק פריט אחד מקטגוריה זו`);
+          return prev;
+        }
         updatedCategory.push(extra);
       }
       
@@ -58,7 +75,6 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
   }, {});
 
   const addToCart = () => {
-    // בדיקה שנבחרה לפחות תוספת אחת מכל קטגוריה
     const allCategoriesSelected = Object.keys(groupedExtras).every(
       category => selectedExtras[category] && selectedExtras[category].length > 0
     );
@@ -68,23 +84,12 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
       return;
     }
 
-    // חישוב המחיר הכולל
-    let totalPrice = dish.price;
-    Object.entries(selectedExtras).forEach(([category, extras]) => {
-      if (extras.length > 1) {
-        // התוספת הראשונה (הזולה ביותר) כלולה במחיר
-        const sortedExtras = extras.sort((a, b) => a.price - b.price);
-        totalPrice += sortedExtras.slice(1).reduce((sum, extra) => sum + extra.price, 0);
-      }
-    });
-
-    // יצירת אובייקט ההזמנה
     const orderItem = {
       dish: dish.name,
       quantity,
       extras: selectedExtras,
       notes,
-      totalPrice: totalPrice * quantity
+      totalPrice
     };
 
     onAddToCart(orderItem);
@@ -99,7 +104,7 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
           <img src={dish.image_url} alt={dish.name} className="dish-image" />
           <h2>{dish.name}</h2>
           <p className="dish-description">{dish.description}</p>
-          <p className="dish-price">מחיר: ₪{dish.price}</p>
+          <p className="dish-price">מחיר: ₪{totalPrice}</p>
           <p className="included-extra">תוספת אחת כלולה במחיר המנה</p>
           
           {Object.entries(groupedExtras).map(([category, extras]) => (
@@ -113,7 +118,7 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
                     key={extra.name}
                     onClick={() => toggleExtra(extra, category)}
                   >
-                    {extra.name}  ₪{extra.price}
+                    {extra.name} {category === 'רטבים' ? `₪${extra.price}` : ''}
                     {selectedExtras[category]?.some(e => e.name === extra.name) && <span className="checkmark">✓</span>}
                   </button>
                 ))}
@@ -136,6 +141,7 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
             <span>{quantity}</span>
             <button onClick={increaseQuantity}>+</button>
           </div>
+          <p className="total-price">סה"כ: ₪{totalPrice}</p>
           <button className="add-to-cart-button" onClick={addToCart}>הוסף לסל</button>
         </div>
         {error && <p className="error-message">{error}</p>}

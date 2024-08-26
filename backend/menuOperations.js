@@ -17,7 +17,7 @@ exports.getMenu= async (req, res) => {
     const dishId = parseInt(req.params.dishId, 10);
   
     const query = `
-      SELECT e.name, e.category, e.price
+      SELECT e.name, e.category, e.price,e.max_quantity
       FROM Extras e
       JOIN Dish_Extra_Categories d
       ON e.category = d.extra_category

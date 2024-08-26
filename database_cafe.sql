@@ -71,13 +71,17 @@ CREATE TABLE Order_Dishes (
     FOREIGN KEY (dish_id) REFERENCES Dishes(dish_id) -- Link to Dishes table
 );
 
+
 -- Table: Extras (תוספות)
 CREATE TABLE Extras (
     extra_id INT PRIMARY KEY AUTO_INCREMENT, -- Unique ID for each extra
     name VARCHAR(100) NOT NULL, -- Name of the extra
     category ENUM('רטבים', 'סלטים', 'לחמים', 'פירות', 'בסיס לשייק') NOT NULL, -- Category of the extra
-    price DECIMAL(5,2) NOT NULL -- Price of the extra
+    price DECIMAL(5,2) DEFAULT 0, -- Price of the extra, only applicable to 'רטבים'
+    has_price BOOLEAN NOT NULL DEFAULT FALSE, -- Indicates if the extra has a price
+    max_quantity INT NOT NULL -- Maximum allowed quantity for the extra
 );
+
 
 -- Table: Dish_Extras (תוספות למנה)
 CREATE TABLE Dish_Extra_Categories (
@@ -444,39 +448,45 @@ VALUES
 ('שייק פירות על בסיס מים/חלב/מיץ תפוזים/משקה סויה/משקה שקדים/משקה שיבולת שועל', 'פירות לבחירה: מנגו, תות, מלון, אננס, בננה, תמר.', 28.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/דצמבר-23-480.jpg', 'שייק פירות'),
 ('שייק פירות על בסיס יוגורט', 'פירות לבחירה: מנגו, תות, מלון, אננס, בננה, תמר.', 30.00, 'https://gregcafe.co.il/wp-content/uploads/2023/04/shake-yogurt-1.jpg', 'שייק פירות');
 
-INSERT INTO Extras (name, category, price) VALUES
--- רטבים
-('וויניגרט', 'רטבים', 5.00),
-('שום שמיר', 'רטבים', 4.50),
-('אלף איים', 'רטבים', 5.00),
-('שמן זית', 'רטבים', 6.00),
-('שמן זית לימון', 'רטבים', 6.50),
+-- Insert data into Extras table
 
--- סלטים
-('סלט ירוק', 'סלטים', 12.00),
-('סלט קצוץ', 'סלטים', 10.00),
-('ללא סלט', 'סלטים', 0.00),
+-- רטבים (ללא הגבלה בכמות, מחיר 2 שקל)
+INSERT INTO Extras (name, category, price, has_price, max_quantity) VALUES
+('וויניגרט', 'רטבים', 2.00, TRUE, 999),  -- הגבלה גבוהה לייצוג שאין הגבלה
+('שום שמיר', 'רטבים', 2.00, TRUE, 999),
+('אלף איים', 'רטבים', 2.00, TRUE, 999),
+('שמן זית', 'רטבים', 2.00, TRUE, 999),
+('שמן זית לימון', 'רטבים', 2.00, TRUE, 999);
 
--- לחמים
-("ג'בטה שחורה", 'לחמים', 8.00),
-('לחם קל', 'לחמים', 6.00),
-('לחם ללא גלוטן', 'לחמים', 10.00),
-('לחם לבן', 'לחמים', 5.00),
+-- סלטים (כמות מקסימלית 1)
+INSERT INTO Extras (name, category, price, has_price, max_quantity) VALUES
+('סלט ירוק', 'סלטים', 0.00, FALSE, 1),
+('סלט קצוץ', 'סלטים', 0.00, FALSE, 1),
+('ללא סלט', 'סלטים', 0.00, FALSE, 1);
 
--- פירות
-('בננה', 'פירות', 4.00),
-('מנגו', 'פירות', 5.00),
-('תות', 'פירות', 5.00),
-('אננס', 'פירות', 6.00),
-('תמר', 'פירות', 3.50),
+-- לחמים (כמות מקסימלית 1)
+INSERT INTO Extras (name, category, price, has_price, max_quantity) VALUES
+("ג'בטה שחורה", 'לחמים', 0.00, FALSE, 1),
+('לחם קל', 'לחמים', 0.00, FALSE, 1),
+('לחם ללא גלוטן', 'לחמים', 0.00, FALSE, 1),
+('לחם לבן', 'לחמים', 0.00, FALSE, 1);
 
--- בסיס לשייק
-('על מים', 'בסיס לשייק', 0.00),
-('על חלב', 'בסיס לשייק', 2.00),
-('על תפוזים', 'בסיס לשייק', 3.00),
-('על יוגורט', 'בסיס לשייק', 4.00),
-('חלב שקדים', 'בסיס לשייק', 4.50),
-('חלב סויה', 'בסיס לשייק', 4.50);
+-- פירות (כמות מקסימלית 3)
+INSERT INTO Extras (name, category, price, has_price, max_quantity) VALUES
+('בננה', 'פירות', 0.00, FALSE, 3),
+('מנגו', 'פירות', 0.00, FALSE, 3),
+('תות', 'פירות', 0.00, FALSE, 3),
+('אננס', 'פירות', 0.00, FALSE, 3),
+('תמר', 'פירות', 0.00, FALSE, 3);
+
+-- בסיס לשייק (כמות מקסימלית 1)
+INSERT INTO Extras (name, category, price, has_price, max_quantity) VALUES
+('על מים', 'בסיס לשייק', 0.00, FALSE, 1),
+('על חלב', 'בסיס לשייק', 0.00, FALSE, 1),
+('על תפוזים', 'בסיס לשייק', 0.00, FALSE, 1),
+('על יוגורט', 'בסיס לשייק', 0.00, FALSE, 1),
+('חלב שקדים', 'בסיס לשייק', 0.00, FALSE, 1),
+('חלב סויה', 'בסיס לשייק', 0.00, FALSE, 1);
 
 -- Adding 'רטבים' category to all breakfast dishes
 INSERT INTO Dish_Extra_Categories (dish_id, extra_category)
