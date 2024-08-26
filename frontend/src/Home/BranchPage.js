@@ -7,7 +7,7 @@ export default function BranchPage() {
   const [branch, setBranch] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();  // Get the navigate function
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBranch = async () => {
@@ -31,6 +31,8 @@ export default function BranchPage() {
   if (isLoading) return <p>Loading branch details...</p>;
   if (error) return <p>Error loading branch details: {error.message}</p>;
 
+  const googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(branch.address)}`;
+
   return (
     <div className="branch-page">
       {branch ? (
@@ -38,14 +40,14 @@ export default function BranchPage() {
           <h1>{branch.address}</h1>
           <p><strong>Phone:</strong> {branch.phone}</p>
           <p><strong>Opening Hours:</strong> {branch.opening_hours}</p>
-          <a href={branch.google_maps_link} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
+          <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
           <div className="button-group">
             <button onClick={() => navigate('/menu')}>View Menu</button>
             <button onClick={() => navigate('/orderType')}>Place an Order</button>
-            <button onClick={() => navigate('/contact')}>Contact Us</button>          
+            <button onClick={() => navigate('/contact')}>Contact Us</button>
           </div>
           <button onClick={() => navigate('/login')}>התחברות</button>
-          </>
+        </>
       ) : (
         <p>No branch details found.</p>
       )}

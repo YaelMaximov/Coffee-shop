@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OrderTypePage.css';
+import takeAwayIcon from './take-away.png'; // Adjust the path accordingly
+import deliveryIcon from './delivery.png'; // Adjust the path accordingly
 
 export default function OrderTypePage() {
   const [orderType, setOrderType] = useState('delivery');
   const [address, setAddress] = useState('');
   const [branch, setBranch] = useState('');
   const [city, setCity] = useState('');
-  const [branches, setBranches] = useState([]);
+  const [branches, setBranches] = useState([]);  // Initialize as an empty array
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -15,9 +17,27 @@ export default function OrderTypePage() {
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await fetch('http://localhost:3010/Branches');
+        const response = await fetch('http://localhost:3010/branch/getAll');
+        
+        if (!response.ok) {
+          // If the response is not OK, throw an error
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
-        setBranches(data);
+        
+        console.log(data);
+
+        if (Array.isArray(data)) {
+          setBranches(data);
+
+          const defaultBranch = data.find(b => b.id === 1);
+          if (defaultBranch) {
+            setBranch(defaultBranch.id);
+          }
+        } else {
+          setError('Unexpected data format from API');
+        }
       } catch (err) {
         console.error('Error fetching branches:', err);
         setError('Unable to load branches');
@@ -52,13 +72,15 @@ export default function OrderTypePage() {
           className={orderType === 'delivery' ? 'selected' : ''}
           onClick={() => setOrderType('delivery')}
         >
-          Delivery
+          <img src={deliveryIcon} alt="Delivery Icon" />
+          משלוח
         </button>
         <button
           className={orderType === 'pickup' ? 'selected' : ''}
           onClick={() => setOrderType('pickup')}
         >
-          Pickup
+          <img src={takeAwayIcon} alt="Take Away Icon" />
+          איסוף עצמי
         </button>
       </div>
 
@@ -93,7 +115,7 @@ export default function OrderTypePage() {
 
       {error && <p className="error-message">{error}</p>}
 
-      <button onClick={() => navigate('/order')}>הזמנה</button>
+      <button className="continue-button" onClick={handleContinue}>המשך</button>
     </div>
   );
 }

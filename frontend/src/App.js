@@ -5,23 +5,28 @@ import MenuPage from "./Home/ViewMenu";
 import { MenuProvider } from './MenuProvider';
 import BranchPage from './Home/BranchPage';
 import OrderPage from './Home/OrderPage';
-import OrderTypePage from './Home/OrderTypePage'; // Import the new page
+import OrderTypePage from './Home/OrderTypePage';
 import LoginPage from './Login/LoginPage';
 import RegistrationPage from './Login/RegistrationPage';
+import Navbar from './Navbar'; // Import the Navbar component
+import PaymentPage from './Home/PaymentPage';
+
 
 function App() {
   return (
     <MenuProvider>
       <Router>
         <div>
+          <Navbar /> {/* Navbar will appear on all pages */}
           <Routes>          
             <Route path="/" element={<Navigate to="/branch/1" />} />
             <Route path="/menu" element={<MenuPage />} />
             <Route path="/branch/:branchId" element={<BranchPage />} />
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/orderType" element={<OrderTypePage />} /> {/* Add the new route */}
-            <Route path="/order" element={<OrderPage  />} />
+            <Route path="/orderType" element={<OrderTypePage />} />
+            <Route path="/order" element={<OrderPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
             {/* Add more routes as needed */}
           </Routes>
         </div>
