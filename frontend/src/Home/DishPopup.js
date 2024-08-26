@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './DishPopup.css';
 
-const DishPopup = ({ dish, onClose, onAddToCart }) => {
-  const [quantity, setQuantity] = useState(1);
+const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
+  const [quantity, setQuantity] = useState(orderItem ? orderItem.quantity : 1);
   const [extras, setExtras] = useState([]);
-  const [selectedExtras, setSelectedExtras] = useState({});
-  const [notes, setNotes] = useState('');
+  const [selectedExtras, setSelectedExtras] = useState(orderItem ? orderItem.extras : {});
+  const [notes, setNotes] = useState(orderItem ? orderItem.notes : '');
   const [error, setError] = useState('');
-  const [totalPrice, setTotalPrice] = useState(dish.price);
+  const [totalPrice, setTotalPrice] = useState(orderItem ? orderItem.totalPrice : dish.price);
 
   useEffect(() => {
     const fetchExtras = async () => {
@@ -16,11 +16,13 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
         if (response.ok) {
           const data = await response.json();
           setExtras(data);
-          const initialSelectedExtras = {};
-          data.forEach(extra => {
-            initialSelectedExtras[extra.category] = [];
-          });
-          setSelectedExtras(initialSelectedExtras);
+          if (!orderItem) {
+            const initialSelectedExtras = {};
+            data.forEach(extra => {
+              initialSelectedExtras[extra.category] = [];
+            });
+            setSelectedExtras(initialSelectedExtras);
+          }
         } else {
           console.error('Failed to fetch extras');
         }
@@ -31,10 +33,9 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
     if (dish && dish.dish_id) {
       fetchExtras();
     }
-  }, [dish]);
+  }, [dish, orderItem]);
 
   useEffect(() => {
-    // חישוב המחיר הכולל בכל שינוי בתוספות או בכמות
     let updatedTotalPrice = parseFloat(dish.price);
     Object.entries(selectedExtras).forEach(([category, extras]) => {
       const sauceCount = extras.filter(extra => extra.category === 'רטבים').length;
@@ -85,6 +86,7 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
     }
 
     const orderItem = {
+      id:dish.dish_id,
       dish: dish.name,
       quantity,
       extras: selectedExtras,
@@ -142,7 +144,9 @@ const DishPopup = ({ dish, onClose, onAddToCart }) => {
             <button onClick={increaseQuantity}>+</button>
           </div>
           <p className="total-price">סה"כ: ₪{totalPrice}</p>
-          <button className="add-to-cart-button" onClick={addToCart}>הוסף לסל</button>
+          <button className="add-to-cart-button" onClick={addToCart}>
+            {orderItem ? 'עדכן' : 'הוסף לסל'}
+          </button>
         </div>
         {error && <p className="error-message">{error}</p>}
       </div>
