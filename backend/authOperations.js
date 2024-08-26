@@ -1,30 +1,47 @@
 const connection = require('./db');
 
-// Registration Logic
-exports.register = async (req, res) => {
-  const { first_name, last_name, gender, phone, email, birthdate, address_id } = req.body;
+// Endpoint to save the address
+exports.address = async (req, res) => {
+  const { street, house_number, city, apartment, entrance, floor } = req.body;
+
+  const query = `
+    INSERT INTO Addresses (street, house_number, city, apartment, entrance, floor)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
 
   try {
-    // Check if the email or phone already exists
-    const [existingMember] = await connection.query(
-      'SELECT * FROM Members WHERE email = ? OR phone = ?',
-      [email, phone]
-    );
+    const [result] = await connection.query(query, [street, house_number, city, apartment, entrance, floor]);
+    const addressId = result.insertId;
+    res.status(200).json({ address_id: addressId });
+  } catch (err) {
+    console.error('Error inserting address:', err);
+    res.status(500).json({ message: 'Failed to save address' });
+  }
+};
 
-    if (existingMember.length > 0) {
-      return res.status(400).json({ message: 'Email or phone number already in use.' });
-    }
+// Endpoint to save the member with the address_id
+exports.register = async (req, res) => {
+  const {
+    first_name,
+    last_name,
+    gender,
+    phone,
+    email,
+    birthdate,
+    address_id,
+  } = req.body;
 
-    // Insert new member into the database
-    const [newMember] = await connection.query(
-      'INSERT INTO Members (first_name, last_name, gender, phone, email, birthdate, address_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [first_name, last_name, gender, phone, email, birthdate, address_id]
-    );
+  const query = `
+    INSERT INTO Members (first_name, last_name, gender, phone, email, birthdate, address_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
 
-    res.status(201).json({ message: 'Registration successful', member: newMember });
-  } catch (error) {
-    console.error('Error during registration:', error.message);
-    res.status(500).json({ message: 'Server error during registration.' });
+  try {
+    const [result] = await connection.query(query, [first_name, last_name, gender, phone, email, birthdate, address_id]);
+    res.status(200).json({ message: 'Registration successful' });
+  } catch (err) {
+    console.error('Error inserting member:', err);
+    res.status(500).json({ message: 'Registration failed' });
   }
 };
 

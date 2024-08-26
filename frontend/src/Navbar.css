@@ -1,0 +1,26 @@
+/* Navbar.css */
+.navbar {
+    background-color: #f4f3ee; /* Background color */
+    padding: 10px 0; /* Padding for the navbar */
+}
+
+.navbar-list {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-link {
+    font-size: 16px;
+    text-decoration: none;
+    color: #333; /* Default text color */
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.navbar-link.selected {
+    background-color: #b7dfd3; /* Background color for the selected item */
+    color: #333; /* Text color for the selected item */
+}

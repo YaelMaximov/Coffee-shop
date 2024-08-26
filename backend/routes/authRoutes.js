@@ -8,4 +8,6 @@ router.post('/register', authOperations.register);
 // Route for login
 router.post('/login', authOperations.login);
 
+router.post('/address',authOperations.address)
+
 module.exports = router;

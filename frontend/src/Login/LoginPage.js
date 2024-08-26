@@ -1,5 +1,5 @@
 import React, { useState,navigate } from 'react';
-
+import './auth.css'
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -7,7 +7,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3010/login', {
+      const response = await fetch('http://localhost:3010/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,9 +33,9 @@ export default function LoginPage() {
   };
       
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+    <div className='auth-page'>
+      <h2 className='auth-header'>Login</h2>
+      <form className='auth-form' onSubmit={handleSubmit}>
         <input
           type="email"
           name="email"
@@ -43,11 +43,13 @@ export default function LoginPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-        />
-        <button type="submit">Login</button>
-      </form>
+        />  
+        <div className='auth-buttons'>
+          <button className='auth-button' type="submit">Login</button>
+          <button className='auth-button'onClick={handleRegister}>Register</button>
+        </div>    
+        </form>
       {message && <p>{message}</p>}
-      <button onClick={handleRegister}>Register</button>
     </div>
   );
 }
