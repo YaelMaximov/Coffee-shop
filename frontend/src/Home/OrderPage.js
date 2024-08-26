@@ -54,8 +54,13 @@ export default function OrderPage() {
 
   return (
     <div className="order-page">
+        <div class="header-container">
+          <img src="https://scontent.ftlv1-1.fna.fbcdn.net/v/t39.30808-6/224036027_4549182095101665_4841387321191640246_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=pn5LL1_4cWwQ7kNvgHf-9IQ&_nc_ht=scontent.ftlv1-1.fna&_nc_gid=AelG5fdDdk4eaIIjmdwlZUW&oh=00_AYCSkI1_QhqF0IOUoEh1U8y0AbGu5DjYUJxO-teo0rVFpA&oe=66D2D73B" alt="תיאור התמונה" class="header-image"/>
+        </div>
+
       <div className="menu-header">
         <input
+          className="search-bar"
           type="text"
           placeholder="חפש מנה"
           value={searchTerm}
@@ -69,11 +74,12 @@ export default function OrderPage() {
           <h3>סיכום הזמנה</h3>
           {cart.length === 0 ? (
             <>
-              <img src="https://cdn-icons-png.flaticon.com/512/3721/3721650.png" alt="Cart" width={200} />
+              <img class="bascket" src="https://cdn-icons-png.flaticon.com/512/3721/3721650.png" alt="Cart" width={200} />
               <p>הסל שלך ריק</p>
             </>
           ) : (
             <div className="cart-items">
+             <button className="reset-order" onClick={handleResetOrder}>אפס הזמנה</button>
               {cart.map((item, index) => (
                 <div key={index} className="cart-item">
                   <h4>{item.dish}</h4>
@@ -95,7 +101,6 @@ export default function OrderPage() {
                 </div>
               ))}
               <p className="total-price">סה"כ: ₪{getTotalPrice().toFixed(2)}</p>
-              <button className="reset-order" onClick={handleResetOrder}>אפס הזמנה</button>
             </div>
           )}
           <button className="checkout-button" disabled={cart.length === 0}>לתשלום</button>
@@ -111,7 +116,7 @@ export default function OrderPage() {
                   <p>₪{dish.price}</p>
                   <button className="add-to-cart" onClick={() => setSelectedDish(dish)}>הוסף לסל</button>
                 </div>
-                <img src={dish.image_url} alt={dish.name} />
+                <img src={dish.image_url} alt={dish.name} className="dish-image" />
               </div>
             </div>
           ))}
