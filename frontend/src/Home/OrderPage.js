@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { useMenu } from '../MenuProvider';
 import './OrderPage.css';
 import DishPopup from './DishPopup';
 
 export default function OrderPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { menu, isLoading, error } = useMenu();
   const [selectedCategory, setSelectedCategory] = useState('ארוחת בוקר');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDish, setSelectedDish] = useState(null);
   const [cart, setCart] = useState([]);//list of dishes in the order
   const [editIndex, setEditIndex] = useState(null);
+  const { orderType, address, branch } = location.state || {};
 
+  const handlePayment = () => {
+      navigate('/payment', { state: { orderType, address, branch,cart } });
+  };
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -115,7 +122,7 @@ export default function OrderPage() {
               <p className="total-price">סה"כ: ₪{getTotalPrice().toFixed(2)}</p>
             </div>
           )}
-          <button className="checkout-button" disabled={cart.length === 0}>לתשלום</button>
+          <button className="checkout-button" disabled={cart.length === 0} onClick={handlePayment}>לתשלום</button>
         </div>
 
         <div className="menu-list">

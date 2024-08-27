@@ -1,0 +1,97 @@
+body {
+    font-family: 'Calibri Light', sans-serif;
+    font-size: x-large;
+}
+
+.confirmation-page {
+    padding: 20px;
+    text-align: center;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 36px;
+    color: #000000;
+    margin: 0;
+}
+
+.order-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.order-summary .icon img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+.order-summary h2 {
+    font-size: 30px;
+    color: #6bc2ac;
+    margin: 0;
+}
+
+.order-summary p {
+    font-size: 24px;
+    color: #000000;
+    margin: 5px 0;
+}
+
+.order-details {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-details h3 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000000;
+    text-align: center;
+}
+
+.summary-item {
+    margin-bottom: 15px;
+}
+
+.summary-item h4 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.summary-item p {
+    font-size: 22px;
+    margin: 5px 0;
+}
+
+.total-price {
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #000000;
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 22px;
+    color: #000000;
+}
+
+.footer p {
+    margin: 0;
+}

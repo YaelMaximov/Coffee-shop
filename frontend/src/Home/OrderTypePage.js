@@ -20,17 +20,15 @@ export default function OrderTypePage() {
         const response = await fetch('http://localhost:3010/branch/getAll');
         
         if (!response.ok) {
-          // If the response is not OK, throw an error
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
+        console.log('Received data:', data); // Log the received data
         
-        console.log(data);
-
         if (Array.isArray(data)) {
           setBranches(data);
-
+          
           const defaultBranch = data.find(b => b.id === 1);
           if (defaultBranch) {
             setBranch(defaultBranch.id);
@@ -43,23 +41,24 @@ export default function OrderTypePage() {
         setError('Unable to load branches');
       }
     };
-
+  
     fetchBranches();
   }, []);
-
+  
   const handleContinue = () => {
     setError(''); // Reset error before validating
     if (orderType === 'delivery') {
-      if (city.toLowerCase() !== 'jerusalem') {
+      navigate('/order', { state: { orderType, address } });
+      /*if (city.toLowerCase() !== 'jerusalem') {
         setError('The restaurant does not deliver to your area.');
       } else {
         navigate('/order-page', { state: { orderType, address } });
-      }
+      }*/
     } else if (orderType === 'pickup') {
       if (branch === '') {
         setError('Please select a branch for pickup.');
       } else {
-        navigate('/order-page', { state: { orderType, branch } });
+        navigate('/order', { state: { orderType, branch } });
       }
     }
   };
