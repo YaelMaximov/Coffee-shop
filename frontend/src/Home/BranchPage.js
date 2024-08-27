@@ -36,24 +36,15 @@ export default function BranchPage() {
   return (
     <div className="branch-page">
       {branch ? (
-        <>
+        <div className="branch-details">
           <h1>{branch.address}</h1>
           <p><strong>טלפון:</strong> {branch.phone}</p>
           <p><strong>שעות פתיחה:</strong> {branch.opening_hours}</p>
           <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
-          </>
+        </div>
       ) : (
         <p>No branch details found.</p>
       )}
     </div>
   );
 }
-
-/**
- * <div className="button-group">
-            <button onClick={() => navigate('/menu')}>View Menu</button>
-            <button onClick={() => navigate('/orderType')}>Place an Order</button>
-            <button onClick={() => navigate('/contact')}>Contact Us</button>
-          </div>
-          <button onClick={() => navigate('/login')}>התחברות</button>
- */

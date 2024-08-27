@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OrderTypePage.css';
-import takeAwayIcon from './take-away.png'; // Adjust the path accordingly
-import deliveryIcon from './delivery.png'; // Adjust the path accordingly
+import takeAwayIcon from './take-away.png'; 
+import deliveryIcon from './delivery.png'; 
 
 export default function OrderTypePage() {
   const [orderType, setOrderType] = useState('delivery');
   const [address, setAddress] = useState('');
   const [branch, setBranch] = useState('');
   const [city, setCity] = useState('');
-  const [branches, setBranches] = useState([]);  // Initialize as an empty array
+  const [branches, setBranches] = useState([]);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Fetch branches from the backend
   useEffect(() => {
     const fetchBranches = async () => {
       try {
@@ -24,7 +23,7 @@ export default function OrderTypePage() {
         }
         
         const data = await response.json();
-        console.log('Received data:', data); // Log the received data
+        console.log('Received data:', data);
         
         if (Array.isArray(data)) {
           setBranches(data);
@@ -46,14 +45,9 @@ export default function OrderTypePage() {
   }, []);
   
   const handleContinue = () => {
-    setError(''); // Reset error before validating
+    setError('');
     if (orderType === 'delivery') {
       navigate('/order', { state: { orderType, address } });
-      /*if (city.toLowerCase() !== 'jerusalem') {
-        setError('The restaurant does not deliver to your area.');
-      } else {
-        navigate('/order-page', { state: { orderType, address } });
-      }*/
     } else if (orderType === 'pickup') {
       if (branch === '') {
         setError('Please select a branch for pickup.');
@@ -65,56 +59,64 @@ export default function OrderTypePage() {
 
   return (
     <div className="order-type-page">
-      <h1>בחירת סוג הזמנה</h1>
-      <div className="order-options">
-        <button
-          className={orderType === 'delivery' ? 'selected' : ''}
-          onClick={() => setOrderType('delivery')}
-        >
-          <img src={deliveryIcon} alt="Delivery Icon" />
-          משלוח
-        </button>
-        <button
-          className={orderType === 'pickup' ? 'selected' : ''}
-          onClick={() => setOrderType('pickup')}
-        >
-          <img src={takeAwayIcon} alt="Take Away Icon" />
-          איסוף עצמי
-        </button>
+      <div className="image-section">
+        <img src="https://parischezsharon.com/wp-content/uploads/2022/04/Paris-chez-Sharon-post-15.jpg" alt="Order Type" />
       </div>
 
-      {orderType === 'delivery' && (
-        <div className="delivery-form">
-          <h2>הכנס כתובת מלאה למשלוח</h2>
-          <input
-            type="text"
-            placeholder="רחוב,מספר ועיר"
-            value={address}
-            onChange={(e) => {
-              setAddress(e.target.value);
-              setCity(e.target.value.split(', ').pop());
-            }}
-          />
+      <div className="form-section">
+        <h1>בחירת סוג הזמנה</h1>
+        <div className="order-options">
+          <button
+            className={orderType === 'delivery' ? 'selected' : ''}
+            onClick={() => setOrderType('delivery')}
+          >
+            <img src={deliveryIcon} alt="Delivery Icon" />
+            משלוח
+          </button>
+          <button
+            className={orderType === 'pickup' ? 'selected' : ''}
+            onClick={() => setOrderType('pickup')}
+          >
+            <img src={takeAwayIcon} alt="Take Away Icon" />
+            איסוף עצמי
+          </button>
         </div>
-      )}
 
-      {orderType === 'pickup' && (
-        <div className="pickup-form">
-          <h2>בחירת סניף</h2>
-          <select value={branch} onChange={(e) => setBranch(e.target.value)}>
-            <option value="">בחר סניף מהרשימה..</option>
-            {branches.map((branch) => (
-              <option key={branch.id} value={branch.id}>
-                {branch.name} - {branch.address}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+        {orderType === 'delivery' && (
+          <div className="delivery-form">
+            <h2>הכנס כתובת מלאה למשלוח</h2>
+            <input
+              type="text"
+              placeholder="רחוב, מספר ועיר"
+              value={address}
+              onChange={(e) => {
+                setAddress(e.target.value);
+                setCity(e.target.value.split(', ').pop());
+              }}
+            />
+          </div>
+        )}
 
-      {error && <p className="error-message">{error}</p>}
+        {orderType === 'pickup' && (
+          <div className="pickup-form">
+            <h2>בחירת סניף</h2>
+            <select value={branch} onChange={(e) => setBranch(e.target.value)}>
+              <option value="">בחר סניף מהרשימה..</option>
+              {branches.map((branch) => (
+                <option key={branch.id} value={branch.id}>
+                  {branch.name} - {branch.address}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
-      <button className="continue-button" onClick={handleContinue}>המשך</button>
+        {error && <p className="error-message">{error}</p>}
+
+        <button className="continue-button" onClick={handleContinue}>
+          המשך
+        </button>
+      </div>
     </div>
   );
 }

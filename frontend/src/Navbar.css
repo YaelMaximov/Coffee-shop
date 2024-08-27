@@ -1,7 +1,8 @@
 /* עיצוב כללי של הניווט */
 .navbar {
     background-color: #fffffffa; /* צבע רקע כהה */
-    padding: 20px 50px; /* מרווח גדול יותר להדגשת הפס */
+    padding: 20px 0; 
+    /* מרווח גדול יותר להדגשת הפס */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     position:relative;
     width: 100%;

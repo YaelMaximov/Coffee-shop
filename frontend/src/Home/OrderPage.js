@@ -77,6 +77,8 @@ export default function OrderPage() {
   return (
     <div className="order-page">
       <div className="header-container">
+      {/* <img src="https://imageproxy.wolt.com/venue/61eea7232d54f85baeb99f9d/798f6406-81ea-11ec-a506-f20b69867cbd_yaelitz.jpg" alt="תיאור התמונה" className="header-image" /> */}
+
         <img src="https://scontent.ftlv1-1.fna.fbcdn.net/v/t39.30808-6/224036027_4549182095101665_4841387321191640246_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=pn5LL1_4cWwQ7kNvgHf-9IQ&_nc_ht=scontent.ftlv1-1.fna&_nc_gid=AelG5fdDdk4eaIIjmdwlZUW&oh=00_AYCSkI1_QhqF0IOUoEh1U8y0AbGu5DjYUJxO-teo0rVFpA&oe=66D2D73B" alt="תיאור התמונה" className="header-image" />
       </div>
 
@@ -96,6 +98,7 @@ export default function OrderPage() {
           <h3>סיכום הזמנה</h3>
           {cart.length === 0 ? (
             <>
+              {/* <img className="basket" src="https://cdn-icons-png.freepik.com/512/7877/7877599.png" alt="Cart" width={200} /> */}
               <img className="basket" src="https://cdn-icons-png.flaticon.com/512/3721/3721650.png" alt="Cart" width={200} />
               <p>הסל שלך ריק</p>
             </>

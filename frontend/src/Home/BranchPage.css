@@ -1,16 +1,66 @@
 .branch-page {
-    padding: 20px;
-    text-align: center;
+  position: relative;
+  background-image: url('https://ariehandomri.com/wp-content/uploads/2019/06/IMG_4375-Large.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  overflow: hidden;
+  color: white;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+.branch-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+  z-index: 1;
+}
+
+.branch-details {
+  position: relative;
+  /* background-color: rgba(0, 0, 0, 0.7); */
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 800px;
+  text-align: center;
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideInFromRight 1.5s forwards;
+  z-index: 2;
+}
+
+@keyframes slideInFromRight {
+  to {
+      opacity: 1;
+      transform: translateX(0);
   }
-  
-  button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #ddd;
-  }
-  
+}
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+a {
+  color: #ffd700;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
