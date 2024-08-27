@@ -18,6 +18,8 @@ export default function LoginPage() {
       const data = await response.json();
       if (response.ok) {
         setMessage('Login successful');
+        // Redirect to the order page
+        window.location.href = 'http://localhost:3000/order';
         // You can redirect to another page or perform other actions here
       } else {
         setMessage(data.message);
