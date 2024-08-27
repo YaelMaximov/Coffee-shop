@@ -26,35 +26,35 @@ const OrderConfirmationPage = () => {
     return (
         <div className="confirmation-page">
             <div className="header">
-                <h1>Order Confirmed!</h1>
+                <h1>ההזמנה אושרה!</h1>
             </div>
 
             <div className="order-summary">
-                <h2>Thank you, {fullName}!</h2>
+                <h2>תודה, {fullName}!</h2>
                 {orderType === 'delivery' ? (
-                    <p>The order will arrive at {getPickupTime()}.</p>
+                    <p>ההזמנה תגיע ב {getPickupTime()}.</p>
                 ) : (
-                    <p>Your order from {branch} will be ready at {getPickupTime()}.</p>
+                    <p>ההזמנה שלך מסניף -  {branch} תהיה מוכנה ב {getPickupTime()}.</p>
                 )}
             </div>
 
             <div className="order-details">
-                <h3>Order Details</h3>
+                <h3>פרטי הזמנה</h3>
                 {cart.map((item, index) => (
                     <div key={index} className="summary-item">
                         <h4>{item.dish}</h4>
-                        <p>Quantity: {item.quantity}</p>
-                        <p>Extras: {Object.entries(item.extras).flatMap(([category, extras]) => 
+                        <p>כמות: {item.quantity}</p>
+                        <p>תוספות: {Object.entries(item.extras).flatMap(([category, extras]) => 
                             extras.map(extra => extra.name)
                         ).join(', ')}</p>
-                        <p>Price: ₪{item.totalPrice.toFixed(2)}</p>
+                        <p>מחיר: ₪{item.totalPrice.toFixed(2)}</p>
                     </div>
                 ))}
-                <p className="total-price">Total: ₪{getTotalPrice().toFixed(2)}</p>
+                <p className="total-price">סה"כ: ₪{getTotalPrice().toFixed(2)}</p>
             </div>
 
             <div className="footer">
-                <p>If you have any questions or need to make changes to your order, please contact us at 0000-000-000.</p>
+                <p>0000-000-000 אם יש לך עוד שאלות או שברצונך לבצע שינויים בהזמנה, אנא צור קשר בטלפון </p>
             </div>
         </div>
     );

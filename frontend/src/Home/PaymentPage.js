@@ -77,39 +77,39 @@ const handleChange = (e) => {
   return (
     <div className="payment-container">
         <div className="order-summary-pay">
-                <h3>Order Summary</h3>
+                <h3>סיכום הזמנה</h3>
                 {cart.map((item, index) => (
                     <div key={index} className="summary-item">
                         <h4>{item.dish}</h4>
-                        <p>Quantity: {item.quantity}</p>
-                        <p>Extras: {Object.entries(item.extras).flatMap(([category, extras]) => 
+                        <p>כמות: {item.quantity}</p>
+                        <p>תוספות: {Object.entries(item.extras).flatMap(([category, extras]) => 
                             extras.map(extra => extra.name)
                         ).join(', ')}</p>
-                        <p>Price: ₪{item.totalPrice.toFixed(2)}</p>
+                        <p>מחיר: ₪{item.totalPrice.toFixed(2)}</p>
                     </div>
                 ))}
-                <p className="total-price">Total: ₪{getTotalPrice().toFixed(2)}</p>
+                <p className="total-price">סה"כ: ₪{getTotalPrice().toFixed(2)}</p>
           </div>
 
       <div className="payment-form">
-        <h3>My Details</h3>
+        <h3>הפרטים שלי</h3>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="fullName">Full Name:</label>
+            <label htmlFor="fullName">שם מלא:</label>
             <input type="text" id="fullName" onChange={handleChange} required />
           </div>
           <div className="form-group">
-            <label htmlFor="phone">Phone:</label>
+            <label htmlFor="phone">פלאפון:</label>
             <input type="text" id="phone" required />
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">מייל:</label>
             <input type="email" id="email" required />
           </div>
           {/* Additional form fields for credit card, etc. */}
           
           <div className="payment-method">
-            <label>Payment Method:</label>
+            <label>אופן התשלום:</label>
             <div>
               <input
                 type="radio"
@@ -119,7 +119,7 @@ const handleChange = (e) => {
                 checked={paymentMethod === 'cash'}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              <label htmlFor="cash">Cash</label>
+              <label htmlFor="cash">מזומן</label>
             </div>
             <div>
               <input
@@ -130,14 +130,14 @@ const handleChange = (e) => {
                 checked={paymentMethod === 'credit_card'}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              <label htmlFor="credit_card">Credit Card</label>
+              <label htmlFor="credit_card">אשראי</label>
             </div>
           </div>
 
           {paymentMethod === 'credit_card' && (
             <div>
               <div className="form-group">
-                <label htmlFor="cardNumber">Card Number:</label>
+                <label htmlFor="cardNumber">מספר אשראי:</label>
                 <input
                   type="text"
                   id="cardNumber"
@@ -147,7 +147,7 @@ const handleChange = (e) => {
                 {errors.cardNumber && <p>{errors.cardNumber}</p>}
               </div>
               <div className="form-group">
-                <label htmlFor="idNumber">ID Number:</label>
+                <label htmlFor="idNumber">תעודת זהות</label>
                 <input
                   type="text"
                   id="idNumber"
@@ -157,7 +157,7 @@ const handleChange = (e) => {
                 {errors.idNumber && <p>{errors.idNumber}</p>}
               </div>
               <div className="form-group">
-                <label htmlFor="expirationDate">Expiration Date:</label>
+                <label htmlFor="expirationDate">תוקף</label>
                 <input
                   type="month"
                   id="expirationDate"
@@ -169,7 +169,7 @@ const handleChange = (e) => {
             </div>
           )}
 
-          <button type="submit">Complete Payment</button>
+          <button type="submit">סיום הזמנה</button>
         </form>
       </div>
     </div>

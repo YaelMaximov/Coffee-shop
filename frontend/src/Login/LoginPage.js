@@ -36,7 +36,7 @@ export default function LoginPage() {
       
   return (
     <div className='auth-page'>
-      <h2 className='auth-header'>Login</h2>
+      <h2 className='auth-header'>התחברות</h2>
       <form className='auth-form' onSubmit={handleSubmit}>
         <input
           type="email"
@@ -47,8 +47,8 @@ export default function LoginPage() {
           required
         />  
         <div className='auth-buttons'>
-          <button className='auth-button' type="submit">Login</button>
-          <button className='auth-button'onClick={handleRegister}>Register</button>
+        <button className='auth-button'onClick={handleRegister}>הרשמה</button>
+          <button className='auth-button' type="submit">התחברות</button>
         </div>    
         </form>
       {message && <p>{message}</p>}
