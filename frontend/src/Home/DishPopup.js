@@ -40,7 +40,7 @@ const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
     Object.entries(selectedExtras).forEach(([category, extras]) => {
       const sauceCount = extras.filter(extra => extra.category === 'רטבים').length;
       if (sauceCount > 1) {
-          updatedTotalPrice += extras.slice(1).reduce((sum, extra) => parseFloat(sum) + parseFloat(extra.price), 0.00);        
+        updatedTotalPrice += extras.slice(1).reduce((sum, extra) => parseFloat(sum) + parseFloat(extra.price), 0.00);        
       } 
     });
     setTotalPrice(updatedTotalPrice * quantity);
@@ -57,7 +57,7 @@ const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
       if (index !== -1) {
         updatedCategory.splice(index, 1);
       } else {
-        const maxQuantity = extra.max_quantity; // ניגשים ישירות למאפיין max_quantity של התוספת
+        const maxQuantity = extra.max_quantity;
         if (updatedCategory.length >= maxQuantity) {
           setError(maxQuantity > 1 ? `ניתן לבחור רק ${maxQuantity} פריטים מקטגוריה זו` : `ניתן לבחור רק פריט אחד מקטגוריה זו`);
           return prev;
@@ -86,7 +86,7 @@ const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
     }
 
     const orderItem = {
-      id:dish.dish_id,
+      id: dish.dish_id,
       dish: dish.name,
       quantity,
       extras: selectedExtras,

@@ -3,6 +3,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import { useMenu } from '../MenuProvider';
 import './OrderPage.css';
 import DishPopup from './DishPopup';
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 export default function OrderPage() {
   const navigate = useNavigate();
@@ -62,8 +63,10 @@ export default function OrderPage() {
   };
 
   const handleQuantityChange = (index, newQuantity) => {
+    const dishId = cart[index].id;
+    const dishPrice = menu.find(dish => dish.dish_id === dishId).price;
     setCart(cart.map((item, i) =>
-      i === index ? { ...item, quantity: newQuantity, totalPrice: item.dish.price * newQuantity } : item
+      i === index ? { ...item, quantity: newQuantity, totalPrice: dishPrice * newQuantity } : item
     ));
   };
 
@@ -106,7 +109,7 @@ export default function OrderPage() {
                   <p>תוספות: {Object.entries(item.extras).flatMap(([category, extras]) => 
                     extras.map(extra => extra.name)
                   ).join(', ')}</p>
-                  <p>מחיר: ₪{item.totalPrice.toFixed(2)}</p>
+                  <p>מחיר: ₪{item.totalPrice}</p>
                   <div className="cart-item-actions">
                     <button onClick={() => handleEditItem(index)}>ערוך</button>
                     <button onClick={() => handleDeleteItem(index)}>מחק</button>
@@ -160,7 +163,7 @@ export default function OrderPage() {
       {selectedDish && (
         <DishPopup
           dish={selectedDish}
-          // orderItem={cart[editIndex]}
+          orderItem={cart[editIndex]}
           onClose={() => {
             setSelectedDish(null);
             setEditIndex(null);

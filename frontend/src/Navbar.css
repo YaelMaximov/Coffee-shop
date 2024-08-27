@@ -1,26 +1,77 @@
-/* Navbar.css */
+/* עיצוב כללי של הניווט */
 .navbar {
-    background-color: #f4f3ee; /* Background color */
-    padding: 10px 0; /* Padding for the navbar */
-}
-
-.navbar-list {
+    background-color: #fffffffa; /* צבע רקע כהה */
+    padding: 20px 50px; /* מרווח גדול יותר להדגשת הפס */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position:relative;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    height: 80px;
+  }
+  
+  .navbar-list {
+    list-style: none;
     display: flex;
-    justify-content: space-around;
-    list-style-type: none;
+    justify-content: space-around; /* פיזור אחיד של הקישורים */
+    align-items: center;
     margin: 0;
     padding: 0;
-}
-
-.navbar-link {
-    font-size: 16px;
+   
+  }
+  
+  .navbar-list li {
+    margin: 0;
+    position: relative; /* חשוב עבור האליפסה */
+  }
+  
+  .navbar-link {
     text-decoration: none;
-    color: #333; /* Default text color */
-    padding: 10px 20px;
-    border-radius: 10px;
-}
-
-.navbar-link.selected {
-    background-color: #b7dfd3; /* Background color for the selected item */
-    color: #333; /* Text color for the selected item */
-}
+    color: #ac8346; /* צבע טקסט לבן */
+    font-size: 24px; /* כתב גדול יותר */
+    font-weight: bold;
+    padding: 5px 15px;
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .navbar-link:hover {
+    color: #e4af5f; /* צבע טורקיז למעבר */
+  }
+  
+  .navbar-list li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: -10px;
+    left: 50%;
+    background-color: #e4af5f; /* צבע טורקיז */
+    border-radius: 50%;
+    transition: width 0.3s, height 0.3s, left 0.3s;
+  }
+  
+  .navbar-list li:hover::after {
+    width: 15px;
+    height: 15px;
+    left: calc(50% - 7.5px);
+  }
+  
+  /* עיצוב למכשירים ניידים */
+  @media (max-width: 768px) {
+    .navbar-list {
+      flex-direction: column;
+    }
+  
+    .navbar-list li {
+      margin: 15px 0;
+    }
+  
+    .navbar {
+      padding: 20px;
+    }
+  
+    .navbar-link {
+      font-size: 20px; /* כתב מעט קטן יותר למכשירים ניידים */
+    }
+  }
+  
