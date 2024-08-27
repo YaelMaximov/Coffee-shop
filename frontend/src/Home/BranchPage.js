@@ -38,8 +38,8 @@ export default function BranchPage() {
       {branch ? (
         <>
           <h1>{branch.address}</h1>
-          <p><strong>Phone:</strong> {branch.phone}</p>
-          <p><strong>Opening Hours:</strong> {branch.opening_hours}</p>
+          <p><strong>טלפון:</strong> {branch.phone}</p>
+          <p><strong>שעות פתיחה:</strong> {branch.opening_hours}</p>
           <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
           </>
       ) : (

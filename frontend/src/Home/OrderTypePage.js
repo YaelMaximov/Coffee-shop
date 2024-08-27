@@ -65,7 +65,7 @@ export default function OrderTypePage() {
 
   return (
     <div className="order-type-page">
-      <h1>Choose your Order Type</h1>
+      <h1>בחירת סוג הזמנה</h1>
       <div className="order-options">
         <button
           className={orderType === 'delivery' ? 'selected' : ''}
@@ -85,10 +85,10 @@ export default function OrderTypePage() {
 
       {orderType === 'delivery' && (
         <div className="delivery-form">
-          <h2>Enter your delivery address</h2>
+          <h2>הכנס כתובת מלאה למשלוח</h2>
           <input
             type="text"
-            placeholder="Street, Number, City"
+            placeholder="רחוב,מספר ועיר"
             value={address}
             onChange={(e) => {
               setAddress(e.target.value);
@@ -100,9 +100,9 @@ export default function OrderTypePage() {
 
       {orderType === 'pickup' && (
         <div className="pickup-form">
-          <h2>Select a branch for pickup</h2>
+          <h2>בחירת סניף</h2>
           <select value={branch} onChange={(e) => setBranch(e.target.value)}>
-            <option value="">Select a Branch</option>
+            <option value="">בחר סניף מהרשימה..</option>
             {branches.map((branch) => (
               <option key={branch.id} value={branch.id}>
                 {branch.name} - {branch.address}

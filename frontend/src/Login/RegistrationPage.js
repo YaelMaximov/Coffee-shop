@@ -87,7 +87,7 @@ export default function RegistrationPage() {
         <input
           type="text"
           name="firstName"
-          placeholder="First Name"
+          placeholder="שם פרטי"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           required
@@ -95,7 +95,7 @@ export default function RegistrationPage() {
         <input
           type="text"
           name="lastName"
-          placeholder="Last Name"
+          placeholder="שם משפחה"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           required
@@ -106,16 +106,14 @@ export default function RegistrationPage() {
           onChange={(e) => setGender(e.target.value)}
           required
         >
-          <option value="" disabled>
-            Select Gender
-          </option>
+          <option value="" disabled> בחירת מין</option>
           <option value="זכר">זכר</option>
           <option value="נקבה">נקבה</option>
         </select>
         <input
           type="text"
           name="phone"
-          placeholder="Phone"
+          placeholder="פלאפון"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
@@ -123,7 +121,7 @@ export default function RegistrationPage() {
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder="מייל"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -131,7 +129,7 @@ export default function RegistrationPage() {
         <input
           type="date"
           name="birthdate"
-          placeholder="Birthdate"
+          placeholder="תאריך לידה"
           value={birthdate}
           onChange={(e) => setBirthdate(e.target.value)}
           required
@@ -139,7 +137,7 @@ export default function RegistrationPage() {
         <input
           type="text"
           name="street"
-          placeholder="Street"
+          placeholder="רחוב"
           value={street}
           onChange={(e) => setStreet(e.target.value)}
           required
@@ -147,7 +145,7 @@ export default function RegistrationPage() {
         <input
           type="text"
           name="houseNumber"
-          placeholder="House Number"
+          placeholder="מספר בית"
           value={houseNumber}
           onChange={(e) => setHouseNumber(e.target.value)}
           required
@@ -155,7 +153,7 @@ export default function RegistrationPage() {
         <input
           type="text"
           name="city"
-          placeholder="City"
+          placeholder="עיר"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           required
@@ -163,21 +161,21 @@ export default function RegistrationPage() {
         <input
           type="text"
           name="apartment"
-          placeholder="Apartment"
+          placeholder="מספר דירה"
           value={apartment}
           onChange={(e) => setApartment(e.target.value)}
         />
         <input
           type="text"
           name="entrance"
-          placeholder="Entrance"
+          placeholder="כניסה"
           value={entrance}
           onChange={(e) => setEntrance(e.target.value)}
         />
         <input
           type="text"
           name="floor"
-          placeholder="Floor"
+          placeholder="קומה"
           value={floor}
           onChange={(e) => setFloor(e.target.value)}
         />
