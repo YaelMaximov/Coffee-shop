@@ -76,3 +76,24 @@
     }
   }
   
+  .navbar-link:hover {
+    color: #e4af5f;
+  }
+  
+  .navbar-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-image {
+    width: 150px; /* גודל הלוגו */
+    height: 150px;
+    border-radius: 50%; /* עיגול הלוגו */
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  
+  .logo-image:hover {
+    transform: scale(1.1); /* הגדלה בעת ריחוף */
+  }
