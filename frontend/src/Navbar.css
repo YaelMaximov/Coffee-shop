@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #fffffffa; /* צבע רקע */
+    background-color: #fffffffa;
     padding: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     position: relative;
@@ -7,92 +7,131 @@
     top: 0;
     z-index: 1000;
     height: 80px;
-  }
-  
-  .navbar-list {
+    display: flex;
+    justify-content: space-between; /* שומר את האלמנטים במקום */
+    align-items: center;
+}
+
+.navbar-list {
     list-style: none;
     display: flex;
-    justify-content: space-around; /* פיזור אחיד של הקישורים */
+    justify-content: space-around;
     align-items: center;
     margin: 0;
     padding: 0;
-  }
-  
-  .navbar-list li {
+    width: 100%;
+}
+
+.navbar-list li {
     margin: 0;
-    position: relative; /* חשוב עבור האליפסה */
-  }
-  
-  .navbar-link {
+    position: relative;
+}
+
+.navbar-link {
     text-decoration: none;
     color: #ac8346;
     font-size: 24px;
     font-weight: bold;
     padding: 5px 15px;
-    transition: color 0.3s, transform 0.3s;
-  }
-  
-  .navbar-link:hover {
+    /* transition: color 0.3s, transform 0.3s; */
+}
+
+.navbar-link:hover {
     color: #e4af5f;
-  }
-  
-  /* הסימון לחיצה לכל הפריטים, מלבד הלוגו */
-  .navbar-list li:not(.navbar-logo)::after {
+}
+
+.navbar-list li:not(.navbar-logo)::after {
     content: '';
     position: absolute;
     width: 0;
     height: 0;
     bottom: -10px;
     left: 50%;
-    background-color: #e4af5f; /* צבע טורקיז */
+    background-color: #e4af5f;
     border-radius: 50%;
-    transition: width 0.3s, height 0.3s, left 0.3s;
-  }
-  
-  .navbar-list li:not(.navbar-logo):hover::after {
+    /* transition: width 0.3s, height 0.3s, left 0.3s; */
+}
+
+.navbar-list li:not(.navbar-logo):hover::after {
     width: 15px;
     height: 15px;
     left: calc(50% - 7.5px);
-  }
-  
-  .navbar-logo {
+}
+
+.navbar-logo {
     display: flex;
-    justify-content: center;
     align-items: center;
-  }
-  
-  .logo-image {
-    width: 110px; /* גודל הלוגו */
+    position: relative;
+    transition: transform 1s, margin-left 1s;
+    direction: rtl; /* כיווניות התוכן מימין לשמאל */
+    margin-right: 10px; /* צמצום הרווח בין הלוגו לטקסט */
+}
+
+.logo-image {
+    width: 110px;
     height: 110px;
-    border-radius: 50%; /* עיגול הלוגו */
+    border-radius: 50%;
     object-fit: cover;
-    transition: transform 0.3s;
-  }
-  
-  .logo-image:hover {
-    transform: scale(1.1); /* הגדלה בעת ריחוף */
-  }
-  
-  /* עיצוב למכשירים ניידים */
-  @media (max-width: 768px) {
+    transition: transform 1s;
+}
+
+.logo-text {
+    font-size: 36px;
+    color: #ac8346;
+    position: absolute; /* מאפשר את ההנפשה מבלי להזיז את הכותרות */
+    right: 120px; /* מיקום בהתאם לרוחב הלוגו */
+    white-space: nowrap;
+    opacity: 1;
+    transform: skew(-10deg);
+    font-weight: bold;
+    overflow: hidden;
+    width: 0;
+    border-right: 4px solid #ac8346; /* סמן מהבהב */
+    animation: typing-rtl 1.5s steps(20) 0.5s forwards, blink-caret 1s step-end 2s forwards;
+}
+
+@keyframes typing-rtl {
+    from {
+        width: 0;
+    }
+    to {
+        width: 140px; /* התאמה לרוחב הטקסט "קפה הפוך" */
+    }
+}
+
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: #ac8346; /* צבע הסמן */
+    }
+}
+
+/* Animation for logo rolling to the right */
+.navbar-logo.roll {
+    transform: translateX(50px); /* הלוגו מתגלגל ימינה */
+}
+
+/* עיצוב למכשירים ניידים */
+@media (max-width: 768px) {
     .navbar-list {
-      flex-direction: column;
+        flex-direction: column;
     }
-  
+
     .navbar-list li {
-      margin: 15px 0;
+        margin: 15px 0;
     }
-  
+
     .navbar {
-      padding: 20px;
+        padding: 20px;
     }
-  
+
     .navbar-link {
-      font-size: 20px;
+        font-size: 20px;
     }
-  
+
     .navbar-logo {
-      margin: 15px 0; /* מרווח קטן מסביב ללוגו */
+        margin: 15px 0;
     }
-  }
-  
+}
