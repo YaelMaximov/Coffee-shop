@@ -1,10 +1,8 @@
-/* עיצוב כללי של הניווט */
 .navbar {
-    background-color: #fffffffa; /* צבע רקע כהה */
-    padding: 20px 0; 
-    /* מרווח גדול יותר להדגשת הפס */
+    background-color: #fffffffa; /* צבע רקע */
+    padding: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    position:relative;
+    position: relative;
     width: 100%;
     top: 0;
     z-index: 1000;
@@ -18,7 +16,6 @@
     align-items: center;
     margin: 0;
     padding: 0;
-   
   }
   
   .navbar-list li {
@@ -28,18 +25,19 @@
   
   .navbar-link {
     text-decoration: none;
-    color: #ac8346; /* צבע טקסט לבן */
-    font-size: 24px; /* כתב גדול יותר */
+    color: #ac8346;
+    font-size: 24px;
     font-weight: bold;
     padding: 5px 15px;
     transition: color 0.3s, transform 0.3s;
   }
   
   .navbar-link:hover {
-    color: #e4af5f; /* צבע טורקיז למעבר */
+    color: #e4af5f;
   }
   
-  .navbar-list li::after {
+  /* הסימון לחיצה לכל הפריטים, מלבד הלוגו */
+  .navbar-list li:not(.navbar-logo)::after {
     content: '';
     position: absolute;
     width: 0;
@@ -51,10 +49,28 @@
     transition: width 0.3s, height 0.3s, left 0.3s;
   }
   
-  .navbar-list li:hover::after {
+  .navbar-list li:not(.navbar-logo):hover::after {
     width: 15px;
     height: 15px;
     left: calc(50% - 7.5px);
+  }
+  
+  .navbar-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-image {
+    width: 110px; /* גודל הלוגו */
+    height: 110px;
+    border-radius: 50%; /* עיגול הלוגו */
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  
+  .logo-image:hover {
+    transform: scale(1.1); /* הגדלה בעת ריחוף */
   }
   
   /* עיצוב למכשירים ניידים */
@@ -72,28 +88,11 @@
     }
   
     .navbar-link {
-      font-size: 20px; /* כתב מעט קטן יותר למכשירים ניידים */
+      font-size: 20px;
+    }
+  
+    .navbar-logo {
+      margin: 15px 0; /* מרווח קטן מסביב ללוגו */
     }
   }
   
-  .navbar-link:hover {
-    color: #e4af5f;
-  }
-  
-  .navbar-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .logo-image {
-    width: 150px; /* גודל הלוגו */
-    height: 150px;
-    border-radius: 50%; /* עיגול הלוגו */
-    object-fit: cover;
-    transition: transform 0.3s;
-  }
-  
-  .logo-image:hover {
-    transform: scale(1.1); /* הגדלה בעת ריחוף */
-  }

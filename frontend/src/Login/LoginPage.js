@@ -1,5 +1,6 @@
-import React, { useState,navigate } from 'react';
-import './auth.css'
+import React, { useState } from 'react';
+import './auth.css';
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -18,9 +19,9 @@ export default function LoginPage() {
       const data = await response.json();
       if (response.ok) {
         setMessage('Login successful');
-        // Redirect to the order page
-        window.location.href = 'http://localhost:3000/order';
-        // You can redirect to another page or perform other actions here
+        setTimeout(() => {
+          window.location.href = 'http://localhost:3000/order';
+        }, 1000);
       } else {
         setMessage(data.message);
       }
@@ -33,25 +34,29 @@ export default function LoginPage() {
   const handleRegister = () => {
     window.location.href = 'http://localhost:3000/register';
   };
-      
+
   return (
     <div className='auth-page'>
-      <h2 className='auth-header'>התחברות</h2>
+      <div className='auth-header'>
+        <h2>התחברות</h2>
+      </div>
       <form className='auth-form' onSubmit={handleSubmit}>
+        <label htmlFor="email">כתובת מייל:</label>
         <input
           type="email"
+          id="email"
           name="email"
-          placeholder="Email"
+          placeholder="הכנס כתובת מייל"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-        />  
+        />
         <div className='auth-buttons'>
-        <button className='auth-button'onClick={handleRegister}>הרשמה</button>
+          <button className='auth-button' onClick={handleRegister} type="button">הרשמה</button>
           <button className='auth-button' type="submit">התחברות</button>
-        </div>    
-        </form>
-      {message && <p>{message}</p>}
+        </div>
+      </form>
+      {message && <p className='auth-footer'>{message}</p>}
     </div>
   );
 }
