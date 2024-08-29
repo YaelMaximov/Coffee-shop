@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthProvider'; // ייבוא הקונטקסט
 import './OrderTypePage.css';
 import takeAwayIcon from './take-away.png'; 
 import deliveryIcon from './delivery.png'; 
@@ -12,6 +13,7 @@ export default function OrderTypePage() {
   const [branches, setBranches] = useState([]);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { user } = useAuth(); // קבלת פרטי המשתמש מהקונטקסט
 
   useEffect(() => {
     const fetchBranches = async () => {
@@ -43,8 +45,14 @@ export default function OrderTypePage() {
   
     fetchBranches();
   }, []);
-  
+
   const handleContinue = () => {
+    if (!user) {
+      // אם המשתמש לא מחובר, הפנה לעמוד ההתחברות
+      navigate('/login');
+      return;
+    }
+
     setError('');
     if (orderType === 'delivery') {
       navigate('/order', { state: { orderType, address } });

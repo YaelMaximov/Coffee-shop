@@ -1,5 +1,6 @@
 import './App.css';
 import React from "react";
+import { AuthProvider } from './AuthProvider';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import MenuPage from "./Home/ViewMenu";
 import { MenuProvider } from './MenuProvider';
@@ -16,6 +17,7 @@ import OrderConfirmationPage from './Home/OrderConfirmationPage';
 function App() {
   return (
     <MenuProvider>
+        <AuthProvider>
       <Router>
         <div>
           <Navbar /> {/* Navbar will appear on all pages */}
@@ -33,6 +35,7 @@ function App() {
           </Routes>
         </div>
       </Router>
+      </AuthProvider>
     </MenuProvider>
   );
 }

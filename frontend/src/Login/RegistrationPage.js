@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './auth.css'
+import './auth.css';
 
-export default function RegistrationPage() {
+export default function RegistrationPage({ onClose }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [gender, setGender] = useState('');
@@ -35,14 +35,9 @@ export default function RegistrationPage() {
         }),
       });
       const addressData = await addressResponse.json();
-      
-      console.log("Response Status:", addressResponse.status);
-      console.log("Address Data:", addressData);
 
       if (addressResponse.ok) {
         const addressId = addressData.address_id;
-
-        console.log("ok")
 
         // Then, save the member with the address_id
         const memberResponse = await fetch('http://localhost:3010/auth/register', {
@@ -80,108 +75,111 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div className='auth-page'>
-      <h2 className='auth-header'>Register</h2>
-      <form className='auth-form' onSubmit={handleSubmit}>
-        {/* Form Fields */}
-        <input
-          type="text"
-          name="firstName"
-          placeholder="שם פרטי"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          name="lastName"
-          placeholder="שם משפחה"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-        <select
-          name="gender"
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-          required
-        >
-          <option value="" disabled> בחירת מין</option>
-          <option value="זכר">זכר</option>
-          <option value="נקבה">נקבה</option>
-        </select>
-        <input
-          type="text"
-          name="phone"
-          placeholder="פלאפון"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="מייל"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="date"
-          name="birthdate"
-          placeholder="תאריך לידה"
-          value={birthdate}
-          onChange={(e) => setBirthdate(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          name="street"
-          placeholder="רחוב"
-          value={street}
-          onChange={(e) => setStreet(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          name="houseNumber"
-          placeholder="מספר בית"
-          value={houseNumber}
-          onChange={(e) => setHouseNumber(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          name="city"
-          placeholder="עיר"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          name="apartment"
-          placeholder="מספר דירה"
-          value={apartment}
-          onChange={(e) => setApartment(e.target.value)}
-        />
-        <input
-          type="text"
-          name="entrance"
-          placeholder="כניסה"
-          value={entrance}
-          onChange={(e) => setEntrance(e.target.value)}
-        />
-        <input
-          type="text"
-          name="floor"
-          placeholder="קומה"
-          value={floor}
-          onChange={(e) => setFloor(e.target.value)}
-        />
-        <button className='auth-button' type="submit">Register</button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className='popup-overlay' onClick={onClose}>
+      <div className='popup-content' onClick={(e) => e.stopPropagation()}>
+        <span className='popup-close' onClick={onClose}>&times;</span>
+        <h2 className='auth-header'>הרשמה</h2>
+        <form className='auth-form' onSubmit={handleSubmit}>
+          {/* Form Fields */}
+          <input
+            type="text"
+            name="firstName"
+            placeholder="שם פרטי"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            name="lastName"
+            placeholder="שם משפחה"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+          <select
+            name="gender"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            required
+          >
+            <option value="" disabled>בחירת מין</option>
+            <option value="זכר">זכר</option>
+            <option value="נקבה">נקבה</option>
+          </select>
+          <input
+            type="text"
+            name="phone"
+            placeholder="פלאפון"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="מייל"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="date"
+            name="birthdate"
+            placeholder="תאריך לידה"
+            value={birthdate}
+            onChange={(e) => setBirthdate(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            name="street"
+            placeholder="רחוב"
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            name="houseNumber"
+            placeholder="מספר בית"
+            value={houseNumber}
+            onChange={(e) => setHouseNumber(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            name="city"
+            placeholder="עיר"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            name="apartment"
+            placeholder="מספר דירה"
+            value={apartment}
+            onChange={(e) => setApartment(e.target.value)}
+          />
+          <input
+            type="text"
+            name="entrance"
+            placeholder="כניסה"
+            value={entrance}
+            onChange={(e) => setEntrance(e.target.value)}
+          />
+          <input
+            type="text"
+            name="floor"
+            placeholder="קומה"
+            value={floor}
+            onChange={(e) => setFloor(e.target.value)}
+          />
+          <button className='auth-button' type="submit">Register</button>
+        </form>
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 }

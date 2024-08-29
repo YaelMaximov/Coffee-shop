@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../AuthProvider'; // ייבוא הקונטקסט
+import RegistrationPopup from './RegistrationPage'; // ייבוא פופאפ ההרשמה
 import './auth.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const { login } = useAuth(); // קבלת פונקציית התחברות מהקונטקסט
+  const [isOpen, setIsOpen] = useState(true); // חלון פתוח כברירת מחדל
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false); // סטייט עבור פופאפ הרשמה
+
+  useEffect(() => {
+    // הפופאפ ייפתח אוטומטית כאשר הקומפוננטה נטענת
+    setIsOpen(true);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +28,8 @@ export default function LoginPage() {
 
       const data = await response.json();
       if (response.ok) {
-        setMessage('Login successful');
+        setMessage('התחברות הצליחה');
+        login(data.member); // עדכון פרטי המשתמש בקונטקסט
         setTimeout(() => {
           window.location.href = 'http://localhost:3000/order';
         }, 1000);
@@ -27,36 +38,59 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error('Error during login:', error);
-      setMessage('Login failed');
+      setMessage('התחברות נכשלה');
     }
   };
 
-  const handleRegister = () => {
-    window.location.href = 'http://localhost:3000/register';
+  const openRegistrationPopup = () => {
+    setIsRegistrationOpen(true);
+    setIsOpen(false); // סגירת פופאפ הלוגין
+  };
+
+  const closeLoginPopup = () => {
+    setIsOpen(false);
+  };
+
+  const closeRegistrationPopup = () => {
+    setIsRegistrationOpen(false);
+    setIsOpen(true); // חזרה לפופאפ הלוגין
   };
 
   return (
-    <div className='auth-page'>
-      <div className='auth-header'>
-        <h2>התחברות</h2>
-      </div>
-      <form className='auth-form' onSubmit={handleSubmit}>
-        <label htmlFor="email">כתובת מייל:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="הכנס כתובת מייל"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <div className='auth-buttons'>
-          <button className='auth-button' onClick={handleRegister} type="button">הרשמה</button>
-          <button className='auth-button' type="submit">התחברות</button>
+    <div>
+      {isOpen && (
+        <div className="popup-overlay" onClick={closeLoginPopup}>
+          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+            <button className="popup-close-button" onClick={closeLoginPopup}>×</button>
+            <div className="auth-page">
+              <div className="auth-header">
+                <h2>התחברות</h2>
+              </div>
+              <form className="auth-form" onSubmit={handleSubmit}>
+                <label htmlFor="email">כתובת מייל:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="הכנס כתובת מייל"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <button className="auth-button" type="submit">התחברות</button>
+              </form>
+              <div className="auth-footer">
+                <span>עדיין אין לך חשבון? <a onClick={openRegistrationPopup}>הירשם</a></span>
+              </div>
+              {message && <p className="auth-message">{message}</p>}
+            </div>
+          </div>
         </div>
-      </form>
-      {message && <p className='auth-footer'>{message}</p>}
+      )}
+
+      {isRegistrationOpen && (
+        <RegistrationPopup onClose={closeRegistrationPopup} />
+      )}
     </div>
   );
 }

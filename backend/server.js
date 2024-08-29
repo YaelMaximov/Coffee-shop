@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3010;
 const cors = require('cors');
+const jwt=require("jsonwebtoken");
 
 const menuRoutes = require('./routes/menuRoutes');
 const orderRoutes = require('./routes/orderRoutes');
