@@ -45,7 +45,7 @@ function Navbar() {
     <div>
       <nav className="navbar">
         <ul className="navbar-list">
-          <li><Link to="/menu" className="navbar-link">תפריטים</Link></li>
+          <li><Link to="/menu" className="navbar-link">תפריט</Link></li>
           <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
           
           <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
@@ -86,7 +86,7 @@ function Navbar() {
       )}
 
       {isLoginPopupOpen && (
-        <LoginPopup onClose={closeLoginPopup} />
+        <LoginPopup onClose={closeLoginPopup} /> 
       )}
     </div>
   );

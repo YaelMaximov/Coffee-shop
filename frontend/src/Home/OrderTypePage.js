@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthProvider'; // ייבוא הקונטקסט
+import { useAuth } from '../AuthProvider';
 import './OrderTypePage.css';
 import takeAwayIcon from './take-away.png'; 
 import deliveryIcon from './delivery.png'; 
+import LoginPage from '../Login/LoginPage'; // ייבוא של עמוד ההתחברות
 
 export default function OrderTypePage() {
   const [orderType, setOrderType] = useState('delivery');
@@ -12,8 +13,9 @@ export default function OrderTypePage() {
   const [city, setCity] = useState('');
   const [branches, setBranches] = useState([]);
   const [error, setError] = useState('');
+  const [isLoginOpen, setIsLoginOpen] = useState(false); // ניהול מצב פתיחה של הפופאפ
   const navigate = useNavigate();
-  const { user } = useAuth(); // קבלת פרטי המשתמש מהקונטקסט
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchBranches = async () => {
@@ -48,8 +50,7 @@ export default function OrderTypePage() {
 
   const handleContinue = () => {
     if (!user) {
-      // אם המשתמש לא מחובר, הפנה לעמוד ההתחברות
-      navigate('/login');
+      setIsLoginOpen(true); // פתיחת פופאפ ההתחברות אם המשתמש לא מחובר
       return;
     }
 
@@ -63,6 +64,10 @@ export default function OrderTypePage() {
         navigate('/order', { state: { orderType, branch } });
       }
     }
+  };
+
+  const handleCloseLogin = () => {
+    setIsLoginOpen(false); // פונקציית סגירה לפופאפ ההתחברות
   };
 
   return (
@@ -125,6 +130,9 @@ export default function OrderTypePage() {
           המשך
         </button>
       </div>
+
+      {/* הצגת הפופאפ עם פונקציית הסגירה */}
+      {isLoginOpen && <LoginPage onClose={handleCloseLogin} />}
     </div>
   );
 }
