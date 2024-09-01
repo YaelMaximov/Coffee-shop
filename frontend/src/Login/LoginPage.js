@@ -3,17 +3,12 @@ import { useAuth } from '../AuthProvider'; // ייבוא הקונטקסט
 import RegistrationPopup from './RegistrationPage'; // ייבוא פופאפ ההרשמה
 import './auth.css';
 
-export default function LoginPage() {
+export default function LoginPage({ onClose }) { // קבלת הפונקציה כ-prop
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const { login } = useAuth(); // קבלת פונקציית התחברות מהקונטקסט
-  const [isOpen, setIsOpen] = useState(true); // חלון פתוח כברירת מחדל
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false); // סטייט עבור פופאפ הרשמה
-
-  useEffect(() => {
-    // הפופאפ ייפתח אוטומטית כאשר הקומפוננטה נטענת
-    setIsOpen(true);
-  }, []);
+  const { login } = useAuth();
+  const [isOpen, setIsOpen] = useState(true);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,8 +23,8 @@ export default function LoginPage() {
 
       const data = await response.json();
       if (response.ok) {
-        setMessage('התחברות הצליחה');
-        login(data.member); // עדכון פרטי המשתמש בקונטקסט
+        setMessage('ההתחברות בוצעה בהצלחה');
+        login(data.member);
         setTimeout(() => {
           window.location.href = 'http://localhost:3000/order';
         }, 1000);
@@ -47,21 +42,23 @@ export default function LoginPage() {
     setIsOpen(false); // סגירת פופאפ הלוגין
   };
 
-  const closeLoginPopup = () => {
-    setIsOpen(false);
-  };
-
   const closeRegistrationPopup = () => {
     setIsRegistrationOpen(false);
-    setIsOpen(true); // חזרה לפופאפ הלוגין
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setIsRegistrationOpen(false);
+    onClose(); // קריאה ל-onClose שהועבר כ-prop לסגירת הפופאפ
   };
 
   return (
     <div>
       {isOpen && (
-        <div className="popup-overlay" onClick={closeLoginPopup}>
+        <div className="popup-overlay" onClick={handleClose}> {/* שימוש ב-handleClose */}
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-            <button className="popup-close-button" onClick={closeLoginPopup}>×</button>
+            <button className="popup-close-button" onClick={handleClose}>×</button> {/* שימוש ב-handleClose */}
             <div className="auth-page">
               <div className="auth-header">
                 <h2>התחברות</h2>
