@@ -27,7 +27,7 @@ app.use('/menu', menuRoutes);
 app.use('/orders', orderRoutes);
 app.use('/branch', branchRoutes);
 app.use('/auth', authRoutes); // Register the auth routes
-app.use('/admins', adminRoutes);
+app.use('/admin', adminRoutes);
 //app.use('/admin/menu', menuRoutes);
 
 // Start the server

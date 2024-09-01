@@ -4,13 +4,11 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    // Retrieve user data from sessionStorage if it exists
     const savedUser = sessionStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
   useEffect(() => {
-    // Save user data to sessionStorage on change
     if (user) {
       sessionStorage.setItem('user', JSON.stringify(user));
     } else {
@@ -20,7 +18,8 @@ export function AuthProvider({ children }) {
 
   const login = (userData) => {
     // Store user data with role/type
-    setUser(userData);
+    const isAdmin = userData.isAdmin;
+    setUser({ ...userData, isAdmin }); // Adding isAdmin to user state
   };
 
   const logout = () => {
@@ -33,6 +32,7 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
 
 export function useAuth() {
   return useContext(AuthContext);

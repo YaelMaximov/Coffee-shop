@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from './AuthProvider'; // Import the auth context
 import './Navbar.css';
 import logo from './Design 7.png';
 import LoginPopup from './Login/LoginPage'; // Import the login popup component
 import AdminLoginPopup from './AdminPages/AdminLogin';
+import { useAuth } from './AuthProvider'; // Import the auth context
 
 function Navbar() {
   const { user, logout } = useAuth(); // Access the user and logout function from context
@@ -53,39 +53,39 @@ function Navbar() {
 
   return (
     <div>
-      <nav className="navbar">
-        <ul className="navbar-list">
-          {user && user.isAdmin ? (
-            // Navbar for Admin
-            <>
-              <li><Link to="/admin/orders" className="navbar-link">הזמנות אונליין</Link></li>
-              <li><Link to="/admin/menu" className="navbar-link">תפריטים</Link></li>
-              <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
-                <img src={logo} alt="Logo" className="logo-image" />
-                <span className="logo-text">קפה הפוך</span>
-              </li>
-              <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+    <nav className="navbar">
+      <ul className="navbar-list">
+        {user && user.isAdmin ? (
+          // Navbar for Admin
+          <>
+            <li><Link to="/admin/orders" className="navbar-link">הזמנות אונליין</Link></li>
+            <li><Link to="/admin/menu" className="navbar-link">תפריט</Link></li>
+            <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
+              <img src={logo} alt="Logo" className="logo-image" />
+              <span className="logo-text">קפה הפוך</span>
+            </li>
+            <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+            <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
+          </>
+        ) : (
+          // Navbar for Customer
+          <>
+            <li><Link to="/menu" className="navbar-link">תפריט</Link></li>
+            <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
+            <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
+              <img src={logo} alt="Logo" className="logo-image" />
+              <span className="logo-text">קפה הפוך</span>
+            </li>
+            <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+            {user ? (
               <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
-            </>
-          ) : (
-            // Navbar for Customer
-            <>
-              <li><Link to="/menu" className="navbar-link">תפריטים</Link></li>
-              <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
-              <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
-                <img src={logo} alt="Logo" className="logo-image" />
-                <span className="logo-text">קפה הפוך</span>
-              </li>
-              <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
-              {user ? (
-                <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
-              ) : (
-                <li onClick={toggleSidebar} className="navbar-link">התחברות</li>
-              )}
-            </>
-          )}
-        </ul>
-      </nav>
+            ) : (
+              <li onClick={toggleSidebar} className="navbar-link">התחברות</li>
+            )}
+          </>
+        )}
+      </ul>
+    </nav>
 
       {isSidebarOpen && (
         <div className="dropdown-menu">
@@ -93,7 +93,6 @@ function Navbar() {
             {user ? (
               <>
                 <li>שלום, {user.email}</li>
-                {user.isAdmin && <li><a onClick={openAdminLoginPopup}>עריכת סניף</a></li>}
                 <li><a onClick={() => {
                   logout();
                   setIsSidebarOpen(false);

@@ -24,11 +24,11 @@ export default function AdminLoginPage() {
         },
         body: JSON.stringify({ username, password }),
       });
-
+  
       const data = await response.json();
       if (response.ok) {
         setMessage('התחברות הצליחה');
-        login(data.manager); // עדכון פרטי המנהל בקונטקסט
+        login({ ...data.manager, isAdmin: true }); // Set isAdmin to true for admin
         setTimeout(() => {
           window.location.href = 'http://localhost:3000/order';
         }, 1000);
@@ -40,6 +40,8 @@ export default function AdminLoginPage() {
       setMessage('התחברות נכשלה');
     }
   };
+  
+  
 
   const closeLoginPopup = () => {
     setIsOpen(false);

@@ -1,5 +1,15 @@
 const connection = require('./db');
 
+exports.updateBranch = async (branchId, updatedBranch) => {
+  const { address, phone, opening_hours, google_maps_link } = updatedBranch;
+  const query = `
+      UPDATE Branches 
+      SET address = ?, phone = ?, opening_hours = ?, google_maps_link = ?
+      WHERE branch_id = ?
+  `;
+  await connection.query(query, [address, phone, opening_hours, google_maps_link, branchId]);
+};
+
 exports.getBranch = async (req, res) => {
   try {
     const branchId = req.params.branch_id;

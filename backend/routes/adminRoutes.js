@@ -18,4 +18,7 @@ router.put('/updateAdmin/:manager_id', adminOperations.updateAdmin);
 // Route to delete an admin
 router.delete('/deleteAdmin/:manager_id', adminOperations.deleteAdmin);
 
+router.get('/orders', adminOperations.getOrdersForToday);
+
+
 module.exports = router;

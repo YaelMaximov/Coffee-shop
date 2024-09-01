@@ -1,12 +1,11 @@
-// src/AdminPages/AdminOrderPage.js
-
 import React, { useState, useEffect } from 'react';
-//import './AdminOrderPage.css'; // Create this file for styling
+// import './AdminOrderPage.css'; // Ensure you have styles for the new filter feature
 
 export default function AdminOrderPage() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filter, setFilter] = useState('all'); // New state for filtering
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -27,25 +26,46 @@ export default function AdminOrderPage() {
     fetchOrders();
   }, []);
 
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
+
+  const filteredOrders = orders.filter(order => {
+    if (filter === 'all') return true;
+    return order.order_type === filter;
+  });
+
   if (isLoading) return <p>Loading orders...</p>;
   if (error) return <p>Error loading orders: {error}</p>;
 
   return (
     <div className="admin-order-page">
       <h1>Today's Orders</h1>
-      {orders.length > 0 ? (
+
+      {/* Filter Dropdown */}
+      <div className="order-filter">
+        <label htmlFor="filter">Filter by Order Type: </label>
+        <select id="filter" value={filter} onChange={handleFilterChange}>
+          <option value="all">All</option>
+          <option value="משלוח">משלוח</option>
+          <option value='איסוף  עצמי'>איסוף עצמי</option>
+        </select>
+      </div>
+
+      {filteredOrders.length > 0 ? (
         <ul className="order-list">
-          {orders.map((order) => (
+          {filteredOrders.map((order) => (
             <li key={order.id} className="order-item">
-              <p><strong>Order ID:</strong> {order.id}</p>
-              <p><strong>Customer:</strong> {order.customer_name}</p>
-              <p><strong>Total:</strong> ${order.total}</p>
-              <p><strong>Status:</strong> {order.status}</p>
+              <p><strong>Order ID:</strong> {order.order_id}</p>
+              <p><strong>Customer:</strong> {order.member_id}</p>
+              <p><strong>Total:</strong> ${order.total_price}</p>
+              <p><strong>Type:</strong> {order.order_type}</p>
+              <p><strong>Notes:</strong> {order.notes}</p>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No orders found for today.</p>
+        <p>No orders found for the selected filter.</p>
       )}
     </div>
   );

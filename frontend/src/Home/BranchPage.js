@@ -64,7 +64,7 @@ export default function BranchPage() {
           <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
 
           {/* Show the edit button only if the user is an admin */}
-          {user && user.role === 'admin' && (
+          {user && user.isAdmin  && (
             <button onClick={() => setIsEditPopupOpen(true)}>Edit Branch</button>
           )}
         </div>

@@ -20,11 +20,11 @@ export default function LoginPage({ onClose }) { // קבלת הפונקציה כ
         },
         body: JSON.stringify({ email }),
       });
-
+  
       const data = await response.json();
       if (response.ok) {
         setMessage('ההתחברות בוצעה בהצלחה');
-        login(data.member);
+        login({ ...data.member, isAdmin: false }); // Set isAdmin to false for regular user
         setTimeout(() => {
           window.location.href = 'http://localhost:3000/order';
         }, 1000);
@@ -36,6 +36,7 @@ export default function LoginPage({ onClose }) { // קבלת הפונקציה כ
       setMessage('התחברות נכשלה');
     }
   };
+  
 
   const openRegistrationPopup = () => {
     setIsRegistrationOpen(true);

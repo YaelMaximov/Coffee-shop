@@ -63,4 +63,17 @@ exports.deleteAdmin = async (req, res) => {
   }
 };
 
+exports.getOrdersForToday = async (req, res) => {
+  try {
+    const query = `
+        SELECT * FROM Orders
+    `;
+    const [rows] = await connection.query(query);
+    res.json(rows);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).send('Error fetching orders');
+  }
+};
+
 

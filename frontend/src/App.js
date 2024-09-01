@@ -35,15 +35,11 @@ function App() {
               <Route path="/order" element={<OrderPage />} />
               <Route path="/payment" element={<PaymentPage />} />
               <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
-
-              {/* Admin routes */}
-              {user && user.role === 'admin' && (
-                <>
-                  <Route path="/admin/branch-edit/:branchId" element={<AdminBranchEditPage />} />
-                  <Route path="/admin/orders" element={<AdminOrderPage />} />
-                  <Route path="/admin/menu" element={<AdminMenuPage />} />
-                </>
-              )}
+              
+              <Route path="/admin/branch-edit/:branchId" element={<BranchPage />} />
+              <Route path="/admin/orders" element={<AdminOrderPage />} />
+              <Route path="/admin/menu" element={<AdminMenuPage />} />
+               
 
               {/* Redirect to client mode if user is not admin */}
               <Route path="*" element={<Navigate to="/" />} />
