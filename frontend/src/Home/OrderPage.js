@@ -94,6 +94,35 @@ export default function OrderPage() {
       </div>
 
       <div className="content-wrapper">
+      <div className="category-navigation">
+          <h3>קטגוריות</h3>
+          <ul>
+            {categories.map((category) => (
+              <li
+                key={category}
+                className={category === selectedCategory ? 'active' : ''}
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="menu-list">
+          {filteredMenu.map((dish) => (
+            <div className="menu-item" key={dish.dish_id}>
+              <div className="item-info">
+                <div className="item-description">
+                  <h3>{dish.name}</h3>
+                  <p>{dish.description}</p>
+                  <p>₪{dish.price}</p>
+                  <button className="add-to-cart" onClick={() => setSelectedDish(dish)}>הוסף לסל</button>
+                </div>
+                <img src={dish.image_url} alt={dish.name} className="dish-image" />
+              </div>
+            </div>
+          ))}
+        </div>
         <div className="cart-summary">
           <h3>סיכום הזמנה</h3>
           {cart.length === 0 ? (
@@ -131,36 +160,7 @@ export default function OrderPage() {
           <button className="checkout-button" disabled={cart.length === 0} onClick={handlePayment}>לתשלום</button>
         </div>
 
-        <div className="menu-list">
-          {filteredMenu.map((dish) => (
-            <div className="menu-item" key={dish.dish_id}>
-              <div className="item-info">
-                <div className="item-description">
-                  <h3>{dish.name}</h3>
-                  <p>{dish.description}</p>
-                  <p>₪{dish.price}</p>
-                  <button className="add-to-cart" onClick={() => setSelectedDish(dish)}>הוסף לסל</button>
-                </div>
-                <img src={dish.image_url} alt={dish.name} className="dish-image" />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="category-navigation">
-          <h3>קטגוריות</h3>
-          <ul>
-            {categories.map((category) => (
-              <li
-                key={category}
-                className={category === selectedCategory ? 'active' : ''}
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </li>
-            ))}
-          </ul>
-        </div>
+        
       </div>
 
       {selectedDish && (

@@ -58,30 +58,31 @@ function Navbar() {
         {user && user.isAdmin ? (
           // Navbar for Admin
           <>
-            <li><Link to="/admin/orders" className="navbar-link">הזמנות אונליין</Link></li>
-            <li><Link to="/admin/menu" className="navbar-link">תפריט</Link></li>
+            <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
+            <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
             <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
               <img src={logo} alt="Logo" className="logo-image" />
               <span className="logo-text">קפה הפוך</span>
             </li>
-            <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
-            <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
+            <li><Link to="/admin/menu" className="navbar-link">תפריט</Link></li>
+            <li><Link to="/admin/orders" className="navbar-link">הזמנות אונליין</Link></li>
           </>
         ) : (
           // Navbar for Customer
           <>
-            <li><Link to="/menu" className="navbar-link">תפריט</Link></li>
-            <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
-            <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
-              <img src={logo} alt="Logo" className="logo-image" />
-              <span className="logo-text">קפה הפוך</span>
-            </li>
-            <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
-            {user ? (
+          {user ? (
               <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
             ) : (
               <li onClick={toggleSidebar} className="navbar-link">התחברות</li>
             )}
+            <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+            <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
+              <img src={logo} alt="Logo" className="logo-image" />
+              <span className="logo-text">קפה הפוך</span>
+            </li>
+            <li><Link to="/menu" className="navbar-link">תפריט</Link></li>
+            <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
+            
           </>
         )}
       </ul>
