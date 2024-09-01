@@ -8,6 +8,7 @@ const menuRoutes = require('./routes/menuRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const branchRoutes = require('./routes/branchRoutes');
 const authRoutes = require('./routes/authRoutes'); // Importing the auth routes
+const adminRoutes = require('./routes/adminRoutes');
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
@@ -26,6 +27,8 @@ app.use('/menu', menuRoutes);
 app.use('/orders', orderRoutes);
 app.use('/branch', branchRoutes);
 app.use('/auth', authRoutes); // Register the auth routes
+app.use('/admins', adminRoutes);
+//app.use('/admin/menu', menuRoutes);
 
 // Start the server
 app.listen(port, () => {

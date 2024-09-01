@@ -63,3 +63,28 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: 'Server error during login.' });
   }
 };
+
+// Admin Login Logic
+exports.adminLogin = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Check if the username exists
+    const [manager] = await connection.query('SELECT * FROM Managers WHERE username = ?', [username]);
+
+    if (manager.length === 0) {
+      return res.status(400).json({ message: 'Username not found.' });
+    }
+
+    // Check if the password is correct (no encryption)
+    if (password !== manager[0].password) {
+      return res.status(400).json({ message: 'Incorrect password.' });
+    }
+
+    res.status(200).json({ message: 'Login successful', manager: manager[0] });
+  } catch (error) {
+    console.error('Error during admin login:', error.message);
+    res.status(500).json({ message: 'Server error during login.' });
+  }
+};
+
