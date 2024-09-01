@@ -4,12 +4,14 @@ import { useAuth } from './AuthProvider'; // Import the auth context
 import './Navbar.css';
 import logo from './Design 7.png';
 import LoginPopup from './Login/LoginPage'; // Import the login popup component
+import AdminLoginPopup from './AdminPages/AdminLogin';
 
 function Navbar() {
   const { user, logout } = useAuth(); // Access the user and logout function from context
   const [isRolling, setIsRolling] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false); // State for Login Popup
+  const [isAdminLoginPopupOpen, setIsAdminLoginPopupOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -34,6 +36,14 @@ function Navbar() {
     setIsLoginPopupOpen(false);
   };
 
+  const openAdminLoginPopup = () => {
+    setIsAdminLoginPopupOpen(true);
+  };
+  
+  const closeAdminLoginPopup = () => {
+    setIsAdminLoginPopupOpen(false);
+  };
+
   // Ensure the login popup is closed if the user logs out
   useEffect(() => {
     if (!user) {
@@ -45,20 +55,34 @@ function Navbar() {
     <div>
       <nav className="navbar">
         <ul className="navbar-list">
-          <li><Link to="/menu" className="navbar-link">תפריט</Link></li>
-          <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
-          
-          <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
-            <img src={logo} alt="Logo" className="logo-image" />
-            <span className="logo-text">קפה הפוך</span>
-          </li>
-
-          <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
-
-          {user ? (
-            <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
+          {user && user.isAdmin ? (
+            // Navbar for Admin
+            <>
+              <li><Link to="/admin/orders" className="navbar-link">הזמנות אונליין</Link></li>
+              <li><Link to="/admin/menu" className="navbar-link">תפריטים</Link></li>
+              <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
+                <img src={logo} alt="Logo" className="logo-image" />
+                <span className="logo-text">קפה הפוך</span>
+              </li>
+              <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+              <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
+            </>
           ) : (
-            <li onClick={toggleSidebar} className="navbar-link">התחברות</li>
+            // Navbar for Customer
+            <>
+              <li><Link to="/menu" className="navbar-link">תפריטים</Link></li>
+              <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
+              <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
+                <img src={logo} alt="Logo" className="logo-image" />
+                <span className="logo-text">קפה הפוך</span>
+              </li>
+              <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+              {user ? (
+                <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
+              ) : (
+                <li onClick={toggleSidebar} className="navbar-link">התחברות</li>
+              )}
+            </>
           )}
         </ul>
       </nav>
@@ -69,7 +93,7 @@ function Navbar() {
             {user ? (
               <>
                 <li>שלום, {user.email}</li>
-                <li><Link to="/admin" onClick={() => setIsSidebarOpen(false)}>כניסת מנהל</Link></li>
+                {user.isAdmin && <li><a onClick={openAdminLoginPopup}>עריכת סניף</a></li>}
                 <li><a onClick={() => {
                   logout();
                   setIsSidebarOpen(false);
@@ -77,7 +101,7 @@ function Navbar() {
               </>
             ) : (
               <>
-                <li><Link to="/admin" onClick={() => setIsSidebarOpen(false)}>כניסת מנהל</Link></li>
+                <li><a onClick={openAdminLoginPopup}>כניסת מנהל</a></li>
                 <li><a onClick={openLoginPopup}>כניסת לקוח</a></li> {/* Open login popup */}
               </>
             )}
@@ -86,7 +110,11 @@ function Navbar() {
       )}
 
       {isLoginPopupOpen && (
-        <LoginPopup onClose={closeLoginPopup} /> 
+        <LoginPopup onClose={closeLoginPopup} />
+      )}
+
+      {isAdminLoginPopupOpen && (
+        <AdminLoginPopup onClose={closeAdminLoginPopup} />
       )}
     </div>
   );

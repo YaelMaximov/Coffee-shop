@@ -4,13 +4,13 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    // קריאה מ-sessionStorage אם יש נתונים
+    // Retrieve user data from sessionStorage if it exists
     const savedUser = sessionStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
   useEffect(() => {
-    // שמירה ל-sessionStorage בכל שינוי במשתמש
+    // Save user data to sessionStorage on change
     if (user) {
       sessionStorage.setItem('user', JSON.stringify(user));
     } else {
@@ -19,6 +19,7 @@ export function AuthProvider({ children }) {
   }, [user]);
 
   const login = (userData) => {
+    // Store user data with role/type
     setUser(userData);
   };
 
