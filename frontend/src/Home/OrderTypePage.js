@@ -96,10 +96,7 @@ export default function OrderTypePage() {
 
   return (
     <div className="order-type-page">
-      <div className="image-section">
-        <img src="https://parischezsharon.com/wp-content/uploads/2022/04/Paris-chez-Sharon-post-15.jpg" alt="Order Type" />
-      </div>
-
+  
       <div className="form-section">
         <h1>בחירת סוג הזמנה</h1>
         <div className="order-options">
@@ -157,6 +154,11 @@ export default function OrderTypePage() {
 
       {/* הצגת הפופאפ עם פונקציית הסגירה */}
       {isLoginOpen && <LoginPage onClose={handleCloseLogin} />}
+
+      <div className="image-section">
+        <img src="https://parischezsharon.com/wp-content/uploads/2022/04/Paris-chez-Sharon-post-15.jpg" alt="Order Type" />
+      </div>
+
     </div>
   );
 }

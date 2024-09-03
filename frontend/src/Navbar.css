@@ -1,15 +1,22 @@
+/* Fixed navbar at the top */
 .navbar {
     background-color: #fffffffa;
     padding: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    position: relative;
+    position: fixed; /* Change to fixed */
+    top: 0; /* Stick to the top */
     width: 100%;
-    top: 0;
     z-index: 1000;
     height: 80px;
     display: flex;
-    justify-content: space-between; /* שומר את האלמנטים במקום */
+    justify-content: space-between; /* Keeps elements spaced */
     align-items: center;
+    transition: top 0.3s; /* Smooth transition for showing/hiding */
+}
+
+/* Adding margin to the body to prevent overlap */
+body {
+    margin-top: 120px; /* Same height as the navbar to avoid overlap */
 }
 
 .navbar-list {
@@ -33,7 +40,7 @@
     font-size: 24px;
     font-weight: bold;
     padding: 5px 15px;
-    /* transition: color 0.3s, transform 0.3s; */
+    transition: color 0.3s, transform 0.3s; /* Smooth transition for color and hover effect */
 }
 
 .navbar-link:hover {
@@ -49,7 +56,7 @@
     left: 50%;
     background-color: #e4af5f;
     border-radius: 50%;
-    /* transition: width 0.3s, height 0.3s, left 0.3s; */
+    transition: width 0.3s, height 0.3s, left 0.3s; /* Smooth transition for underline effect */
 }
 
 .navbar-list li:not(.navbar-logo):hover::after {
@@ -63,8 +70,8 @@
     align-items: center;
     position: relative;
     transition: transform 1s, margin-left 1s;
-    direction: rtl; /* כיווניות התוכן מימין לשמאל */
-    margin-right: 10px; /* צמצום הרווח בין הלוגו לטקסט */
+    direction: rtl; /* RTL content direction */
+    margin-right: 10px; /* Reduce space between logo and text */
 }
 
 .logo-image {
@@ -78,15 +85,15 @@
 .logo-text {
     font-size: 36px;
     color: #ac8346;
-    position: absolute; /* מאפשר את ההנפשה מבלי להזיז את הכותרות */
-    right: 120px; /* מיקום בהתאם לרוחב הלוגו */
+    position: absolute; /* Allows animation without moving headings */
+    right: 120px; /* Position relative to logo width */
     white-space: nowrap;
     opacity: 1;
     transform: skew(-10deg);
     font-weight: bold;
     overflow: hidden;
     width: 0;
-    border-right: 4px solid #ac8346; /* סמן מהבהב */
+    border-right: 4px solid #ac8346; /* Blinking cursor effect */
     animation: typing-rtl 1.5s steps(20) 0.5s forwards, blink-caret 1s step-end 2s forwards;
 }
 
@@ -95,7 +102,7 @@
         width: 0;
     }
     to {
-        width: 140px; /* התאמה לרוחב הטקסט "קפה הפוך" */
+        width: 140px; /* Adjust width for "קפה הפוך" text */
     }
 }
 
@@ -104,16 +111,16 @@
         border-color: transparent;
     }
     50% {
-        border-color: #ac8346; /* צבע הסמן */
+        border-color: #ac8346; /* Cursor color */
     }
 }
 
 /* Animation for logo rolling to the right */
 .navbar-logo.roll {
-    transform: translateX(50px); /* הלוגו מתגלגל ימינה */
+    transform: translateX(50px); /* Logo rolls to the right */
 }
 
-/* עיצוב למכשירים ניידים */
+/* Mobile adjustments */
 @media (max-width: 768px) {
     .navbar-list {
         flex-direction: column;
@@ -125,6 +132,7 @@
 
     .navbar {
         padding: 20px;
+        top: 0; /* Ensure navbar remains fixed on mobile */
     }
 
     .navbar-link {
@@ -136,49 +144,45 @@
     }
 }
 
-
-/* Navbar.css */
-
-  /* Dropdown Menu Styling */
+/* Dropdown Menu Styling */
 .dropdown-menu {
     position: absolute;
-    top: 120px; /* מתחת לניווט הראשי */
+    top: 80px; /* Adjusted to be below the fixed navbar */
     right: 0;
-    width: 300px; /* רוחב רחב */
-    background-color: #ffffffce; /* צבע רקע תואם */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* צל */
-    z-index: 1001; /* זינדקס גבוה כדי לוודא שהתפריט יופיע מעל כל שאר התוכן */
-  }
-  
-  .dropdown-list {
+    width: 300px; /* Width for dropdown */
+    background-color: #ffffffce;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+}
+
+.dropdown-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
-  }
-  
-  .dropdown-list li {
+}
+
+.dropdown-list li {
     padding: 15px 20px;
     text-align: right;
-  }
-  
-  .dropdown-list li a {
+}
+
+.dropdown-list li a {
     color: #ac8346;
     text-decoration: none;
     font-size: 25px;
     font-weight: bold;
     display: block;
-  }
-  
-  .dropdown-list li a:hover {
+}
+
+.dropdown-list li a:hover {
     color: #e4af5f;
-    background-color: #f5f5f5; /* צבע רקע בעת מעבר */
+    background-color: #f5f5f5; /* Background color on hover */
     border-radius: 5px;
-  }
-  
-  /* התאמה לרוחב המסך */
-  @media (max-width: 768px) {
+}
+
+/* Mobile adjustments for dropdown */
+@media (max-width: 768px) {
     .dropdown-menu {
-      width: 100%; /* התפריט יתפרס על כל רוחב המסך בניידים */
+        width: 100%; /* Full width on mobile */
     }
-  }
-  
+}

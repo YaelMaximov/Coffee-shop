@@ -1,0 +1,243 @@
+.admin-menu-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    position: relative;
+    min-height: 100vh;
+}
+
+.content-container {
+    background-color: rgba(255, 255, 255, 0.938); /* Slightly transparent white background */
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%; /* Adjust width as needed */
+    max-width: 1600px; /* Increased max-width for a larger container */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: to give a subtle shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-box {
+    width: 60%;
+    padding: 12px;
+    margin-bottom: 24px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 3px rgba(19, 17, 17, 0.1);
+}
+
+.menu-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding: 10px;
+    background-color: #fff; /* Background for the navigation block */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-link {
+    font-size: 18px;
+    color: #6a4f4b;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.category-link:hover {
+    background-color: #4e4e4e;
+    color: #fff;
+    border-bottom: none; /* Remove underline on hover */
+}
+
+.category-section {
+    margin-bottom: 60px;
+    width: 100%; /* Adjust width to fit within the content container */
+    max-width: 1200px; /* Max width for each section */
+}
+
+.category-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #2e2220;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.dish-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.dish-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.dish-card {
+    position: relative;
+    width: 1000px; /* Increased width */
+    height: 600px; /* Increased height */
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.5s ease;
+    opacity: 1;
+    transform: scale(1);
+    z-index: 1;
+    margin-bottom: 40px;
+}
+
+.dish-card.active {
+    z-index: 2;
+}
+
+.dish-card img {
+    width: 100%;
+    height: 60%; /* Increased height for image */
+    object-fit: cover;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dish-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0;
+    color: #6a4f4b;
+}
+
+.dish-description {
+    font-size: 16px;
+    color: #777;
+    margin: 0 10px 10px;
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dish-price {
+    font-size: 18px;
+    color: #d1a180;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(106, 79, 75, 0.7);
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 3;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(106, 79, 75, 1);
+}
+
+.carousel-arrow.prev {
+    left: 20px;
+}
+
+.carousel-arrow.next {
+    right: 20px;
+}
+
+.admin-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 20px;
+    background-color: #fafafa;
+    border-top: 1px solid #f0f0f0;
+}
+
+.edit-button,
+.delete-button {
+    background-color: #332927;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.edit-button:hover {
+    background-color: #8c6a5c;
+}
+
+.delete-button:hover {
+    background-color: #b5655e;
+}
+.dish-thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .thumbnail {
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: border 0.3s, transform 0.3s;
+  }
+  
+  .thumbnail img {
+    width: 100px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .thumbnail-name {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+  }
+  
+  .thumbnail:hover {
+    transform: scale(1.05);
+  }
+  
+  .thumbnail.active {
+    border: 2px solid #ff9f00; /* Highlight color for active thumbnail */
+  }

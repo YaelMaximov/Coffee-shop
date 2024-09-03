@@ -126,6 +126,9 @@ CREATE TABLE Managers (
     password VARCHAR(255) NOT NULL -- Manager's hashed password
 );
 
+INSERT INTO Managers (username, password) 
+ VALUES ('orikono', '123');
+ 
 -- Table: Member_Discounts (הנחות לחברי מועדון)
 CREATE TABLE Member_Discounts (
     discount_id INT PRIMARY KEY AUTO_INCREMENT, -- Unique ID for each discount
