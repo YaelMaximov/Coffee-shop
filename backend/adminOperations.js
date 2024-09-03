@@ -67,6 +67,7 @@ exports.getOrdersForToday = async (req, res) => {
   try {
     const query = `
         SELECT * FROM Orders
+        WHERE DATE(order_date) = CURDATE()
     `;
     const [rows] = await connection.query(query);
     res.json(rows);
