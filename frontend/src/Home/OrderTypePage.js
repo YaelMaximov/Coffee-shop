@@ -49,23 +49,47 @@ export default function OrderTypePage() {
   }, []);
 
   const handleContinue = () => {
+    
+    const currentOrder = JSON.parse(localStorage.getItem('currentOrder')) || {};
+
+    if (orderType === 'delivery') {
+        const addressParts = address.split(' ').filter(part => part.trim() !== '');
+        const cityInAddress = addressParts.length > 1 ? addressParts[addressParts.length - 1] : '';
+
+        if (cityInAddress !== 'ירושלים') {
+            setError('אין משלוחים לאזורך.');
+            return;
+        }
+
+        if (addressParts.length < 3) {
+            setError('נא לוודא שהזנת רחוב, מספר בית ועיר.');
+            return;
+        }
+
+        currentOrder.orderType = orderType;
+        currentOrder.address = address;
+    } else if (orderType === 'pickup') {
+        if (branch === '') {
+            setError('Please select a branch for pickup.');
+            return;
+        }
+        currentOrder.orderType = orderType;
+        currentOrder.branch = branch;
+    }
+    
+    localStorage.setItem('currentOrder', JSON.stringify(currentOrder));
+
     if (!user) {
       setIsLoginOpen(true); // פתיחת פופאפ ההתחברות אם המשתמש לא מחובר
       return;
-    }
+  }
 
-    setError('');
-    if (orderType === 'delivery') {
-      navigate('/order', { state: { orderType, address } });
-    } else if (orderType === 'pickup') {
-      if (branch === '') {
-        setError('Please select a branch for pickup.');
-      } else {
-        navigate('/order', { state: { orderType, branch } });
-      }
-    }
-  };
+    navigate('/order');
+};
 
+  
+  
+  
   const handleCloseLogin = () => {
     setIsLoginOpen(false); // פונקציית סגירה לפופאפ ההתחברות
   };

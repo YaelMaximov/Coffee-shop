@@ -47,6 +47,7 @@ CREATE TABLE Orders (
     order_type ENUM('משלוח', 'איסוף עצמי') NOT NULL, -- Type of order: Delivery or Pickup
     total_price DECIMAL(10, 2) NOT NULL, -- Total price of the order
     notes TEXT, -- Optional notes for the order
+    order_date DATE, -- Date of the order
     FOREIGN KEY (member_id) REFERENCES Members(member_id) -- Link to Members table (can be NULL)
 );
 

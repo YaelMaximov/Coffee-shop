@@ -17,6 +17,7 @@ export default function OrderPage() {
   const { orderType, address, branch } = location.state || {};
 
   const handlePayment = () => {
+      //localStorage.setItem('currentOrder', JSON.stringify(currentOrder));
       navigate('/payment', { state: { orderType, address, branch,cart } });
   };
   if (isLoading) {

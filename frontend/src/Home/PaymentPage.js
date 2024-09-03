@@ -9,6 +9,7 @@ export default function PaymentPage() {
   const [cardNumber, setCardNumber] = useState('');
   const [idNumber, setIdNumber] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
+  const [CVV, setCVV] = useState('');
   const [notes, setNotes] = useState('');
   const [fullName,setFullName] = useState('');
   const [errors, setErrors] = useState({});
@@ -166,6 +167,22 @@ const handleChange = (e) => {
                 />
                 {errors.expirationDate && <p>{errors.expirationDate}</p>}
               </div>
+              <div className="form-group">
+              <label htmlFor="cvv">CVV</label>
+              <input
+                type="text"
+                id="cvv"
+                value={CVV}
+                onChange={(e) => setCVV(e.target.value)}
+                maxLength="3"
+                pattern="\d{3}"
+                onInput={(e) => {
+                  e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                }}
+                required
+              />
+              {errors.cvv && <p>{errors.cvv}</p>}
+            </div>
             </div>
           )}
 

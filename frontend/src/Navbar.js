@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from './Design 7.png';
 import LoginPopup from './Login/LoginPage'; // Import the login popup component
@@ -13,6 +13,7 @@ function Navbar() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false); // State for Login Popup
   const [isAdminLoginPopupOpen, setIsAdminLoginPopupOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     setIsRolling(true);
@@ -51,42 +52,47 @@ function Navbar() {
     }
   }, [user]);
 
+  const handleLogout = () => {
+    logout(); // Perform logout
+    setIsSidebarOpen(false); // Close the sidebar
+    navigate('/orderType'); // Redirect to /orderType after logout
+  };
+
   return (
     <div>
-    <nav className="navbar">
-      <ul className="navbar-list">
-        {user && user.isAdmin ? (
-          // Navbar for Admin
-          <>
-            <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
-            <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
-            <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
-              <img src={logo} alt="Logo" className="logo-image" />
-              <span className="logo-text">קפה הפוך</span>
-            </li>
-            <li><Link to="/admin/menu" className="navbar-link">תפריט</Link></li>
-            <li><Link to="/admin/orders" className="navbar-link">הזמנות אונליין</Link></li>
-          </>
-        ) : (
-          // Navbar for Customer
-          <>
-          {user ? (
+      <nav className="navbar">
+        <ul className="navbar-list">
+          {user && user.isAdmin ? (
+            // Navbar for Admin
+            <>
               <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
-            ) : (
-              <li onClick={toggleSidebar} className="navbar-link">התחברות</li>
-            )}
-            <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
-            <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
-              <img src={logo} alt="Logo" className="logo-image" />
-              <span className="logo-text">קפה הפוך</span>
-            </li>
-            <li><Link to="/menu" className="navbar-link">תפריט</Link></li>
-            <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
-            
-          </>
-        )}
-      </ul>
-    </nav>
+              <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+              <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
+                <img src={logo} alt="Logo" className="logo-image" />
+                <span className="logo-text">קפה הפוך</span>
+              </li>
+              <li><Link to="/admin/menu" className="navbar-link">תפריט</Link></li>
+              <li><Link to="/admin/orders" className="navbar-link">הזמנות אונליין</Link></li>
+            </>
+          ) : (
+            // Navbar for Customer
+            <>
+              {user ? (
+                <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
+              ) : (
+                <li onClick={toggleSidebar} className="navbar-link">התחברות</li>
+              )}
+              <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+              <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
+                <img src={logo} alt="Logo" className="logo-image" />
+                <span className="logo-text">קפה הפוך</span>
+              </li>
+              <li><Link to="/menu" className="navbar-link">תפריט</Link></li>
+              <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
+            </>
+          )}
+        </ul>
+      </nav>
 
       {isSidebarOpen && (
         <div className="dropdown-menu">
@@ -94,10 +100,7 @@ function Navbar() {
             {user ? (
               <>
                 <li>שלום, {user.email}</li>
-                <li><a onClick={() => {
-                  logout();
-                  setIsSidebarOpen(false);
-                }}>התנתקות</a></li>
+                <li><a onClick={handleLogout}>התנתקות</a></li>
               </>
             ) : (
               <>

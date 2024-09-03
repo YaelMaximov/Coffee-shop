@@ -24,7 +24,7 @@ export default function LoginPage({ onClose }) { // קבלת הפונקציה כ
       const data = await response.json();
       if (response.ok) {
         setMessage('ההתחברות בוצעה בהצלחה');
-        login({ ...data.member, isAdmin: false }); // Set isAdmin to false for regular user
+        login({ email: data.member.email, isAdmin: false }); // Set isAdmin to false for regular user
         setTimeout(() => {
           window.location.href = 'http://localhost:3000/order';
         }, 1000);
