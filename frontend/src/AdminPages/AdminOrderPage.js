@@ -5,7 +5,7 @@ export default function AdminOrderPage() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('all'); // New state for filtering
+  const [filter, setFilter] = useState('הכל'); // New state for filtering
 
   useEffect(() => {
     const fetchOrders = async () => {
