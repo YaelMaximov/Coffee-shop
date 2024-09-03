@@ -5,7 +5,7 @@ export default function AdminOrderPage() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('all'); // New state for filtering
+  const [filter, setFilter] = useState('הכל'); // New state for filtering
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -31,7 +31,7 @@ export default function AdminOrderPage() {
   };
 
   const filteredOrders = orders.filter(order => {
-    if (filter === 'all') return true;
+    if (filter === 'הכל') return true;
     return order.order_type === filter;
   });
 
@@ -40,13 +40,13 @@ export default function AdminOrderPage() {
 
   return (
     <div className="admin-order-page">
-      <h1>Today's Orders</h1>
+      <h1>ההזמנות של היום</h1>
 
       {/* Filter Dropdown */}
       <div className="order-filter">
-        <label htmlFor="filter">Filter by Order Type: </label>
+        <label htmlFor="filter">סינון לפי סוג הזמנה: </label>
         <select id="filter" value={filter} onChange={handleFilterChange}>
-          <option value="all">All</option>
+          <option value="הכל">הכל</option>
           <option value="משלוח">משלוח</option>
           <option value='איסוף  עצמי'>איסוף עצמי</option>
         </select>
@@ -56,16 +56,16 @@ export default function AdminOrderPage() {
         <ul className="order-list">
           {filteredOrders.map((order) => (
             <li key={order.id} className="order-item">
-              <p><strong>Order ID:</strong> {order.order_id}</p>
-              <p><strong>Customer:</strong> {order.member_id}</p>
-              <p><strong>Total:</strong> ${order.total_price}</p>
-              <p><strong>Type:</strong> {order.order_type}</p>
-              <p><strong>Notes:</strong> {order.notes}</p>
+              <p><strong>מספר הזמנה:</strong> {order.order_id}</p>
+              <p><strong>לקוח:</strong> {order.member_id}</p>
+              <p><strong>סה"כ:</strong> ${order.total_price}</p>
+              <p><strong>סוג הזמנה:</strong> {order.order_type}</p>
+              <p><strong>הערות:</strong> {order.notes}</p>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No orders found for the selected filter.</p>
+        <p>לא נמצאו הזמנות מתאימות.</p>
       )}
     </div>
   );

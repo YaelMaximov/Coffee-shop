@@ -97,7 +97,12 @@ function Navbar() {
       {isSidebarOpen && (
         <div className="dropdown-menu">
           <ul className="dropdown-list">
-            {user ? (
+            {user && user.isAdmin ? (
+              <>
+                <li>שלום, {user.username}</li>
+                <li><a onClick={handleLogout}>התנתקות</a></li>
+              </>
+            ) : user ? (
               <>
                 <li>שלום, {user.email}</li>
                 <li><a onClick={handleLogout}>התנתקות</a></li>

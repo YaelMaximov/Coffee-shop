@@ -70,7 +70,7 @@ export default function OrderTypePage() {
         currentOrder.address = address;
     } else if (orderType === 'pickup') {
         if (branch === '') {
-            setError('Please select a branch for pickup.');
+            setError('אנא בחר סניף מתוך הרשימה');
             return;
         }
         currentOrder.orderType = orderType;
