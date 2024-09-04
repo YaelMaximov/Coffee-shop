@@ -1,93 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap');
+
 .menu-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.search-box {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  height: 110vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f8f8;
+  font-family: 'Heebo', sans-serif;
+  font-size: 34px; /* הגדלת גודל הטקסט */
+  background: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden; /* מניעת גלילה לצדדים */
 }
 
-.search-box:focus {
-  outline: none;
-  box-shadow: 0 0 10px rgba(61, 43, 31, 0.5);
+.flip-book {
+  margin-top: 60px;
 }
 
-.category-section {
-  margin-bottom: 40px;
-  position: relative;
+.page {
+  background: #ebebeb;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cover-page {
+  background-image: url('./menu-background.png'), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  background-size: cover;
+  background-position: center;
+  color: rgb(45, 27, 27);
+  text-align: center;
+  padding: 30px 0;
+}
+
+.restaurant-name {
+  font-family: 'Calibri', serif;
+  font-size: 67px; /* הגדלת גודל שם המסעדה */
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .category-title {
-  text-align: right;
-  margin-bottom: 20px;
-  background-color: #fff;
-  padding: 10px;
+  font-family: 'Calibri', serif;
+  font-size: 50px; /* הגדלת גודל כותרות הקטגוריות */
+  text-align: center;
+  margin: 0;
+  padding: 20px 0;
+  color: #a30b0b;
   border-bottom: 2px solid #ddd;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  transition: background-color 0.3s ease;
 }
 
-.dishes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  animation: fadeIn 0.8s ease;
+.dish-container {
+  text-align: left;
+  padding: 20px;
 }
 
-.dish-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+.dish-item {
+  display: flex;
+  align-items: flex-start;
+  background-color: #ffffff37;
+  margin: 8px 0; /* הקטנת הרווחים בין הכרטיסיות */
+  padding: 15px; /* הגדלת גודל הכרטיסיות */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.dish-image-container {
+  flex: 0 0 220px; /* הגדלת גודל התמונה */
+  height: 170px;
   overflow: hidden;
-  text-align: right;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.dish-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin-right: 15px;
+  box-sizing: border-box; /* הוספת זאת לשימוש בחישוב רוחב */
 }
 
 .dish-image {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.dish-card:hover .dish-image {
+.dish-item:hover .dish-image {
   transform: scale(1.05);
 }
 
-.dish-name, .dish-description, .dish-price {
-  padding: 0 10px;
+.dish-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .dish-name {
-  margin: 10px 0;
+  font-family: 'Calibri', serif;
+  font-size: 32px; /* הגדלת גודל שם המנה */
+  color: #333;
+  margin: 0;
+}
+
+.dish-description {
+  font-size: 34px; /* הגדלת גודל תיאור המנה */
+  color: #666;
+  margin: 5px 0;
 }
 
 .dish-price {
-  font-weight: bold;
+  font-size: 30px; /* הגדלת גודל מחיר המנה */
+  color: #b12704;
+  margin-top: auto;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.flip-navigation {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 20px;
+}
+
+.nav-button {
+  background: #4b4b4b;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.nav-button:hover {
+  background: #333;
+}
+
+.bookmark-container {
+  position: fixed;
+  left: 0;
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 0 5px 5px 0;
+}
+
+.bookmark {
+  background: #a30b0b;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border-radius: 0 5px 5px 0;
+  text-align: left;
+  font-size: 22px; /* הגדלת גודל הכתב בסימניות */
+}
+
+.bookmark:hover {
+  background: #871111;
+}
+
+.loading, .empty-menu, .error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 26px; /* הגדלת גודל הכתב במצבי טעינה ושגיאה */
+}
+
+.refresh-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 22px; /* הגדלת גודל הכתב בכפתור רענון */
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.refresh-button:hover {
+  background-color: #555;
 }

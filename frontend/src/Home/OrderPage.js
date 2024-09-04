@@ -80,7 +80,7 @@ export default function OrderPage() {
       <div className="header-container">
       {/* <img src="https://imageproxy.wolt.com/venue/61eea7232d54f85baeb99f9d/798f6406-81ea-11ec-a506-f20b69867cbd_yaelitz.jpg" alt="תיאור התמונה" className="header-image" /> */}
 
-        <img src="https://scontent.ftlv1-1.fna.fbcdn.net/v/t39.30808-6/224036027_4549182095101665_4841387321191640246_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=pn5LL1_4cWwQ7kNvgHf-9IQ&_nc_ht=scontent.ftlv1-1.fna&_nc_gid=AelG5fdDdk4eaIIjmdwlZUW&oh=00_AYCSkI1_QhqF0IOUoEh1U8y0AbGu5DjYUJxO-teo0rVFpA&oe=66D2D73B" alt="תיאור התמונה" className="header-image" />
+        <img src="https://scontent.ftlv1-1.fna.fbcdn.net/v/t39.30808-6/255245272_4902502489769622_2324489355499356995_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=EAvoMnTGp0gQ7kNvgH_vfTF&_nc_ht=scontent.ftlv1-1.fna&oh=00_AYCTVC6T1vVujJuneON1u-MiUcCxWqmXYYRSz-DLVWFT7w&oe=66DDF9CE" alt="תיאור התמונה" className="header-image" />
       </div>
 
       <div className="menu-header">
