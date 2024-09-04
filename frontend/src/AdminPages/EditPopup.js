@@ -1,11 +1,11 @@
 import React from 'react';
 import './EditPopup.css';
 
-export default function EditPopup({ dish, onClose, onSave }) {
+export default function EditPopup({ dish, onClose, onUpdate }) {
   const [editedDish, setEditedDish] = React.useState(dish);
 
   const handleSave = () => {
-    onSave(editedDish);
+    onUpdate(editedDish);
   };
 
   return (
