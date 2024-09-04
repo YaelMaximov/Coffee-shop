@@ -1,23 +1,31 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-// יצירת ה-Context
+// Creating the OrderContext
 export const OrderContext = createContext();
 
-// קומפוננטת ה-Provider של ההזמנה
+// OrderProvider component
 export const OrderProvider = ({ children }) => {
   const [order, setOrder] = useState({
     items: [],
-    total: 0
+    total: 0,
+    orderType: null,
+    address: '',
+    branch: '',
   });
 
-  // פונקציה לעדכון ההזמנה
+  const clearOrder = () => {
+    sessionStorage.removeItem('order');
+    setOrder([]); // אופציונלי: איפוס מצב ההזמנה ב-state
+};
+
+  // Function to update the order state
   const updateOrder = (newOrder) => {
     setOrder(newOrder);
-    // שמירה ל-Session Storage
+    // Save to sessionStorage
     sessionStorage.setItem('order', JSON.stringify(newOrder));
   };
 
-  // קריאה ל-Session Storage בעת טעינת ה-Provider
+  // Load from sessionStorage when the provider loads
   useEffect(() => {
     const savedOrder = sessionStorage.getItem('order');
     if (savedOrder) {
@@ -26,7 +34,7 @@ export const OrderProvider = ({ children }) => {
   }, []);
 
   return (
-    <OrderContext.Provider value={{ order, updateOrder }}>
+    <OrderContext.Provider value={{ order, updateOrder,clearOrder }}>
       {children}
     </OrderContext.Provider>
   );

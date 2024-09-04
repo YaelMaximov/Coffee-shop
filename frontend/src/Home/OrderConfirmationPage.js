@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './OrderConfirmationPage.css'; // Import your CSS file for styling
+import { OrderContext } from '../OrderProvider';
 
 const OrderConfirmationPage = () => {
+    const { order, updateOrder } = useContext(OrderContext);
+    const cart = order?.items || [];
+    const orderType = order.orderType;
+
     const location = useLocation();
     const {
-        orderType,
+        //orderType,
         address,
         branch,
         paymentMethod,
-        cart = [], // Default to an empty array if cart is undefined
+        //cart = [], // Default to an empty array if cart is undefined
         fullName,
     } = location.state || {}; // Added fullName and branch
 
@@ -20,7 +25,8 @@ const OrderConfirmationPage = () => {
     };
 
     const getTotalPrice = () => {
-        return cart.reduce((total, item) => total + item.totalPrice, 0);
+        //return cart.reduce((total, item) => total + item.totalPrice, 0);
+        return order.total;
     };
 
     return (
@@ -34,7 +40,7 @@ const OrderConfirmationPage = () => {
                 {orderType === 'delivery' ? (
                     <p>ההזמנה תגיע ב {getPickupTime()}.</p>
                 ) : (
-                    <p>ההזמנה שלך מסניף -  {branch} תהיה מוכנה ב {getPickupTime()}.</p>
+                    <p>ההזמנה שלך מסניף {order.branch} תהיה מוכנה ב {getPickupTime()}.</p>
                 )}
             </div>
 

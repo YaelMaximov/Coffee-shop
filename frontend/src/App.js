@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from './AuthProvider';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import MenuPage from "./Home/ViewMenu";
 import { MenuProvider } from './MenuProvider';
+import {OrderProvider} from './OrderProvider'
 import BranchPage from './Home/BranchPage';
 import OrderPage from './Home/OrderPage';
 import OrderTypePage from './Home/OrderTypePage';
@@ -22,6 +23,8 @@ function App() {
 
   return (
     <MenuProvider>
+      <OrderProvider>
+
         <Router>
           <div>
             <Navbar /> {/* Navbar will appear on all pages */}
@@ -46,6 +49,7 @@ function App() {
             </Routes>
           </div>
         </Router>
+      </OrderProvider>
     </MenuProvider>
   );
 }

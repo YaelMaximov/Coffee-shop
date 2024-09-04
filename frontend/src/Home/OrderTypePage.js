@@ -1,102 +1,80 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthProvider';
+import { OrderContext } from '../OrderProvider';
 import './OrderTypePage.css';
 import takeAwayIcon from './take-away.png'; 
 import deliveryIcon from './delivery.png'; 
-import LoginPage from '../Login/LoginPage'; // ייבוא של עמוד ההתחברות
+import LoginPage from '../Login/LoginPage';
 
 export default function OrderTypePage() {
   const [orderType, setOrderType] = useState('delivery');
   const [address, setAddress] = useState('');
   const [branch, setBranch] = useState('');
-  const [city, setCity] = useState('');
-  const [branches, setBranches] = useState([]);
+  const [branches, setBranches] = useState([]); // Define branches state
   const [error, setError] = useState('');
-  const [isLoginOpen, setIsLoginOpen] = useState(false); // ניהול מצב פתיחה של הפופאפ
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { order, updateOrder, clearOrder } = useContext(OrderContext); // Use OrderContext
 
   useEffect(() => {
     const fetchBranches = async () => {
       try {
         const response = await fetch('http://localhost:3010/branch/getAll');
-        
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
         const data = await response.json();
-        console.log('Received data:', data);
-        
-        if (Array.isArray(data)) {
-          setBranches(data);
-          
-          const defaultBranch = data.find(b => b.id === 1);
-          if (defaultBranch) {
-            setBranch(defaultBranch.id);
-          }
-        } else {
-          setError('Unexpected data format from API');
+        setBranches(data); // Set branches with fetched data
+        const defaultBranch = data.find(b => b.id === 1);
+        if (defaultBranch) {
+          setBranch(defaultBranch.id);
         }
       } catch (err) {
         console.error('Error fetching branches:', err);
         setError('Unable to load branches');
       }
     };
-  
     fetchBranches();
+    clearOrder();
   }, []);
 
   const handleContinue = () => {
-    
-    const currentOrder = JSON.parse(localStorage.getItem('currentOrder')) || {};
-
     if (orderType === 'delivery') {
-        const addressParts = address.split(' ').filter(part => part.trim() !== '');
-        const cityInAddress = addressParts.length > 1 ? addressParts[addressParts.length - 1] : '';
-
-        if (cityInAddress !== 'ירושלים') {
-            setError('אין משלוחים לאזורך.');
-            return;
-        }
-
-        if (addressParts.length < 3) {
-            setError('נא לוודא שהזנת רחוב, מספר בית ועיר.');
-            return;
-        }
-
-        currentOrder.orderType = orderType;
-        currentOrder.address = address;
+      const addressParts = address.split(' ').filter(part => part.trim() !== '');
+      const cityInAddress = addressParts.length > 1 ? addressParts[addressParts.length - 1] : '';
+      if (cityInAddress !== 'ירושלים') {
+        setError('אין משלוחים לאזורך.');
+        return;
+      }
+      if (addressParts.length < 3) {
+        setError('נא לוודא שהזנת רחוב, מספר בית ועיר.');
+        return;
+      }
+      updateOrder({ ...order, orderType, address }); // Update OrderContext
     } else if (orderType === 'pickup') {
-        if (branch === '') {
-            setError('אנא בחר סניף מתוך הרשימה');
-            return;
-        }
-        currentOrder.orderType = orderType;
-        currentOrder.branch = branch;
+      if (branch === '') {
+        setError('אנא בחר סניף מתוך הרשימה');
+        return;
+      }
+      updateOrder({ ...order, orderType, branch }); // Update OrderContext
     }
-    
-    localStorage.setItem('currentOrder', JSON.stringify(currentOrder));
 
     if (!user) {
-      setIsLoginOpen(true); // פתיחת פופאפ ההתחברות אם המשתמש לא מחובר
+      setIsLoginOpen(true);
       return;
-  }
+    }
 
     navigate('/order');
-};
+  };
 
-  
-  
-  
   const handleCloseLogin = () => {
-    setIsLoginOpen(false); // פונקציית סגירה לפופאפ ההתחברות
+    setIsLoginOpen(false);
   };
 
   return (
     <div className="order-type-page">
-  
       <div className="form-section">
         <h1>בחירת סוג הזמנה</h1>
         <div className="order-options">
@@ -125,7 +103,6 @@ export default function OrderTypePage() {
               value={address}
               onChange={(e) => {
                 setAddress(e.target.value);
-                setCity(e.target.value.split(', ').pop());
               }}
             />
           </div>
@@ -152,13 +129,11 @@ export default function OrderTypePage() {
         </button>
       </div>
 
-      {/* הצגת הפופאפ עם פונקציית הסגירה */}
-      {isLoginOpen && <LoginPage onClose={handleCloseLogin} />}
+      {isLoginOpen && <LoginPage onClose={() => setIsLoginOpen(false)} />}
 
       <div className="image-section">
         <img src="https://parischezsharon.com/wp-content/uploads/2022/04/Paris-chez-Sharon-post-15.jpg" alt="Order Type" />
       </div>
-
     </div>
   );
 }
