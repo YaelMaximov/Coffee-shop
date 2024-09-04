@@ -1,50 +1,47 @@
-import React, { useState } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom';
+
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMenu } from '../MenuProvider';
+import { OrderContext } from '../OrderProvider'; // Import OrderContext
 import './OrderPage.css';
 import DishPopup from './DishPopup';
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+
 export default function OrderPage() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { menu, isLoading, error } = useMenu();
   const [selectedCategory, setSelectedCategory] = useState('ארוחת בוקר');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDish, setSelectedDish] = useState(null);
-  const [cart, setCart] = useState([]);//list of dishes in the order
   const [editIndex, setEditIndex] = useState(null);
-  const { orderType, address, branch } = location.state || {};
+  const { order, updateOrder } = useContext(OrderContext); // Use OrderContext
+  //const { items: cart } = order;
+  const cart = order?.items || [];
+
 
   const handlePayment = () => {
-      //localStorage.setItem('currentOrder', JSON.stringify(currentOrder));
-      navigate('/payment', { state: { orderType, address, branch,cart } });
+    updateOrder({ ...order, items: cart, total: getTotalPrice() }); // Update OrderContext
+    navigate('/payment');
   };
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   const categories = [...new Set(menu.map((dish) => dish.category))];
   const filteredMenu = menu.filter(
     (dish) =>
       dish.category === selectedCategory &&
       dish.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   const addToCart = (orderItem) => {
     if (editIndex !== null) {
-      setCart(prevCart =>
-        prevCart.map((item, i) =>
-          i === editIndex ? orderItem : item
-        )
-      );
+      updateOrder({
+        ...order,
+        items: cart.map((item, i) => (i === editIndex ? orderItem : item)),
+      });
       setEditIndex(null);
     } else {
-      setCart(prevCart => [...prevCart, orderItem]);
+      updateOrder({
+        ...order,
+        items: [...cart, orderItem],
+      });
     }
   };
 
@@ -54,25 +51,35 @@ export default function OrderPage() {
 
   const handleEditItem = (index) => {
     const dishId = cart[index].id;
-    const editDish = menu.find(dish => dish.dish_id === dishId);
+    const editDish = menu.find((dish) => dish.dish_id === dishId);
     setSelectedDish(editDish);
     setEditIndex(index);
   };
 
   const handleDeleteItem = (index) => {
-    setCart(cart.filter((_, i) => i !== index));
+    updateOrder({
+      ...order,
+      items: cart.filter((_, i) => i !== index),
+    });
   };
 
   const handleQuantityChange = (index, newQuantity) => {
     const dishId = cart[index].id;
-    const dishPrice = menu.find(dish => dish.dish_id === dishId).price;
-    setCart(cart.map((item, i) =>
-      i === index ? { ...item, quantity: newQuantity, totalPrice: dishPrice * newQuantity } : item
-    ));
+    const dishPrice = menu.find((dish) => dish.dish_id === dishId).price;
+    updateOrder({
+      ...order,
+      items: cart.map((item, i) =>
+        i === index
+          ? { ...item, quantity: newQuantity, totalPrice: dishPrice * newQuantity }
+          : item
+      ),
+    });
   };
-
   const handleResetOrder = () => {
-    setCart([]);
+    updateOrder({
+      ...order,
+      items: [], // Clear the cart
+    });
   };
 
   return (

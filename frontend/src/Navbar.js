@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from './Design 7.png';
 import LoginPopup from './Login/LoginPage'; // Import the login popup component
 import AdminLoginPopup from './AdminPages/AdminLogin';
 import { useAuth } from './AuthProvider'; // Import the auth context
+import { OrderContext } from './OrderProvider';
 
 function Navbar() {
   const { user, logout } = useAuth(); // Access the user and logout function from context
+  const {clearOrder} = useContext(OrderContext);
   const [isRolling, setIsRolling] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false); // State for Login Popup
@@ -53,6 +55,7 @@ function Navbar() {
   }, [user]);
 
   const handleLogout = () => {
+    clearOrder();
     logout(); // Perform logout
     setIsSidebarOpen(false); // Close the sidebar
     navigate('/orderType'); // Redirect to /orderType after logout
