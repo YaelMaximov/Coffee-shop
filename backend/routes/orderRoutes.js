@@ -1,30 +1,23 @@
-// routes/orderRoutes.js
 const express = require('express');
 const router = express.Router();
+const orderOperations = require('../orderOperations'); // נוסיף את הפעולות שקשורות להזמנה
 
-// // Route for getting all dishes
-// router.get('/getOrderMenu', orderController.getOrderMenu);
+//Route for creating a new Address
+router.post('/createAddress', orderOperations.createAddress);
 
-// routes/orderRoutes.js
+// Route for creating a new order
+router.post('/save', orderOperations.createOrder);
 
-router.post('/', (req, res) => {
-    const { member_id, order_type, total_price, notes, order_date } = req.body;
-    
-    const query = `INSERT INTO orders (member_id, order_type, total_price, notes, order_date) VALUES (?, ?, ?, ?, ?)`;
-    
-    req.db.query(query, [member_id, order_type, total_price, notes, order_date], (error, results) => {
-        if (error) {
-            return res.status(500).json({ error: error.message });
-        }
-        res.status(201).json({ order_id: results.insertId });
-    });
-});
+// Route for adding dishes to an order
+router.post('/saveDishes', orderOperations.addOrderDishes);
 
-module.exports = router;
+// Route for adding extras to a dish in an order
+router.post('/addDishExtras', orderOperations.addOrderDishExtras);
 
+// Route for creating a delivery order
+router.post('/saveDelivery', orderOperations.createDeliveryOrder);
 
-
-// // Route for getting order items for a specific order
-// router.get('/orderItems/:orderId', orderController.getOrderItems);
+// Route for creating a pickup order
+router.post('/savePickup', orderOperations.createPickupOrder);
 
 module.exports = router;

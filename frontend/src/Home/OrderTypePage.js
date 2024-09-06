@@ -40,7 +40,7 @@ export default function OrderTypePage() {
     clearOrder();
   }, []);
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (orderType === 'delivery') {
       const addressParts = address.split(' ').filter(part => part.trim() !== '');
       const cityInAddress = addressParts.length > 1 ? addressParts[addressParts.length - 1] : '';
@@ -52,22 +52,66 @@ export default function OrderTypePage() {
         setError('נא לוודא שהזנת רחוב, מספר בית ועיר.');
         return;
       }
-      updateOrder({ ...order, orderType, address }); // Update OrderContext
+  
+      try {
+        // Split address into street, house number, city, and optional apartment, entrance, and floor
+        const [street, houseNumber, city, apartment = '', entrance = '', floor = ''] = parseAddress(address);
+  
+        // Send the address to the server and get the address_id in return
+        const response = await fetch('http://localhost:3010/order/createAddress', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            street,
+            house_number: houseNumber,
+            city,
+            apartment,
+            entrance,
+            floor,
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to save address');
+        }
+  
+        const { address_id } = await response.json();
+  
+        // Update the order with orderType and address_id
+        updateOrder({ ...order, orderType, address_id });
+        
+      } catch (err) {
+        setError('Error saving the address');
+        console.error(err);
+        return;
+      }
     } else if (orderType === 'pickup') {
       if (branch === '') {
         setError('אנא בחר סניף מתוך הרשימה');
         return;
       }
-      updateOrder({ ...order, orderType, branch }); // Update OrderContext
+      updateOrder({ ...order, orderType, branch });
     }
-
+  
     if (!user) {
       setIsLoginOpen(true);
       return;
     }
-
+  
     navigate('/order');
   };
+  
+  // Utility function to parse address
+  const parseAddress = (address) => {
+    const addressParts = address.split(' ');
+    const city = addressParts[addressParts.length - 1];
+    const houseNumber = addressParts[addressParts.length - 2];
+    const street = addressParts.slice(0, addressParts.length - 2).join(' '); // Everything before house number and city
+    return [street, houseNumber, city];
+  };
+  
 
   const handleCloseLogin = () => {
     setIsLoginOpen(false);

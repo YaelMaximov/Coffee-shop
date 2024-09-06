@@ -3,6 +3,8 @@ const app = express();
 const port = 3010;
 const cors = require('cors');
 const jwt=require("jsonwebtoken");
+const bodyParser = require('body-parser');
+
 
 const menuRoutes = require('./routes/menuRoutes');
 const orderRoutes = require('./routes/orderRoutes');
@@ -12,6 +14,7 @@ const adminRoutes = require('./routes/adminRoutes');
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
+app.use(bodyParser.json());
 
 // Connect to the database
 const connection = require('./db');
@@ -24,7 +27,7 @@ app.use((req, res, next) => {
 
 // Use the routes
 app.use('/menu', menuRoutes);
-app.use('/orders', orderRoutes);
+app.use('/order', orderRoutes);
 app.use('/branch', branchRoutes);
 app.use('/auth', authRoutes); // Register the auth routes
 app.use('/admin', adminRoutes);
