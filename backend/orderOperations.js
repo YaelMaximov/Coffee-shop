@@ -36,14 +36,17 @@ exports.addOrderDishes = async (req, res) => {
                 continue;
             }
 
-            const query = `
+            const insertQuery = `
                 INSERT INTO Order_Dishes (order_id, dish_id, quantity)
                 VALUES (?, ?, ?)
             `;
 
-            const result = await connection.query(query, [order_id, dish.id, dish.quantity]);
+            const result = await connection.query(insertQuery, [order_id, dish.id, dish.quantity]);
+            const insertId =  result[0].insertId;  // גישה ל-insertId
+            console.log('Insert result:', insertId);
+
             savedDishes.push({
-                order_dish_id: result.insertId,
+                order_dish_id: insertId,
                 ...dish
             });
         }
@@ -57,51 +60,59 @@ exports.addOrderDishes = async (req, res) => {
 
 // Add extras to a dish in the order
 exports.addOrderDishExtras = async (req, res) => {
-    const { order_dish_id, extras } = req.body;
-  
-    if (!extras || Object.keys(extras).length === 0) {
-      return res.status(400).json({ message: 'No extras provided' });
-    }
-  
-    try {
-      // Iterate over each category in the extras object
-      for (const category in extras) {
-        if (Array.isArray(extras[category])) {
-          // Iterate over each extra in the category
-          for (const extra of extras[category]) {
-            const getExtraIdQuery = `
-              SELECT extra_id FROM Extras
-              WHERE name = ? AND category = ?
-            `;
-  
-            const [rows] = await connection.query(getExtraIdQuery, [extra.name, extra.category]);
-  
-            if (rows.length === 0) {
-              console.error(`Extra not found for name: ${extra.name}, category: ${extra.category}`);
-              return res.status(404).json({ message: `Extra not found: ${extra.name}` });
-            }
-  
-            const extra_id = rows[0].extra_id; // Get the extra_id from the query result
-  
-            // Now insert the extra into Order_Dish_Extras with the retrieved extra_id
-            const insertExtraQuery = `
-              INSERT INTO Order_Dish_Extras (order_dish_id, extra_id)
-              VALUES (?, ?)
-            `;
-            await connection.query(insertExtraQuery, [order_dish_id, extra_id]);
-          }
-        }
+  const { order_dish_id, extras,category } = req.body;
+  console.log('Received order_dish_id:', order_dish_id);
+  console.log('Received extras:', JSON.stringify(extras, null, 2));
+
+  if (!extras || !Array.isArray(extras) || extras.length === 0) {
+    console.error('No valid extras provided');
+    return res.status(400).json({ message: 'No valid extras provided' });
+  }
+
+  try {
+    console.log('Processing extras...');
+
+    for (const extra of extras) {
+      console.log(`Processing extra: ${extra.name}, category: ${category}`);
+
+      if (!extra.name || !extra.category) {
+        console.error(`Invalid extra format: ${extra}`);
+        continue;
       }
-  
-      res.status(200).json({ message: 'Extras added successfully' });
-    } catch (err) {
-      console.error('Error adding extras:', err);
-      res.status(500).json({ message: 'Failed to add extras' });
+
+      const getExtraIdQuery = `
+        SELECT extra_id FROM Extras
+        WHERE name = ? AND category = ?
+      `;
+
+      const [rows] = await connection.query(getExtraIdQuery, [extra.name, category]);
+
+      if (rows.length === 0) {
+        console.error(`Extra not found for name: ${extra.name}, category: ${category}`);
+        continue;
+      }
+
+      const extra_id = rows[0].extra_id;
+      console.log(`Found extra_id: ${extra_id} for extra: ${extra.name}, category: ${category}`);
+
+      const insertExtraQuery = `
+        INSERT INTO Order_Dish_Extras (order_dish_id, extra_id)
+        VALUES (?, ?)
+      `;
+
+      const insertResult = await connection.query(insertExtraQuery, [order_dish_id, extra_id]);
+      console.log(`Inserted extra for order_dish_id: ${order_dish_id}, extra_id: ${extra_id}, result:`, insertResult);
     }
-  };
-  
-  
-  
+
+    res.status(200).json({ message: 'Extras added successfully' });
+  } catch (err) {
+    console.error('Error adding extras:', err);
+    res.status(500).json({ message: 'Failed to add extras' });
+  }
+};
+
+
+
 
 // Create a delivery order
 exports.createDeliveryOrder = async (req, res) => {

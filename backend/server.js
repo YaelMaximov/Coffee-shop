@@ -15,6 +15,7 @@ const adminRoutes = require('./routes/adminRoutes');
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to the database
 const connection = require('./db');

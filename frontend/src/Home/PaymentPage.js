@@ -90,6 +90,7 @@ export default function PaymentPage() {
         });
   
         const orderDishesData = await orderDishesResponse.json();
+        console.log(orderDishesData);
 
         if (orderDishesResponse.ok) {
           // Step 3: Handle extras for each dish
@@ -105,18 +106,26 @@ export default function PaymentPage() {
                 const categoryExtras = dish.extras[category]; // Get the array of extras for this category
   
                 if (Array.isArray(categoryExtras) && categoryExtras.length > 0) {
+                  
                   console.log(`Extras for category ${category}:`, categoryExtras);
-  
-                  await fetch('http://localhost:3010/order/addDishExtras', {
+                  console.log("Sending extras for dish:", dish);
+
+                  await fetch('http://localhost:3010/order/addOrderDishExtras', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
                       order_dish_id: order_dish_id, // Ensure this contains the correct dish ID
-                      extras: categoryExtras, // Send the extras for this category
+                      extras: categoryExtras,
+                      category:category // Send the extras for this category
                     }),
-                  });
+                  })
+                  .then(response => response.json())
+                  .then(data => console.log("Extras added:", data))
+                  .catch(error => console.error("Error adding extras:", error));
+
+                  
                 }
               }
             }

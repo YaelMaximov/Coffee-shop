@@ -12,7 +12,7 @@ router.post('/save', orderOperations.createOrder);
 router.post('/saveDishes', orderOperations.addOrderDishes);
 
 // Route for adding extras to a dish in an order
-router.post('/addDishExtras', orderOperations.addOrderDishExtras);
+router.post('/addOrderDishExtras', orderOperations.addOrderDishExtras);
 
 // Route for creating a delivery order
 router.post('/saveDelivery', orderOperations.createDeliveryOrder);
