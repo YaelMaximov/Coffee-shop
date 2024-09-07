@@ -15,7 +15,7 @@ export default function AdminBranchEditPage() {
   useEffect(() => {
     const fetchBranch = async () => {
       try {
-        const response = await fetch(`http://localhost:3010/admin/branch/${branchId}`);
+        const response = await fetch(`http://localhost:3010/public/getBranch/${branchId}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

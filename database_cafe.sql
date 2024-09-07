@@ -26,16 +26,16 @@ CREATE TABLE Addresses (
     floor VARCHAR(10) -- Floor number (optional)
 );
 
--- Table: Members (חברי מועדון)
 CREATE TABLE Members (
     member_id INT PRIMARY KEY AUTO_INCREMENT, -- Unique ID for each member
     first_name VARCHAR(100) NOT NULL, -- Member's first name
     last_name VARCHAR(100) NOT NULL, -- Member's last name
     gender ENUM('זכר', 'נקבה'), -- Member's gender
     phone VARCHAR(20) NOT NULL, -- Member's phone number
-    email VARCHAR(255) NOT NULL, -- Member's email
+    email VARCHAR(255) NOT NULL UNIQUE, -- Member's email (Unique constraint added for email)
     birthdate DATE, -- Member's birthdate
     address_id INT, -- Foreign key to Addresses table
+    password_hash VARCHAR(255) NOT NULL, -- Hashed password
     FOREIGN KEY (address_id) REFERENCES Addresses(address_id) -- Link to Addresses table
 );
 

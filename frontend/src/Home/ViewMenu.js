@@ -2,19 +2,19 @@ import React, { useRef, useState, useEffect } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { useMenu } from '../MenuProvider';
-import './MenuPage.css';
+import './ViewMenu.css';
 
 export default function MenuPage() {
   const { menu, isLoading, error, refreshMenu } = useMenu();
   const flipBookRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [dimensions, setDimensions] = useState({ width: 700, height: 900 });
-  const dishesPerPage = 3; // מספר המנות בכל עמוד
+  const [dimensions, setDimensions] = useState({ width: 900, height: 1200 });
+  const dishesPerPage = 4; // מספר המנות בכל עמוד
 
   useEffect(() => {
     const updateDimensions = () => {
-      const width = Math.min(700, window.innerWidth - 40);
-      const height = Math.min(900, window.innerHeight - 80);
+      const width = Math.min(900, window.innerWidth - 40);
+      const height = Math.min(1200, window.innerHeight - 80);
       setDimensions({ width, height });
     };
 
@@ -87,10 +87,10 @@ export default function MenuPage() {
         width={dimensions.width}
         height={dimensions.height}
         size="fixed"
-        minWidth={300}
-        maxWidth={700}
-        minHeight={600}
-        maxHeight={900}
+        minWidth={600}
+        maxWidth={900}
+        minHeight={800}
+        maxHeight={1200}
         maxShadowOpacity={0.5}
         showCover={true}
         mobileScrollSupport={true}

@@ -10,35 +10,34 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    direction:rtl;
-    font-size: 24px;
+    direction: rtl;
 }
 
 /* Popup Content */
 .popup-content {
     background-color: #ffffff; /* White background */
     border-radius: 10px;
-    padding: 20px;
-    max-width: 400px;
-    width: 100%;
+    padding: 30px;
+    max-width: 600px; /* Increased max width */
+    width: 90%; /* Increased width */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     position: relative;
 }
 
 /* Close Button */
-.popup-close-button {
+.popup-close {
     position: absolute;
     top: 10px;
     right: 10px;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 30px; /* Larger close button */
     color: #000000; /* Black color */
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
-.popup-close-button:hover {
+.popup-close:hover {
     color: #ff0000; /* Red color on hover */
 }
 
@@ -46,23 +45,27 @@
 .auth-form {
     display: flex;
     flex-direction: column;
+    width:90%;
 }
 
-.auth-form input {
-    padding: 10px;
+.auth-form input,
+.auth-form select {
+    padding: 15px; /* Larger padding */
     border: 1px solid #cccccc;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* Increased margin-bottom */
+    font-size: 18px; /* Larger text size */
 }
 
 .auth-button {
     background-color: #000000; /* Black button */
     color: #ffffff; /* White text */
-    padding: 10px;
+    padding: 15px; /* Larger padding */
     border: none;
     cursor: pointer;
     border-radius: 5px;
     width: 100%;
+    font-size: 18px; /* Larger text size */
     transition: background-color 0.3s ease;
 }
 
@@ -70,56 +73,10 @@
     background-color: #333333; /* Darker black on hover */
 }
 
-/* Auth Footer */
-.auth-footer {
-    margin-top: 10px;
-    text-align: center;
-}
-
-.auth-footer a {
-    color: #000000; /* Black color */
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.auth-footer a:hover {
-    color: #555555; /* Grey on hover */
-}
-
 /* Auth Message */
 .auth-message {
-    margin-top: 10px;
+    margin-top: 15px;
     text-align: center;
     color: #ff0000; /* Red color for error messages */
-}
-
-/* Specific Styles for Each Page */
-.auth-page {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    max-width: 600px;
-    width: 100%;
-}
-
-.auth-page .auth-header {
-    text-align: center;
-}
-
-.auth-page .auth-button {
-    display: block;
-    margin: 20px auto;
-}
-
-.auth-page button.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    font-size: 18px; /* Larger text size */
 }

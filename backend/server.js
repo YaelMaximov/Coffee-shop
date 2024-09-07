@@ -3,15 +3,40 @@ const app = express();
 const port = 3010;
 const cors = require('cors');
 const jwt=require("jsonwebtoken");
+const cookieParser = require('cookie-parser');
 
-const menuRoutes = require('./routes/menuRoutes');
-const orderRoutes = require('./routes/orderRoutes');
-const branchRoutes = require('./routes/branchRoutes');
+
 const authRoutes = require('./routes/authRoutes'); // Importing the auth routes
+const publicRoutes = require('./routes/publicRoutes');
+const clientRoutes = require('./routes/clientRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
-app.use(cors({ origin: '*' }));
+app.use(cookieParser());
+const strictCorsOptions = {
+  origin: 'http://localhost:3000', // ה-origin של הלקוח
+  credentials: true, // מאפשר שליחת credentials (כגון cookies)
+};
+
+const openCorsOptions = {
+  origin: '*', // מאפשר כל origin
+};
+
+
 app.use(express.json());
+
+// השתמש ב-CORS לנתיבים עם הגדרות קפדניות
+app.use('/auth', cors(strictCorsOptions), authRoutes); // נתיב עם CORS קפדני
+app.use('/client', cors(strictCorsOptions), clientRoutes); // נתיב עם CORS קפדני
+
+// השתמש ב-CORS פתוח לנתיבים ציבוריים
+app.use('/public', cors(openCorsOptions), publicRoutes); // נתיב עם CORS פתוח
+
+// השתמש ב-CORS עם קונפיגורציה כללית לנתיבים אחרים (כגון /admin)
+app.use('/admin', cors(strictCorsOptions), adminRoutes); 
+
+
+
+
 
 // Connect to the database
 const connection = require('./db');
@@ -22,13 +47,7 @@ app.use((req, res, next) => {
   next(); // Move on to the next middleware
 });
 
-// Use the routes
-app.use('/menu', menuRoutes);
-app.use('/orders', orderRoutes);
-app.use('/branch', branchRoutes);
-app.use('/auth', authRoutes); // Register the auth routes
-app.use('/admin', adminRoutes);
-//app.use('/admin/menu', menuRoutes);
+
 
 // Start the server
 app.listen(port, () => {

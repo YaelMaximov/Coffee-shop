@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
-// import './AdminOrderPage.css'; // Ensure you have styles for the new filter feature
+import { useAuth } from '../AuthProvider'; // Make sure to import the useAuth hook
 
 export default function AdminOrderPage() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('הכל'); // New state for filtering
+  const [filter, setFilter] = useState('הכל');
+  
+  const { accessToken } = useAuth(); // Get the access token from useAuth
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch('http://localhost:3010/admin/orders'); // Update with your API endpoint
+        const response = await fetch('http://localhost:3010/admin/getOrdersOfToday', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}` // Pass the accessToken in the Authorization header
+          }
+        });
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -24,7 +32,7 @@ export default function AdminOrderPage() {
     };
 
     fetchOrders();
-  }, []);
+  }, [accessToken]);
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
@@ -48,7 +56,7 @@ export default function AdminOrderPage() {
         <select id="filter" value={filter} onChange={handleFilterChange}>
           <option value="הכל">הכל</option>
           <option value="משלוח">משלוח</option>
-          <option value='איסוף  עצמי'>איסוף עצמי</option>
+          <option value='איסוף עצמי'>איסוף עצמי</option>
         </select>
       </div>
 

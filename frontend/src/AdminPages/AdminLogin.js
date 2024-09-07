@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../AuthProvider'; // ייבוא הקונטקסט
+import { useNavigate } from 'react-router-dom'; // ייבוא useNavigate
 import '../Login/auth.css';
 
 export default function AdminLoginPage() {
@@ -8,6 +9,7 @@ export default function AdminLoginPage() {
   const [message, setMessage] = useState('');
   const { login } = useAuth(); // קבלת פונקציית התחברות מהקונטקסט
   const [isOpen, setIsOpen] = useState(true); // חלון פתוח כברירת מחדל
+  const navigate = useNavigate(); // הוק של useNavigate
 
   useEffect(() => {
     // הפופאפ ייפתח אוטומטית כאשר הקומפוננטה נטענת
@@ -22,16 +24,22 @@ export default function AdminLoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // כולל את ה-cookie עם הבקשה
         body: JSON.stringify({ username, password }),
       });
-  
+
       const data = await response.json();
       if (response.ok) {
         setMessage('התחברות הצליחה');
-        login({ ...data.manager, isAdmin: true }); // Set isAdmin to true for admin
-        setTimeout(() => {
-          window.location.href = 'http://localhost:3000/order';
-        }, 1000);
+        // Save the tokens and user details in the auth context
+        login({ 
+          userId: data.userId, 
+          role: data.role,   
+          accessToken: data.accessToken, // אסימון הגישה
+          username: data.username
+        });
+        closeLoginPopup(); // סגור את החלון לאחר התחברות מוצלחת
+        navigate('/admin/menu'); // ניווט לעמוד עריכת התפריט
       } else {
         setMessage(data.message);
       }
@@ -40,8 +48,6 @@ export default function AdminLoginPage() {
       setMessage('התחברות נכשלה');
     }
   };
-  
-  
 
   const closeLoginPopup = () => {
     setIsOpen(false);

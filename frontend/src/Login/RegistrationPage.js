@@ -14,12 +14,19 @@ export default function RegistrationPage({ onClose }) {
   const [apartment, setApartment] = useState('');
   const [entrance, setEntrance] = useState('');
   const [floor, setFloor] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match');
+      return;
+    }
+
     try {
-      // First, save the address
       const addressResponse = await fetch('http://localhost:3010/auth/address', {
         method: 'POST',
         headers: {
@@ -39,7 +46,6 @@ export default function RegistrationPage({ onClose }) {
       if (addressResponse.ok) {
         const addressId = addressData.address_id;
 
-        // Then, save the member with the address_id
         const memberResponse = await fetch('http://localhost:3010/auth/register', {
           method: 'POST',
           headers: {
@@ -53,14 +59,13 @@ export default function RegistrationPage({ onClose }) {
             email,
             birthdate,
             address_id: addressId,
+            password,
           }),
         });
 
         const memberData = await memberResponse.json();
         if (memberResponse.ok) {
-          // Save customer email to local storage
           localStorage.setItem('loggedInUser', JSON.stringify({ email }));
-          // Redirect to the order page
           window.location.href = 'http://localhost:3000/order';
         } else {
           setMessage(memberData.message);
@@ -80,7 +85,6 @@ export default function RegistrationPage({ onClose }) {
         <span className='popup-close' onClick={onClose}>&times;</span>
         <h2 className='auth-header'>הרשמה</h2>
         <form className='auth-form' onSubmit={handleSubmit}>
-          {/* Form Fields */}
           <input
             type="text"
             name="firstName"
@@ -161,6 +165,7 @@ export default function RegistrationPage({ onClose }) {
             placeholder="מספר דירה"
             value={apartment}
             onChange={(e) => setApartment(e.target.value)}
+            required
           />
           <input
             type="text"
@@ -168,6 +173,7 @@ export default function RegistrationPage({ onClose }) {
             placeholder="כניסה"
             value={entrance}
             onChange={(e) => setEntrance(e.target.value)}
+            required
           />
           <input
             type="text"
@@ -175,10 +181,27 @@ export default function RegistrationPage({ onClose }) {
             placeholder="קומה"
             value={floor}
             onChange={(e) => setFloor(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="סיסמה"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="אישור סיסמה"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
           />
           <button className='auth-button' type="submit">Register</button>
         </form>
-        {message && <p>{message}</p>}
+        {message && <p className='auth-message'>{message}</p>}
       </div>
     </div>
   );

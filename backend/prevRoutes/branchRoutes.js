@@ -5,6 +5,9 @@ const branchOperations = require('../branchOperations');
 // Route for getting branch details
 router.get('/getBranch/:branch_id', branchOperations.getBranch);
 router.get('/getAll', branchOperations.getAll);
+
+
+//admin operation
 router.put('/updateBranch/:branchId', async (req, res) => {
     try {
         await branchOperations.updateBranch(req.params.branchId, req.body);

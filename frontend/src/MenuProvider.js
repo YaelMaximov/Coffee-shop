@@ -11,7 +11,7 @@ export function MenuProvider({ children }) {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:3010/menu/getMenu');
+      const response = await fetch('http://localhost:3010/public/getMenu');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

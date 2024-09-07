@@ -1,21 +1,22 @@
-import React, { useState, useContext,useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import logo from './Design 7.png';
+import logo from './imgs/Design 7.png';
 import LoginPopup from './Login/LoginPage'; // Import the login popup component
 import AdminLoginPopup from './AdminPages/AdminLogin';
-import { useAuth } from './AuthProvider'; // Import the auth context
-import { OrderContext } from './OrderProvider';
+import { useAuth } from './AuthProvider'; // Import the useAuth hook
 
 function Navbar() {
-  const { user, logout } = useAuth(); // Access the user and logout function from context
-  const {clearOrder} = useContext(OrderContext);
+  const { auth, logout } = useAuth(); // Destructure logout from useAuth
+  const [username, setUsername] = useState('');
+  const [role, setRole] = useState('');
   const [isRolling, setIsRolling] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false); // State for Login Popup
   const [isAdminLoginPopupOpen, setIsAdminLoginPopupOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate(); // Initialize useNavigate
+  const dropdownRef = useRef(null); // Reference to the dropdown menu
 
   useEffect(() => {
     setIsRolling(true);
@@ -26,13 +27,24 @@ function Navbar() {
     return () => clearTimeout(timer);
   }, [location]);
 
+  useEffect(() => {
+    if (auth.username && auth.role) {
+      setUsername(auth.username);
+      setRole(auth.role);
+    } else {
+      setUsername(''); // Clear username if auth is not set
+      setRole(''); // Clear role if auth is not set
+    }
+  }, [auth]);
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   const openLoginPopup = () => {
     setIsLoginPopupOpen(true);
-    setIsSidebarOpen(false); // Close sidebar when opening login popup
+    setIsAdminLoginPopupOpen(false); // סגור את הפופאפ של מנהל אם הוא פתוח
+    setIsSidebarOpen(false); // סגור את הסיידבר אם הוא פתוח
   };
 
   const closeLoginPopup = () => {
@@ -41,34 +53,51 @@ function Navbar() {
 
   const openAdminLoginPopup = () => {
     setIsAdminLoginPopupOpen(true);
+    setIsLoginPopupOpen(false); // סגור את הפופאפ של לקוח אם הוא פתוח
+    setIsSidebarOpen(false); // סגור את הסיידבר אם הוא פתוח
   };
-  
+
   const closeAdminLoginPopup = () => {
     setIsAdminLoginPopupOpen(false);
   };
 
-  // Ensure the login popup is closed if the user logs out
-  useEffect(() => {
-    if (!user) {
-      setIsLoginPopupOpen(false);
+  const handleLogout = async () => {
+    try {
+      await logout(); // Use the logout function from AuthProvider
+      setIsSidebarOpen(false); // Close the sidebar
+      setUsername(''); // Clear username
+      setRole(''); // Clear role
+      navigate('/orderType'); // Redirect to /orderType after logout
+    } catch (error) {
+      console.error('Logout failed:', error);
     }
-  }, [user]);
-
-  const handleLogout = () => {
-    clearOrder();
-    logout(); // Perform logout
-    setIsSidebarOpen(false); // Close the sidebar
-    navigate('/orderType'); // Redirect to /orderType after logout
   };
+
+  // Close the dropdown menu if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsSidebarOpen(false);
+      }
+      if (event.target.closest('.popup-content') === null) {
+        if (isLoginPopupOpen) closeLoginPopup();
+        if (isAdminLoginPopupOpen) closeAdminLoginPopup();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isLoginPopupOpen, isAdminLoginPopupOpen]);
 
   return (
     <div>
       <nav className="navbar">
         <ul className="navbar-list">
-          {user && user.isAdmin ? (
-            // Navbar for Admin
+          {role === 'admin' ? (
             <>
-              <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
+              <li onClick={toggleSidebar} className="navbar-link">שלום, {username}</li>
               <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
               <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
                 <img src={logo} alt="Logo" className="logo-image" />
@@ -78,10 +107,9 @@ function Navbar() {
               <li><Link to="/admin/orders" className="navbar-link">הזמנות אונליין</Link></li>
             </>
           ) : (
-            // Navbar for Customer
             <>
-              {user ? (
-                <li onClick={toggleSidebar} className="navbar-link">מחובר</li>
+              {username ? (
+                <li onClick={toggleSidebar} className="navbar-link">שלום, {username}</li>
               ) : (
                 <li onClick={toggleSidebar} className="navbar-link">התחברות</li>
               )}
@@ -98,22 +126,22 @@ function Navbar() {
       </nav>
 
       {isSidebarOpen && (
-        <div className="dropdown-menu">
+        <div ref={dropdownRef} className="dropdown-menu">
           <ul className="dropdown-list">
-            {user && user.isAdmin ? (
+            {role === 'admin' ? (
               <>
-                <li>שלום, {user.username}</li>
+                <li>שלום, {username}</li>
                 <li><a onClick={handleLogout}>התנתקות</a></li>
               </>
-            ) : user ? (
+            ) : username ? (
               <>
-                <li>שלום, {user.email}</li>
+                <li>שלום, {username}</li>
                 <li><a onClick={handleLogout}>התנתקות</a></li>
               </>
             ) : (
               <>
                 <li><a onClick={openAdminLoginPopup}>כניסת מנהל</a></li>
-                <li><a onClick={openLoginPopup}>כניסת לקוח</a></li> {/* Open login popup */}
+                <li><a onClick={openLoginPopup}>כניסת לקוח</a></li>
               </>
             )}
           </ul>

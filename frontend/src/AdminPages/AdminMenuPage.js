@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useMenu } from '../MenuProvider';
+import { useAuth } from '../AuthProvider';
 import EditPopup from './EditPopup';
 import * as LucideIcons from 'lucide-react';
 import './AdminMenuPage.css';
 
 export default function AdminMenuPage() {
   const { menu, isLoading, error, refreshMenu } = useMenu();
+  const { accessToken } = useAuth(); // קבלת ה-accessToken מקונטקסט ההתחברות
   const [editingDish, setEditingDish] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeDishIndices, setActiveDishIndices] = useState({});
@@ -17,8 +19,11 @@ export default function AdminMenuPage() {
 
   const handleDelete = async (dishId) => {
     try {
-      const response = await fetch(`http://localhost:3010/menu/deleteDish/${dishId}`, {
+      const response = await fetch(`http://localhost:3010/admin/deleteDish/${dishId}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${accessToken}` // שליחת ה-accessToken
+        }
       });
 
       if (!response.ok) {
@@ -36,9 +41,10 @@ export default function AdminMenuPage() {
     const { dish_id, name, price, description, category, image_url } = dish;
 
     try {
-      const response = await fetch(`http://localhost:3010/menu/updateDish/${dish_id}`, {
+      const response = await fetch(`http://localhost:3010/admin/updateDish/${dish_id}`, {
         method: 'PUT',
         headers: {
+          'Authorization': `Bearer ${accessToken}`, // שליחת ה-accessToken
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, price, description, category, image_url }),

@@ -12,7 +12,7 @@ const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
   useEffect(() => {
     const fetchExtras = async () => {
       try {
-        const response = await fetch(`http://localhost:3010/menu/${dish.dish_id}/extras`);
+        const response = await fetch(`http://localhost:3010/public/${dish.dish_id}/extras`);
         if (response.ok) {
           const data = await response.json();
           setExtras(data);

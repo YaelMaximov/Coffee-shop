@@ -86,11 +86,3 @@ exports.deleteDish = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
-// exports.getMenuCategories
-// exports.getMenuCategories

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../AuthProvider'; // ייבוא הקונטקסט
 import RegistrationPopup from './RegistrationPage'; // ייבוא פופאפ ההרשמה
 import './auth.css';
 
 export default function LoginPage({ onClose }) { // קבלת הפונקציה כ-prop
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState(''); // הוספת state לסיסמא
   const [message, setMessage] = useState('');
   const { login } = useAuth();
   const [isOpen, setIsOpen] = useState(true);
@@ -18,13 +19,25 @@ export default function LoginPage({ onClose }) { // קבלת הפונקציה כ
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, password }),
+        credentials: 'include', // מאפשר שליחת cookies
       });
-  
+      
+
       const data = await response.json();
+      console.log('Response data:', data); // להוסיף לוג כדי לוודא שהנתונים מתקבלים כראוי
+
       if (response.ok) {
         setMessage('ההתחברות בוצעה בהצלחה');
-        login({ email: data.member.email, isAdmin: false }); // Set isAdmin to false for regular user
+
+        // Set the access token and user details in the AuthProvider context
+        login({
+          userId: data.userId, // המזהה של המשתמש
+          role: data.role,     // התפקיד של המשתמש (customer או אחר)
+          accessToken: data.accessToken, // אסימון הגישה
+          username: data.username
+        });
+
         setTimeout(() => {
           window.location.href = 'http://localhost:3000/order';
         }, 1000);
@@ -36,7 +49,6 @@ export default function LoginPage({ onClose }) { // קבלת הפונקציה כ
       setMessage('התחברות נכשלה');
     }
   };
-  
 
   const openRegistrationPopup = () => {
     setIsRegistrationOpen(true);
@@ -73,6 +85,16 @@ export default function LoginPage({ onClose }) { // קבלת הפונקציה כ
                   placeholder="הכנס כתובת מייל"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <label htmlFor="password">סיסמא:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="הכנס סיסמא"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
                 <button className="auth-button" type="submit">התחברות</button>

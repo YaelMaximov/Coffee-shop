@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap');
+
+.menu-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f1f1f1; /* צבע בהיר יותר לרקע העמוד */
+  font-family: 'Heebo', sans-serif;
+  font-size: 18px;
+  background: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.flip-book {
+  margin-top: 20px;
+  height: calc(100vh - 40px);
+}
+
+.page {
+  background: #ffffff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: right;
+  /* border-radius: 12px;  */
+  /* מעוגל פינות לכרטיסיות */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* הצללה קלה לתפריט */
+}
+
+.cover-page {
+  background-image: url('./menu-background.png'), linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+  background-size: cover;
+  background-position: center;
+  color: rgb(45, 27, 27);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.restaurant-name {
+  font-family: 'Calibri', serif;
+  font-size: 50px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.category-title {
+  font-family: 'Calibri', serif;
+  font-size: 30px;
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+  color: #a30b0b;
+  border-bottom: 2px solid #ddd;
+}
+
+.dish-container {
+  text-align: right;
+  padding: 10px;
+}
+
+.dish-item {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 8px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+   /* הצללה קלה לפרטי המנה */
+  width: 90%;
+  min-height: 220px;
+}
+
+.dish-image-container {
+  flex: 0 0 30%; /* התמונה תופסת 30% מרוחב הכרטיסיה */
+  height: 100%; /* התמונה תתפוס את כל גובה הכרטיסיה */
+  overflow: hidden;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-left: 15px;
+}
+
+.dish-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.dish-item:hover .dish-image {
+  transform: scale(1.05);
+}
+
+.dish-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  padding-left: 10px; /* הוספת רווח פנימי בין התמונה לטקסט */
+}
+
+.dish-name {
+  font-family: 'Calibri', serif;
+  font-size: 22px;
+  color: #333;
+  margin: 0;
+}
+
+.dish-description {
+  font-size: 18px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.dish-price {
+  font-size: 20px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.flip-navigation {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.nav-button {
+  background-color: #3e2723;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+.nav-button:hover:not(:disabled) {
+  background-color: #5d4037;
+}

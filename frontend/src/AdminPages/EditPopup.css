@@ -1,28 +1,95 @@
-/* Popup.css */
+/* עיצוב שכבת הרקע של הפופאפ */
 .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .popup-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .popup-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* כהה יותר לרקע */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* עיצוב התוכן של הפופאפ */
+.popup-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  color: #000; /* צבע טקסט שחור */
+  border: 1px solid #ddd; /* גבול קל סביב הכרטיסיה */
+}
+
+/* עיצוב הכותרת של הפופאפ */
+.popup-title {
+  margin-bottom: 20px;
+  font-size: 24px; /* גודל טקסט גדול יותר */
+  font-weight: bold;
+  color: #000; /* צבע טקסט שחור */
+}
+
+/* עיצוב הטופס בתוך הפופאפ */
+.popup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 18px; /* גודל טקסט גדול יותר */
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 16px; /* גודל טקסט גדול יותר */
+  resize: none; /* ביטול שינוי גודל עבור textarea */
+}
+
+/* עיצוב תיבת הטקסט */
+.form-textarea {
+  min-height: 100px;
+}
+
+/* עיצוב כפתורי הפעולה */
+.popup-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-button {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-size: 18px; /* גודל טקסט גדול יותר */
+  cursor: pointer;
+  margin-left: 10px;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.save-button {
+  background-color: #1abc9c; /* צבע רקע טורקיז */
+}
+
+.cancel-button {
+  background-color: #95a5a6; /* צבע רקע אפור כהה */
+}
+
+/* עיצוב ההשפעה של כפתורים בעת ריחוף */
+.action-button:hover {
+  opacity: 0.9;
+}
