@@ -20,10 +20,10 @@ export default function EditBranchPopup({ branch, onClose, onSave }) {
   return (
     <div className="edit-branch-popup">
       <div className="popup-content">
-        <h2>Edit Branch Details</h2>
+        <h2>עריכת פרטי סניף</h2>
         <form onSubmit={handleSubmit}>
           <label>
-            Address:
+            כתובת:
             <input
               type="text"
               name="address"
@@ -33,7 +33,7 @@ export default function EditBranchPopup({ branch, onClose, onSave }) {
             />
           </label>
           <label>
-            Phone:
+            טלפון:
             <input
               type="text"
               name="phone"
@@ -43,7 +43,7 @@ export default function EditBranchPopup({ branch, onClose, onSave }) {
             />
           </label>
           <label>
-            Opening Hours:
+            שעות פתיחה:
             <input
               type="text"
               name="opening_hours"
@@ -53,8 +53,8 @@ export default function EditBranchPopup({ branch, onClose, onSave }) {
             />
           </label>
           <div className="popup-buttons">
-            <button type="submit">Save</button>
-            <button type="button" onClick={onClose}>Cancel</button>
+            <button type="submit">שמור</button>
+            <button type="button" onClick={onClose}>בטל</button>
           </div>
         </form>
       </div>

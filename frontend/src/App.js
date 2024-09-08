@@ -17,6 +17,7 @@ import AdminMenuPage from './AdminPages/AdminMenuPage';
 import AdminOrderPage from './AdminPages/AdminOrderPage';
 import AdminBranchEditPage from './AdminPages/AdminBranchEditPage';
 import PrivateRoute from './PrivateRoutes'; // Import the PrivateRoute component
+import MyOrderPage from './Home/MyOrderPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/order" element={<PrivateRoute element={OrderPage} requiredRole="customer" />} />
                 <Route path="/payment" element={<PrivateRoute element={PaymentPage} requiredRole="customer" />} />
                 <Route path="/order-confirmation" element={<PrivateRoute element={OrderConfirmationPage} requiredRole="customer" />} />
+                <Route path="/myOrder" element={<PrivateRoute element={MyOrderPage} requiredRole="customer" />} />
                 {/* admin routes */}
                 <Route path="/admin/branch-edit/:branchId" element={<PrivateRoute element={AdminBranchEditPage} requiredRole="admin" />} />
                 <Route path="/admin/orders" element={<PrivateRoute element={AdminOrderPage} requiredRole="admin" />} />

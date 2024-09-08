@@ -1,0 +1,76 @@
+body {
+    background-color: #f5f1f1;
+    background-image: url('https://cdn.askfavor.com/meals/24912/24912_l.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .order-history {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffffa3;
+    border-radius: 12px;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .order-history h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 36px;
+    border-bottom: 2px solid #f0c758;
+    padding-bottom: 10px;
+  }
+  
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .order-table thead {
+    background-color: #f0c758;
+  }
+  
+  .order-table th, 
+  .order-table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 20px;
+  }
+  
+  .order-table th {
+    background-color: #f0c758;
+    color: #333;
+  }
+  
+  .order-table tbody tr {
+    background-color: #f9f9f9;
+  }
+  
+  .order-table tbody tr:hover {
+    background-color: #f0c758;
+    cursor: pointer;
+  }
+  
+  .order-table tbody td {
+    color: #555;
+  }
+  
+  .order-table tbody tr:nth-child(even) {
+    background-color: #f5f5f5;
+  }
+  
+  .order-table tbody tr:nth-child(odd) {
+    background-color: #eaeaea;
+  }
+  
+  .order-history p {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+  }
+  

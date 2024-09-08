@@ -14,6 +14,8 @@ router.get('/client', (req, res) => {
 //Route for creating a new Address
 //router.post('/createAddress', orderOperations.createAddress);
 
+router.get('/customerOrder/:user_id',orderOperations.getMyorder)
+
 // Route for creating a new order
 router.post('/save', orderOperations.createOrder);
 

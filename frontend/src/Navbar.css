@@ -3,15 +3,16 @@
     background-color: #fffffffa;
     padding: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    position: fixed; /* Change to fixed */
-    top: 0; /* Stick to the top */
+    position: fixed;
+    top: 0;
     width: 100%;
     z-index: 1000;
-    height: 80px;
+    height: auto; /* גובה אוטומטי כדי לאפשר התאמה בגודל קטן */
     display: flex;
-    justify-content: space-between; /* Keeps elements spaced */
+    justify-content: space-between;
     align-items: center;
-    transition: top 0.3s; /* Smooth transition for showing/hiding */
+    flex-wrap: wrap; /* מאפשר לשבור שורות אם יש צורך */
+    transition: top 0.3s;
 }
 
 /* Adding margin to the body to prevent overlap */
@@ -27,6 +28,7 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
+    flex-wrap: wrap; /* מאפשר לשבור שורות אם צריך */
 }
 
 .navbar-list li {
@@ -40,7 +42,7 @@ body {
     font-size: 24px;
     font-weight: bold;
     padding: 5px 15px;
-    transition: color 0.3s, transform 0.3s; /* Smooth transition for color and hover effect */
+    transition: color 0.3s, transform 0.3s;
 }
 
 .navbar-link:hover {
@@ -56,7 +58,7 @@ body {
     left: 50%;
     background-color: #e4af5f;
     border-radius: 50%;
-    transition: width 0.3s, height 0.3s, left 0.3s; /* Smooth transition for underline effect */
+    transition: width 0.3s, height 0.3s, left 0.3s;
 }
 
 .navbar-list li:not(.navbar-logo):hover::after {
@@ -85,7 +87,7 @@ body {
 .logo-text {
     font-size: 36px;
     color: #ac8346;
-    position: absolute; /* Allows animation without moving headings */
+    position: absolute;
     right: 120px; /* Position relative to logo width */
     white-space: nowrap;
     opacity: 1;
@@ -123,7 +125,7 @@ body {
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .navbar-list {
-        flex-direction: column;
+        flex-direction: column; /* מעבר לפריסה אנכית במסכים קטנים */
     }
 
     .navbar-list li {

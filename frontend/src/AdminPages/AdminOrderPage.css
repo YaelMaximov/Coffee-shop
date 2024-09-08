@@ -191,3 +191,34 @@
 .extras-list li:last-child {
     margin-bottom: 0; /* No margin for the last item */
 }
+
+@media (max-width: 768px) {
+    .admin-order-page {
+        flex-direction: column;
+        max-width: 100%;
+        height: auto;
+    }
+    .filter-container, .order-list, .selected-order-details {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .order-list {
+        width: 45%;
+    }
+    .selected-order-details {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1025px) {
+    .order-list {
+        width: 40%;
+    }
+}
