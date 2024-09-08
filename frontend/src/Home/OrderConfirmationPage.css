@@ -95,3 +95,96 @@ body {
 .footer p {
     margin: 0;
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+    body {
+        font-size: large;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .order-summary {
+        padding: 15px;
+    }
+
+    .order-summary h2 {
+        font-size: 24px;
+    }
+
+    .order-summary p {
+        font-size: 20px;
+    }
+
+    .order-details {
+        padding: 15px;
+    }
+
+    .order-details h3 {
+        font-size: 24px;
+    }
+
+    .summary-item h4 {
+        font-size: 20px;
+    }
+
+    .summary-item p {
+        font-size: 18px;
+    }
+
+    .total-price {
+        font-size: 22px;
+    }
+
+    .footer {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: medium;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .order-summary {
+        padding: 10px;
+    }
+
+    .order-summary h2 {
+        font-size: 20px;
+    }
+
+    .order-summary p {
+        font-size: 18px;
+    }
+
+    .order-details {
+        padding: 10px;
+    }
+
+    .order-details h3 {
+        font-size: 20px;
+    }
+
+    .summary-item h4 {
+        font-size: 18px;
+    }
+
+    .summary-item p {
+        font-size: 16px;
+    }
+
+    .total-price {
+        font-size: 20px;
+    }
+
+    .footer {
+        font-size: 16px;
+    }
+}

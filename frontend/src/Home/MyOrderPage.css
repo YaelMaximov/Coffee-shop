@@ -74,3 +74,41 @@
     margin-top: 20px;
   }
   
+  /* Media query for smaller screens */
+  @media (max-width: 600px) {
+    .order-history {
+      max-width: 100%;
+      padding: 10px;
+    }
+  
+    .order-history h1 {
+      font-size: 28px;
+    }
+  
+    .order-table th, 
+    .order-table td {
+      font-size: 16px;
+      padding: 10px;
+    }
+  
+    .order-history p {
+      font-size: 18px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .order-history h1 {
+      font-size: 24px;
+    }
+  
+    .order-table th, 
+    .order-table td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .order-history p {
+      font-size: 16px;
+    }
+  }
+  

@@ -80,3 +80,49 @@
   color: #e74c3c; /* Error message color */
   font-size: 18px; /* Larger font size for better visibility */
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .payment-container {
+    flex-direction: column;
+    gap: 10px; /* Reduced gap between sections */
+  }
+
+  .order-summary-pay,
+  .payment-form {
+    width: 100%;
+    padding: 15px; /* Adjusted padding */
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: calc(100% - 10px); /* Adjust width for smaller screens */
+  }
+
+  .submit-button {
+    width: 100%; /* Full-width button */
+  }
+}
+
+@media (max-width: 480px) {
+  .form-group label {
+    font-size: 16px; /* Smaller font size */
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 14px; /* Adjusted font size */
+  }
+
+  .payment-method label {
+    font-size: 16px; /* Adjusted font size for smaller screens */
+  }
+
+  .submit-button {
+    font-size: 16px; /* Adjusted button font size */
+  }
+
+  .message {
+    font-size: 16px; /* Adjusted message font size */
+  }
+}

@@ -24,7 +24,6 @@
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
-  /* justify-content: center; */
   padding: 20px;
   box-sizing: border-box;
 }
@@ -103,4 +102,69 @@ button.continue-button {
 
 button.continue-button:hover {
   background-color: #000000c6;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .order-type-page {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .image-section {
+    flex: none;
+    height: 40vh;
+  }
+
+  .form-section {
+    margin-top: 20px;
+  }
+
+  .order-options {
+    flex-wrap: wrap;
+  }
+
+  .order-options button {
+    width: 120px;
+    height: 120px;
+    font-size: 0.9rem;
+  }
+
+  .order-options button img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .delivery-form input, .pickup-form select {
+    width: 70%;
+  }
+
+  button.continue-button {
+    width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-section h1 {
+    font-size: 1.5rem;
+  }
+
+  .order-options button {
+    width: 100px;
+    height: 100px;
+    font-size: 0.8rem;
+  }
+
+  .order-options button img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .delivery-form input, .pickup-form select {
+    width: 80%;
+  }
+
+  button.continue-button {
+    width: 80%;
+  }
 }

@@ -15,7 +15,7 @@
 
 .dish-popup {
   background: #fff;
-  width: 30%;
+  width: 600px;
   height: 80vh;
   border-radius: 20px;
   position: relative;
@@ -67,7 +67,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.dish-image-view {
+.dish-image-view{
   width: 100%;
   height: auto;
   border-radius: 10px;
@@ -101,8 +101,8 @@
   font-weight: bold;
   position: relative;
   overflow: hidden;
-  height: 60px;
-  max-width: 150px;
+  height: auto;
+  max-width: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,4 +203,17 @@
 
 h2, h3 {
   color: #000000;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 480px) {
+  .extra-button {
+    flex: 1 0 calc(50% - 10px); /* Two items per row */
+    max-width: auto;
+    max-height: auto;
+    font-size: 15px;
+  }
+  .dish-popup {
+    width: 200px;
+  }
 }

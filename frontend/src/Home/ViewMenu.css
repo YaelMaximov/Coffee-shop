@@ -69,8 +69,6 @@
   margin: 5px 0;
   padding: 10px;
   border-radius: 8px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-   /* הצללה קלה לפרטי המנה */
   width: 90%;
   min-height: 220px;
 }
@@ -148,4 +146,122 @@
 
 .nav-button:hover:not(:disabled) {
   background-color: #5d4037;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+  .restaurant-name {
+    font-size: 40px;
+  }
+
+  .category-title {
+    font-size: 24px;
+  }
+
+  .dish-name {
+    font-size: 20px;
+  }
+
+  .dish-description {
+    font-size: 16px;
+  }
+
+  .dish-price {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-page {
+    font-size: 16px;
+  }
+
+  .dish-item {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto;
+  }
+
+  .dish-image-container {
+    width: 100%;
+    height: 200px;
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  .dish-info {
+    padding-left: 0;
+    align-items: flex-start;
+  }
+
+  .restaurant-name {
+    font-size: 36px;
+  }
+
+  .category-title {
+    font-size: 22px;
+  }
+
+  .dish-name {
+    font-size: 18px;
+  }
+
+  .dish-description {
+    font-size: 14px;
+  }
+
+  .dish-price {
+    font-size: 16px;
+  }
+
+  .flip-navigation {
+    bottom: 10px;
+  }
+
+  .nav-button {
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-page {
+    font-size: 14px;
+  }
+
+  .dish-item {
+    width: 100%;
+    padding: 5px;
+  }
+
+  .dish-image-container {
+    height: 150px;
+  }
+
+  .restaurant-name {
+    font-size: 30px;
+  }
+
+  .category-title {
+    font-size: 20px;
+  }
+
+  .dish-name {
+    font-size: 16px;
+  }
+
+  .dish-description {
+    font-size: 12px;
+  }
+
+  .dish-price {
+    font-size: 14px;
+  }
+
+  .flip-navigation {
+    gap: 5px;
+  }
+
+  .nav-button {
+    padding: 4px 8px;
+  }
 }

@@ -45,7 +45,7 @@
 .auth-form {
     display: flex;
     flex-direction: column;
-    width:90%;
+    width: 90%;
 }
 
 .auth-form input,
@@ -79,4 +79,57 @@
     text-align: center;
     color: #ff0000; /* Red color for error messages */
     font-size: 18px; /* Larger text size */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .popup-content {
+        max-width: 90%; /* Full width for smaller screens */
+        padding: 20px; /* Reduced padding */
+    }
+
+    .auth-form input,
+    .auth-form select {
+        font-size: 16px; /* Adjusted font size */
+        padding: 12px; /* Reduced padding */
+    }
+
+    .auth-button {
+        font-size: 16px; /* Adjusted button font size */
+        padding: 12px; /* Reduced button padding */
+    }
+
+    .popup-close {
+        font-size: 25px; /* Reduced close button size */
+    }
+
+    .auth-message {
+        font-size: 16px; /* Adjusted message font size */
+    }
+}
+
+@media (max-width: 480px) {
+    .popup-content {
+        max-width: 95%; /* Make content nearly full width */
+        padding: 15px; /* Further reduced padding */
+    }
+
+    .auth-form input,
+    .auth-form select {
+        font-size: 14px; /* Further reduced font size */
+        padding: 10px; /* Further reduced padding */
+    }
+
+    .auth-button {
+        font-size: 14px; /* Further reduced button font size */
+        padding: 10px; /* Further reduced button padding */
+    }
+
+    .popup-close {
+        font-size: 22px; /* Smaller close button */
+    }
+
+    .auth-message {
+        font-size: 14px; /* Further reduced message font size */
+    }
 }
