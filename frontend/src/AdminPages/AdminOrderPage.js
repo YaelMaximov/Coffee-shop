@@ -53,8 +53,7 @@ export default function AdminOrderPage() {
         token = await refreshAccessToken();
       }
 
-      // Fetch order details
-      const orderResponse = await fetch(`http://localhost:3010/admin/orderDetails/${order_id}`, {
+      const response = await fetch(`http://localhost:3010/admin/orderDetails/${order_id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -62,29 +61,12 @@ export default function AdminOrderPage() {
         },
       });
 
-      if (!orderResponse.ok) {
+      if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
-      const orderData = await orderResponse.json();
-
-      // Fetch customer details
-      const customerResponse = await fetch(`http://localhost:3010/admin/orderCustomerDetails/${order_id}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!customerResponse.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const customerData = await customerResponse.json();
-
-      // Update selected order with customer details
-      setSelectedOrder({ ...orderData, customer: customerData });
+      const orderData = await response.json();
+      setSelectedOrder(orderData);
     } catch (error) {
       setError(error.message);
     }
@@ -101,6 +83,13 @@ export default function AdminOrderPage() {
 
   const handleOrderClick = (order_id) => {
     fetchOrderDetails(order_id);
+  };
+
+  // Function to format time from datetime
+  const formatTime = (datetime) => {
+    if (!datetime) return '';
+    const date = new Date(datetime);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
   if (isLoading) return <p>Loading orders...</p>;
@@ -129,12 +118,12 @@ export default function AdminOrderPage() {
               </div>
               <div className="order-details">
                 <p><strong>מספר הזמנה:</strong> {order.order_id}</p>
-                <p><strong>לקוח:</strong> {order.member_id}</p>
+                <p><strong>לקוח:</strong> {order.member_first_name} {order.member_last_name}</p> {/* Displaying customer name */}
                 <p><strong>סה"כ:</strong> ₪{order.total_price}</p>
                 <p><strong>סוג הזמנה:</strong> {order.order_type}</p>
                 <p><strong>הערות:</strong> {order.notes}</p>
-                <p><strong>שעת הזמנה:</strong> {order.order_time}</p> {/* New field */}
-                <p><strong>סטטוס:</strong> {order.status}</p> {/* New field */}
+                <p><strong>שעת הזמנה:</strong> {formatTime(order.order_time)}</p> {/* Formatted time */}
+                <p><strong>סטטוס:</strong> {order.status}</p>
               </div>
             </li>
           ))}
@@ -148,15 +137,14 @@ export default function AdminOrderPage() {
                 <h2>פרטי הזמנה {selectedOrder.order_id}</h2>
               </div>
               <div className="customer-details">
-                <h3>פרטי הלקוח</h3>
-                {selectedOrder.customer ? (
+                <h3>פרטי המזמין</h3>
+                {selectedOrder.customer_name ? (
                   <>
-                    <p><strong>שם פרטי:</strong> {selectedOrder.customer.first_name}</p>
-                    <p><strong>שם משפחה:</strong> {selectedOrder.customer.last_name}</p>
-                    <p><strong>טלפון:</strong> {selectedOrder.customer.phone}</p>
+                    <p><strong>שם פרטי:</strong> {selectedOrder.customer_name}</p>
+                    <p><strong>טלפון:</strong> {selectedOrder.customer_phone}</p>
                   </>
                 ) : (
-                  <p>לא נמצאו פרטי לקוח</p>
+                  <p>לא נמצאו פרטי מזמין</p>
                 )}
               </div>
               <ul>
