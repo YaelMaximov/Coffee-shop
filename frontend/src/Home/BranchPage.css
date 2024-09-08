@@ -5,7 +5,7 @@
   background-position: center;
   height: 100vh;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   overflow: hidden;
@@ -26,21 +26,21 @@
 
 .branch-details {
   position: relative;
-  /* background-color: rgba(0, 0, 0, 0.7); */
+  background-color: rgba(0, 0, 0, 0.7); /* Slightly darker background for readability */
   padding: 40px;
   border-radius: 10px;
   max-width: 800px;
   text-align: center;
   opacity: 0;
-  transform: translateX(100%);
-  animation: slideInFromRight 1.5s forwards;
+  transform: translateY(20px); /* Adjusted for a smoother slide-in effect */
+  animation: slideInFromBottom 1.5s forwards;
   z-index: 2;
 }
 
-@keyframes slideInFromRight {
+@keyframes slideInFromBottom {
   to {
       opacity: 1;
-      transform: translateX(0);
+      transform: translateY(0);
   }
 }
 
@@ -63,4 +63,20 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+button {
+  background-color: #ffd700;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #e5b700;
 }

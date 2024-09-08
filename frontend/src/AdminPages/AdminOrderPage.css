@@ -1,20 +1,9 @@
-body {
-    background-color: #f5f1f1;
-    /* Uncomment the line below if you have a background image */
-    background-image: url('https://cdn.askfavor.com/meals/24912/24912_l.jpg'); 
-    background-repeat: no-repeat;
-    background-size: cover; /* Adjust position and size as needed */
-    /* Uncomment the lines below for animated background */
-    /* animation: backgroundMove 15s infinite; */
-}
 
-/* @keyframes backgroundMove {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
-} */
-.customer-details{
+
+.customer-details {
     border-bottom:  1px solid #f0c758;
 }
+
 .admin-order-page {
     display: flex;
     max-width: 85%;
@@ -65,7 +54,6 @@ body {
 .order-item {
     display: flex;
     align-items: center;
-    background-color: #f0c758;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
@@ -73,7 +61,14 @@ body {
     transition: box-shadow 0.3s ease;
     cursor: pointer;
     position: relative;
+    background-color: #f0c758; /* Default color */
 }
+
+.order-item.completed {
+    background-color: #60a896; /* Color for completed orders */
+}
+
+
 
 .order-item:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -166,7 +161,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-   
 }
 
 .extras-list {
@@ -192,10 +186,8 @@ body {
     margin: 5px 0; /* Space between items */
     padding: 10px; /* Padding around the text */
     border-radius: 4px; /* Rounded corners for items */
-    
 }
 
 .extras-list li:last-child {
     margin-bottom: 0; /* No margin for the last item */
 }
-

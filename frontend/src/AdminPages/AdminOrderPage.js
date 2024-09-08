@@ -85,6 +85,49 @@ export default function AdminOrderPage() {
     fetchOrderDetails(order_id);
   };
 
+  const handleStatusChange = async (status, order_id = null) => {
+    try {
+      let token = accessToken;
+
+      if (!token) {
+        token = await refreshAccessToken();
+      }
+
+      // Use the selectedOrder order_id if not provided
+      const id = order_id || (selectedOrder && selectedOrder.order_id);
+
+      if (!id) {
+        throw new Error('Order ID is required to update status');
+      }
+
+      const response = await fetch(`http://localhost:3010/admin/updateOrderStatus/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.text();
+      alert(result); // Notify the user of the result
+
+      // Update local state to reflect status change
+      setOrders(orders.map(order =>
+        order.order_id === id ? { ...order, status } : order
+      ));
+      if (selectedOrder && selectedOrder.order_id === id) {
+        setSelectedOrder({ ...selectedOrder, status });
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   // Function to format time from datetime
   const formatTime = (datetime) => {
     if (!datetime) return '';
@@ -108,7 +151,11 @@ export default function AdminOrderPage() {
       <div className="order-container">
         <ul className="order-list">
           {filteredOrders.map((order) => (
-            <li key={order.order_id} className="order-item" onClick={() => handleOrderClick(order.order_id)}>
+            <li
+              key={order.order_id}
+              className={`order-item ${order.status === 'מוכן' ? 'completed' : ''}`}
+              onClick={() => handleOrderClick(order.order_id)}
+            >
               <div className="order-image">
                 <img
                   src={order.order_type === 'משלוח' ? deliveryIcon : pickupIcon}
@@ -124,6 +171,17 @@ export default function AdminOrderPage() {
                 <p><strong>הערות:</strong> {order.notes}</p>
                 <p><strong>שעת הזמנה:</strong> {formatTime(order.order_time)}</p> {/* Formatted time */}
                 <p><strong>סטטוס:</strong> {order.status}</p>
+                {/* Status Update */}
+                <div className="status-update-container">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={order.status === 'מוכן'}
+                      onChange={(e) => handleStatusChange(e.target.checked ? 'מוכן' : 'לא מוכן', order.order_id)}
+                    />
+                    <span>מוכן</span>
+                  </label>
+                </div>
               </div>
             </li>
           ))}

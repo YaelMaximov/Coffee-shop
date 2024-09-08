@@ -122,7 +122,7 @@ router.get('/orderDetails/:order_id', async (req, res) => {
 router.put('/updateOrderStatus/:order_id', async (req, res) => {
     const { order_id } = req.params;
     const { status } = req.body; // מקבל את הסטטוס החדש מבקשת ה-API
-
+    
     try {
         const query = `UPDATE Orders SET status = ? WHERE order_id = ?`;
         await connection.query(query, [status, order_id]);
