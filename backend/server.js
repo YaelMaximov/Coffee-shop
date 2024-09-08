@@ -13,7 +13,7 @@ const adminRoutes = require('./routes/adminRoutes');
 
 app.use(cookieParser());
 const strictCorsOptions = {
-  origin: 'http://localhost:3000', // ה-origin של הלקוח
+  origin: true, // ה-origin של הלקוח
   credentials: true, // מאפשר שליחת credentials (כגון cookies)
 };
 

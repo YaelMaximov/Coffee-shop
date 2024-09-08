@@ -9,7 +9,7 @@ export default function AdminOrderPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('הכל'); 
+  const [filter, setFilter] = useState('הכל');
   const { accessToken, refreshAccessToken } = useAuth();
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export default function AdminOrderPage() {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         });
 
         if (!response.ok) {
@@ -53,20 +53,38 @@ export default function AdminOrderPage() {
         token = await refreshAccessToken();
       }
 
-      const response = await fetch(`http://localhost:3010/admin/orderDetails/${order_id}`, {
+      // Fetch order details
+      const orderResponse = await fetch(`http://localhost:3010/admin/orderDetails/${order_id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (!response.ok) {
+      if (!orderResponse.ok) {
         throw new Error('Network response was not ok');
       }
 
-      const data = await response.json();
-      setSelectedOrder(data);
+      const orderData = await orderResponse.json();
+
+      // Fetch customer details
+      const customerResponse = await fetch(`http://localhost:3010/admin/orderCustomerDetails/${order_id}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!customerResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const customerData = await customerResponse.json();
+
+      // Update selected order with customer details
+      setSelectedOrder({ ...orderData, customer: customerData });
     } catch (error) {
       setError(error.message);
     }
@@ -76,7 +94,7 @@ export default function AdminOrderPage() {
     setFilter(event.target.value);
   };
 
-  const filteredOrders = orders.filter(order => {
+  const filteredOrders = orders.filter((order) => {
     if (filter === 'הכל') return true;
     return order.order_type === filter;
   });
@@ -97,23 +115,26 @@ export default function AdminOrderPage() {
           <option value="איסוף עצמי">איסוף עצמי</option>
         </select>
       </div>
+
       <div className="order-container">
         <ul className="order-list">
           {filteredOrders.map((order) => (
-            <li key={order.id} className="order-item" onClick={() => handleOrderClick(order.order_id)}>
-              <div className="order-details">
-                <p><strong>מספר הזמנה:</strong> {order.order_id}</p>
-                <p><strong>לקוח:</strong> {order.member_id}</p>
-                <p><strong>סה"כ:</strong> ₪{order.total_price}</p>
-                <p><strong>סוג הזמנה:</strong> {order.order_type}</p>
-                <p><strong>הערות:</strong> {order.notes}</p>
-              </div>
+            <li key={order.order_id} className="order-item" onClick={() => handleOrderClick(order.order_id)}>
               <div className="order-image">
                 <img
                   src={order.order_type === 'משלוח' ? deliveryIcon : pickupIcon}
                   alt={order.order_type === 'משלוח' ? 'משלוח' : 'איסוף עצמי'}
                   className="order-type-icon"
                 />
+              </div>
+              <div className="order-details">
+                <p><strong>מספר הזמנה:</strong> {order.order_id}</p>
+                <p><strong>לקוח:</strong> {order.member_id}</p>
+                <p><strong>סה"כ:</strong> ₪{order.total_price}</p>
+                <p><strong>סוג הזמנה:</strong> {order.order_type}</p>
+                <p><strong>הערות:</strong> {order.notes}</p>
+                <p><strong>שעת הזמנה:</strong> {order.order_time}</p> {/* New field */}
+                <p><strong>סטטוס:</strong> {order.status}</p> {/* New field */}
               </div>
             </li>
           ))}
@@ -122,27 +143,42 @@ export default function AdminOrderPage() {
         <div className="selected-order-details">
           {selectedOrder ? (
             <>
-              <h2>פרטי הזמנה {selectedOrder.orderDetails[0]?.order_id}</h2>
-              <button onClick={() => setSelectedOrder(null)}>סגור</button>
+              <div className="selected-order-header">
+                <button onClick={() => setSelectedOrder(null)}>✖</button>
+                <h2>פרטי הזמנה {selectedOrder.order_id}</h2>
+              </div>
+              <div className="customer-details">
+                <h3>פרטי הלקוח</h3>
+                {selectedOrder.customer ? (
+                  <>
+                    <p><strong>שם פרטי:</strong> {selectedOrder.customer.first_name}</p>
+                    <p><strong>שם משפחה:</strong> {selectedOrder.customer.last_name}</p>
+                    <p><strong>טלפון:</strong> {selectedOrder.customer.phone}</p>
+                  </>
+                ) : (
+                  <p>לא נמצאו פרטי לקוח</p>
+                )}
+              </div>
               <ul>
-                {selectedOrder.orderDetails.map((dish, index) => (
+                {selectedOrder.dishes.map((dish, index) => (
                   <li key={index} className="dish-item">
                     <div className="dish-details">
-                      <p><strong>מנה:</strong> {dish.dish_name}</p>
+                      <img src={dish.image_url} alt={dish.name} className="dish-image" />
+                      <p><strong>מנה:</strong> {dish.name}</p>
                       <p><strong>כמות:</strong> {dish.quantity}</p>
-                      <p><strong>מחיר:</strong> ₪{dish.dish_price}</p>
-                      <img src={dish.dish_image} alt={dish.dish_name} className="dish-image" />
+                      <p><strong>מחיר:</strong> ₪{dish.price}</p>
                     </div>
-                  </li>
-                ))}
-              </ul>
-
-              <h3>תוספות:</h3>
-              <ul>
-                {selectedOrder.extrasDetails.map((extra, index) => (
-                  <li key={index}>
-                    <p><strong>תוספת:</strong> {extra.extra_name}</p>
-                    {extra.extra_price > 0 && <p><strong>מחיר:</strong> ₪{extra.extra_price}</p>}
+                    {dish.extras.length > 0 && (
+                      <ul className="extras-list">
+                        <h3>תוספות</h3>
+                        {dish.extras.map((extra, index) => (
+                          <li key={index} className="extra-item">
+                            <p><strong>{extra.name}</strong></p>
+                            {extra.price > 0 && <p> -₪{extra.price}</p>}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 ))}
               </ul>

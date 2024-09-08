@@ -126,7 +126,7 @@ export default function OrderPage() {
                   <p>₪{dish.price}</p>
                   <button className="add-to-cart" onClick={() => setSelectedDish(dish)}>הוסף לסל</button>
                 </div>
-                <img src={dish.image_url} alt={dish.name} className="dish-image" />
+                <img src={dish.image_url} alt={dish.name} className="dish-image-order" />
               </div>
             </div>
           ))}

@@ -1,16 +1,17 @@
 const connection = require('./db');
 
 // Create a new order
+// Create a new order
 exports.createOrder = async (req, res) => {
-  const { member_id, order_type, total_price, notes } = req.body;
-
+  const { member_id, order_type, total_price, notes, customer_name, customer_phone } = req.body;
+  console.log("customer",customer_name, customer_phone)
   const query = `
-    INSERT INTO Orders (member_id, order_type, total_price, notes, order_date)
-    VALUES (?, ?, ?, ?, CURDATE())
+    INSERT INTO Orders (member_id, order_type, total_price, notes, order_date, order_time, status, customer_name, customer_phone)
+    VALUES (?, ?, ?, ?, CURDATE(), NOW(), 'לא מוכן', ?, ?)
   `;
 
   try {
-    const [result] = await connection.query(query, [member_id, order_type, total_price, notes]);
+    const [result] = await connection.query(query, [member_id, order_type, total_price, notes, customer_name, customer_phone]);
     const orderId = result.insertId;
     res.status(200).json({ order_id: orderId });
   } catch (err) {
@@ -18,6 +19,7 @@ exports.createOrder = async (req, res) => {
     res.status(500).json({ message: 'Failed to create order' });
   }
 };
+
 
 // Add dishes to the order
 exports.addOrderDishes = async (req, res) => {

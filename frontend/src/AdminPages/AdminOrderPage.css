@@ -1,49 +1,68 @@
-/* AdminOrderPage.css */
+body {
+    background-color: #f5f1f1;
+    /* background-image: url('../imgs/admin_order.jpg');  */
+    /* כאן תוכל להוסיף קובץ תמונה לעיטורים */
+    background-repeat: no-repeat;
+    background-size: cover; /* תוכל לשנות את המיקום והגודל לפי הצורך */
+    /* animation: backgroundMove 15s infinite;  */
+    /* הנפשת הרקע */
+}
+
+/* @keyframes backgroundMove {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+} */
 
 .admin-order-page {
     display: flex;
-    max-width: 2000px;
+    max-width: 85%;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9ce;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     height: 100vh;
-  }
-  
-  .filter-container {
+}
+
+.filter-container {
     width: 220px;
     margin-right: 20px;
-  }
-  
-  .filter-select {
+}
+
+.selected-order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 24px;
     background-color: #fff;
-  }
-  
-  .order-container {
+    margin-bottom: 20px;
+}
+
+.order-container {
     display: flex;
     flex: 1;
     justify-content: space-between;
-  }
-  
-  .order-list {
+}
+
+.order-list {
     list-style-type: none;
     padding: 0;
-    width: 50%;
+    width: 40%;
     margin-right: 20px;
     overflow-y: auto;
     max-height: 80vh;
-  }
-  
-  .order-item {
+}
+
+.order-item {
     display: flex;
     align-items: center;
-    background-color: #fff;
+    background-color: #f0c758;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
@@ -51,105 +70,115 @@
     transition: box-shadow 0.3s ease;
     cursor: pointer;
     position: relative;
-  }
-  
-  .order-item:hover {
+}
+
+.order-item:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .order-details {
+}
+
+.order-details {
     flex: 1;
     padding-right: 20px;
-  }
-  
-  .order-image img {
+}
+
+.order-image img {
     width: 80px;
     height: 80px;
     border-radius: 8px;
     object-fit: cover;
-  }
-  
-  .order-item p {
+}
+
+.order-item p {
     margin: 10px 0;
-    font-size: 16px;
+    font-size: 24px;
     color: #555;
-  }
-  
-  .order-item p strong {
+}
+
+.order-item p strong {
     color: #333;
-  }
-  
-  .selected-order-details {
+}
+
+.selected-order-details {
     width: 50%;
     background-color: #fff;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     height: 100%;
     overflow-y: auto;
     position: relative;
     max-height: 80vh;
-  }
-  
-  .selected-order-details h2 {
+}
+
+.selected-order-details h2 {
     margin-top: 0;
-    font-size: 20px;
+    font-size: 35px;
     color: #333;
-  }
-  
-  .selected-order-details button {
-    background-color: #d9534f;
-    color: white;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.selected-order-details button {
+    background-color: transparent;
+    color: #333;
     border: none;
-    border-radius: 4px;
-    padding: 10px;
+    font-size: 24px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .selected-order-details button:hover {
-    background-color: #c9302c;
-  }
-  
-  .selected-order-details ul {
+}
+
+.selected-order-details button:hover {
+    color: #ffffff;
+}
+
+.selected-order-details ul {
     padding: 0;
     list-style-type: none;
-  }
-  
-  .selected-order-details ul li {
+}
+
+.selected-order-details ul li {
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-  }
-  
-  .dish-image {
-    width: 100px;
-    height: auto;
+}
+
+.dish-image {
+    width: 40%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 8px;
-    margin-top: 10px;
-  }
-  
-  .dish-item {
+    margin-right: 20px;
+}
+
+.dish-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
     margin-bottom: 20px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
-  }
-  
-  .extra-list {
+}
+
+.dish-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.extra-list {
     list-style-type: none;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-  }
-  
-  .extra-list li {
+    font-size: 12px; /* הקטנת גודל הכתב */
+    color: #666; /* שינוי צבע הכתב */
+}
+
+.extra-list li {
     margin-right: 15px;
-    background-color: #f0f0f0;
+    background-color: #fff5d0; /* צבע רקע עדין לתוספת */
     padding: 5px 10px;
     border-radius: 4px;
-    font-size: 14px;
     color: #333;
-  }
-  
+    margin-bottom: 10px;
+    border: 1px solid #f0c758; /* תוספת מסגרת בצבע צהוב */
+}

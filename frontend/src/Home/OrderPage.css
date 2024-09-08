@@ -179,7 +179,7 @@ body {
     gap: 20px;
 }
 
-.item-info img.dish-image {
+.item-info img.dish-image-order {
     width: 350px;
     height: auto;
     flex-shrink: 0;
