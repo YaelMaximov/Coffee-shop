@@ -151,21 +151,56 @@ exports.createPickupOrder = async (req, res) => {
 };
 
 exports.createAddress = async (req, res) => {
-    const { street, house_number, city, apartment, entrance, floor } = req.body;
-  
-    const query = `
-      INSERT INTO Addresses (street, house_number, city, apartment, entrance, floor)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `;
-  
-    try {
-      // Use async/await with connection.query to ensure proper error handling and consistency
-      const [result] = await connection.query(query, [street, house_number, city, apartment, entrance, floor]);
-      const addressId = result.insertId; // Get the inserted ID
+  const { street, house_number, city, apartment, entrance, floor } = req.body;
+
+  // שאילתה לבדוק אם הכתובת כבר קיימת בטבלה, כולל טיפול בערכים ריקים ו-null
+  const checkQuery = `
+    SELECT address_id FROM Addresses
+    WHERE street = ? AND house_number = ? AND city = ?
+    AND (apartment = ?)
+    AND (entrance = ?)
+    AND (floor = ?)
+  `;
+
+  const insertQuery = `
+    INSERT INTO Addresses (street, house_number, city, apartment, entrance, floor)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
+
+  try {
+    // בדוק אם הכתובת כבר קיימת
+    const [existingAddress] = await connection.query(checkQuery, [
+      street, 
+      house_number, 
+      city, 
+      apartment, 
+      entrance, 
+       floor
+    ]);
+
+    if (existingAddress.length > 0) {
+      // אם הכתובת קיימת, נחזיר את ה-ID שלה
+      const addressId = existingAddress[0].address_id;
+      res.status(200).json({message:"the address exist", address_id: addressId });
+    } else {
+      // אם הכתובת לא קיימת, נכניס אותה לטבלה
+      const [result] = await connection.query(insertQuery, [
+        street, 
+        house_number, 
+        city, 
+        apartment || null, 
+        entrance || null, 
+        floor || null
+      ]);
+      const addressId = result.insertId; // קבלת ה-ID שנוצר
       res.status(200).json({ address_id: addressId });
-    } catch (err) {
-      console.error('Error inserting address:', err);
-      res.status(500).json({ message: 'Failed to insert address' });
     }
-  };
+  } catch (err) {
+    console.error('Error inserting address:', err);
+    res.status(500).json({ message: 'Failed to insert address' });
+  }
+};
+
+
+
   

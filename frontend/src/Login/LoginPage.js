@@ -37,10 +37,10 @@ export default function LoginPage({ onClose }) { // קבלת הפונקציה כ
           accessToken: data.accessToken, // אסימון הגישה
           username: data.username
         });
-
-        setTimeout(() => {
+        handleClose();
+        /*setTimeout(() => {
           window.location.href = 'http://localhost:3000/order';
-        }, 1000);
+        }, 1000);*/
       } else {
         setMessage(data.message);
       }

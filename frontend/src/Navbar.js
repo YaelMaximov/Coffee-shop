@@ -67,7 +67,12 @@ function Navbar() {
       setIsSidebarOpen(false); // Close the sidebar
       setUsername(''); // Clear username
       setRole(''); // Clear role
-      navigate('/orderType'); // Redirect to /orderType after logout
+  
+      // Check if the current path is the order page
+      if (location.pathname.startsWith('/order')) {
+        navigate('/orderType'); // Redirect to /orderType if on an order page
+      }
+      // If not on an order page, stay on the current page (no navigation)
     } catch (error) {
       console.error('Logout failed:', error);
     }

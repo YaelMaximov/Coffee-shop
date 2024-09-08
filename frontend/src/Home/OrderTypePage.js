@@ -15,7 +15,9 @@ export default function OrderTypePage() {
   const [error, setError] = useState('');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const navigate = useNavigate();
-  const { user } = useAuth();
+ // const { user } = useAuth();
+  const user = localStorage.getItem('username');
+
   const { order, updateOrder, clearOrder } = useContext(OrderContext); // Use OrderContext
 
   useEffect(() => {
@@ -40,25 +42,28 @@ export default function OrderTypePage() {
     clearOrder();
   }, []);
 
+  const isValidAddressFormat = (address) => {
+    // ביטוי רגולרי שיבדוק אם הכתובת מכילה מחרוזת, מספר, ו"ירושלים" בסוף
+    const regex = /^[A-Za-zא-ת\s]+ \d+ ירושלים$/;
+    return regex.test(address);
+  };  
+
   const handleContinue = async () => {
     if (orderType === 'delivery') {
-      const addressParts = address.split(' ').filter(part => part.trim() !== '');
-      const cityInAddress = addressParts.length > 1 ? addressParts[addressParts.length - 1] : '';
-      if (cityInAddress !== 'ירושלים') {
-        setError('אין משלוחים לאזורך.');
+      // בדוק אם הכתובת בפורמט הנכון
+      if (!isValidAddressFormat(address)) {
+        setError('אנא הכנס כתובת בפורמט הנכון - רחוב,מספר ועיר');
         return;
       }
-      if (addressParts.length < 3) {
-        setError('נא לוודא שהזנת רחוב, מספר בית ועיר.');
-        return;
-      }
+  
+      const addressParts = address.split(' ');
+      const cityInAddress = addressParts[addressParts.length - 1]; // העיר היא החלק האחרון
+      const houseNumber = addressParts[addressParts.length - 2]; // המספר לפני העיר
+      const street = addressParts.slice(0, addressParts.length - 2).join(' '); // כל מה שלפני המספר הוא הרחוב
   
       try {
-        // Split address into street, house number, city, and optional apartment, entrance, and floor
-        const [street, houseNumber, city, apartment = '', entrance = '', floor = ''] = parseAddress(address);
-  
-        // Send the address to the server and get the address_id in return
-        const response = await fetch('http://localhost:3010/client/createAddress', {
+        // שלח את הכתובת לשרת ותקבל בחזרה את ה-address_id
+        const response = await fetch('http://localhost:3010/public/createAddress', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -66,10 +71,10 @@ export default function OrderTypePage() {
           body: JSON.stringify({
             street,
             house_number: houseNumber,
-            city,
-            apartment,
-            entrance,
-            floor,
+            city: 'ירושלים',
+            apartment: '', // ניתן להוסיף אופציות נוספות
+            entrance: '',
+            floor: '',
           }),
         });
   
@@ -79,9 +84,8 @@ export default function OrderTypePage() {
   
         const { address_id } = await response.json();
   
-        // Update the order with orderType and address_id
+        // עדכן את ההזמנה עם סוג ההזמנה וכתובת
         updateOrder({ ...order, orderType, address_id });
-        
       } catch (err) {
         setError('Error saving the address');
         console.error(err);
@@ -103,14 +107,17 @@ export default function OrderTypePage() {
     navigate('/order');
   };
   
+  
+  
   // Utility function to parse address
   const parseAddress = (address) => {
     const addressParts = address.split(' ');
-    const city = addressParts[addressParts.length - 1];
-    const houseNumber = addressParts[addressParts.length - 2];
-    const street = addressParts.slice(0, addressParts.length - 2).join(' '); // Everything before house number and city
+    const city = addressParts[addressParts.length - 1]; // ירושלים תמיד תהיה בסוף
+    const houseNumber = addressParts[addressParts.length - 2]; // מספר בית לפני העיר
+    const street = addressParts.slice(0, addressParts.length - 2).join(' '); // כל השאר הוא הרחוב
     return [street, houseNumber, city];
   };
+  
   
 
   const handleCloseLogin = () => {
