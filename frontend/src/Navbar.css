@@ -183,8 +183,40 @@ body {
 }
 
 /* Mobile adjustments for dropdown */
-@media (max-width: 768px) {
-    .dropdown-menu {
-        width: 100%; /* Full width on mobile */
+/* Hide all navbar links and show only the username and hamburger icon on smaller screens */
+/* סגנון לברירת מחדל - ניווט רגיל במסכים גדולים */
+.navbar-toggle {
+    display: none; /* הכפתור והשם מוסתרים במסכים רחבים */
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-list {
+      display: none; /* מסתיר את רשימת הקישורים בבר ניווט במסכים קטנים */
     }
-}
+  
+    .navbar-toggle {
+      display: flex; /* מציג את השם והאייקון של ההמבורגר במסכים קטנים */
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  
+    .hamburger-icon {
+      font-size:40px;
+      cursor: pointer;
+    }
+  
+    /* כשנלחץ כפתור ההמבורגר, מציג את הרשימה */
+    .navbar-list.open {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
+  /* ניווט רגיל (ברירת מחדל) במסכים רחבים */
+  @media (min-width: 769px) {
+    .navbar-list {
+      display: flex; /* מציג את רשימת הקישורים */
+    }
+  }
+  
