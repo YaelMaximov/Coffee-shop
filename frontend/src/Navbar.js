@@ -67,12 +67,13 @@ function Navbar() {
       setIsSidebarOpen(false); // Close the sidebar
       setUsername(''); // Clear username
       setRole(''); // Clear role
-  
+      navigate('/orderType');
       // Check if the current path is the order page
-      if (location.pathname.startsWith('/order')) {
-        navigate('/orderType'); // Redirect to /orderType if on an order page
-      }
-      // If not on an order page, stay on the current page (no navigation)
+      // if (location.pathname.startsWith('/order')) {
+      //   navigate('/orderType'); // Redirect to /orderType if on an order page
+      // } else {
+      //   navigate('/l'); // Redirect to login page
+      // }
     } catch (error) {
       console.error('Logout failed:', error);
     }

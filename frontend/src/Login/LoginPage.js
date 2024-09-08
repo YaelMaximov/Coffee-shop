@@ -38,9 +38,6 @@ export default function LoginPage({ onClose }) { // קבלת הפונקציה כ
           username: data.username
         });
         handleClose();
-        /*setTimeout(() => {
-          window.location.href = 'http://localhost:3000/order';
-        }, 1000);*/
       } else {
         setMessage(data.message);
       }
