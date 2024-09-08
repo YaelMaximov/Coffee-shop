@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const menuOperations = require('../menuOperations'); 
 const branchOperations = require('../branchOperations'); 
+const orderOperations = require('../orderOperations');
 
 // נתיבים ציבוריים
 router.get('/public', (req, res) => {
@@ -19,6 +20,8 @@ router.get('/getBranch/:branch_id', branchOperations.getBranch);
 
 //'http://localhost:3010/public/getAllBranches'
 router.get('/getAllBranches', branchOperations.getAll);
+
+router.post('/createAddress', orderOperations.createAddress);
 
 
 

@@ -14,18 +14,51 @@ app.use(cookieParser()); // For parsing cookies
 exports.address = async (req, res) => {
   const { street, house_number, city, apartment, entrance, floor } = req.body;
 
-  const query = `
+  // שאילתה לבדוק אם הכתובת כבר קיימת בטבלה, כולל טיפול בערכים ריקים ו-null
+  const checkQuery = `
+    SELECT address_id FROM Addresses
+    WHERE street = ? AND house_number = ? AND city = ?
+    AND (apartment = ?)
+    AND (entrance = ?)
+    AND (floor = ?)
+  `;
+
+  const insertQuery = `
     INSERT INTO Addresses (street, house_number, city, apartment, entrance, floor)
     VALUES (?, ?, ?, ?, ?, ?)
   `;
 
   try {
-    const [result] = await connection.query(query, [street, house_number, city, apartment, entrance, floor]);
-    const addressId = result.insertId;
-    res.status(200).json({ address_id: addressId });
+    // בדוק אם הכתובת כבר קיימת
+    const [existingAddress] = await connection.query(checkQuery, [
+      street, 
+      house_number, 
+      city, 
+      apartment, 
+      entrance, 
+       floor
+    ]);
+
+    if (existingAddress.length > 0) {
+      // אם הכתובת קיימת, נחזיר את ה-ID שלה
+      const addressId = existingAddress[0].address_id;
+      res.status(200).json({message:"the address exist", address_id: addressId });
+    } else {
+      // אם הכתובת לא קיימת, נכניס אותה לטבלה
+      const [result] = await connection.query(insertQuery, [
+        street, 
+        house_number, 
+        city, 
+        apartment || null, 
+        entrance || null, 
+        floor || null
+      ]);
+      const addressId = result.insertId; // קבלת ה-ID שנוצר
+      res.status(200).json({ address_id: addressId });
+    }
   } catch (err) {
     console.error('Error inserting address:', err);
-    res.status(500).json({ message: 'Failed to save address' });
+    res.status(500).json({ message: 'Failed to insert address' });
   }
 };
 

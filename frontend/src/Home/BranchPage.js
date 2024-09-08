@@ -11,6 +11,8 @@ export default function BranchPage() {
   const [error, setError] = useState(null);
   const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
   const { user } = useAuth(); // Get the user from the AuthProvider
+  const role = localStorage.getItem('userRole');
+
 
   useEffect(() => {
     const fetchBranch = async () => {
@@ -64,7 +66,7 @@ export default function BranchPage() {
           <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
 
           {/* Show the edit button only if the user is an admin */}
-          {user && user.isAdmin  && (
+          {role==='admin'  && (
             <button onClick={() => setIsEditPopupOpen(true)}>Edit Branch</button>
           )}
         </div>

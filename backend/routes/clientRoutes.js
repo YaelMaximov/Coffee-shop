@@ -12,7 +12,7 @@ router.get('/client', (req, res) => {
   res.send('Client-only content');
 });
 //Route for creating a new Address
-router.post('/createAddress', orderOperations.createAddress);
+//router.post('/createAddress', orderOperations.createAddress);
 
 // Route for creating a new order
 router.post('/save', orderOperations.createOrder);

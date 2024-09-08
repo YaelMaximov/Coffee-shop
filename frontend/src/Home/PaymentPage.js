@@ -21,7 +21,7 @@ export default function PaymentPage() {
   const [message, setMessage] = useState('');
   const { orderType, address, branch } = location.state || {};
   
-  const memberId = null; // Replace with actual value if available
+  const memberId = localStorage.getItem('userId');; // Replace with actual value if available
   const addressId = order.address_id;
 
   useEffect(() => {
