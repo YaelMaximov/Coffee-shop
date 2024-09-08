@@ -204,9 +204,9 @@ exports.adminLogin = async (req, res) => {
   }
 };
 
-exports.logout = (req, res) => {
+exports.logout =async (req, res) => {
   const cookies = req.cookies;
-
+  console.log("logout",cookies)
   if (!cookies?.jwt) {
     return res.status(204).json({ message: 'No cookie to clear' }); // שלח תשובה חיובית אם אין קוקי
   }
@@ -218,7 +218,7 @@ exports.logout = (req, res) => {
     maxAge: 30 * 24 * 60 * 60 * 1000,
     path: '/'
   });
-
+  console.log("cleared")
   res.status(200).json({ message: 'Cookie cleared' }); // שלח תשובה חיובית אם הקוקי נמחק
 };
 
