@@ -7,9 +7,11 @@ body {
 
 .order-page {
     padding: 20px;
-    text-align: right;
+    text-align: center;
 }
-
+.order-page h2{
+    text-align: center;
+}
 .menu-header {
     display: flex;
     justify-content: space-between;
@@ -269,6 +271,3 @@ img {
     height: auto;
     object-fit: cover;
   }
-  /* .bascket{
-    margin-right: 30%;
-  } */

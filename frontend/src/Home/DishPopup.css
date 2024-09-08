@@ -15,7 +15,7 @@
 
 .dish-popup {
   background: #fff;
-  width: 600px;
+  width: 30%;
   height: 80vh;
   border-radius: 20px;
   position: relative;
@@ -67,7 +67,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.dish-image {
+.dish-image-view {
   width: 100%;
   height: auto;
   border-radius: 10px;

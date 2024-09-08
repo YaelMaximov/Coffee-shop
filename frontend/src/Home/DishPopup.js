@@ -103,7 +103,7 @@ const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
       <div className="dish-popup">
         <button className="close-button" onClick={onClose}>&times;</button>
         <div className="dish-content">
-          <img src={dish.image_url} alt={dish.name} className="dish-image" />
+          <img src={dish.image_url} alt={dish.name} className="dish-image-view" />
           <h2>{dish.name}</h2>
           <p className="dish-description">{dish.description}</p>
           <p className="dish-price">מחיר: ₪{totalPrice}</p>
