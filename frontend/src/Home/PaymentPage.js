@@ -21,7 +21,7 @@ export default function PaymentPage() {
   const [message, setMessage] = useState('');
   const { orderType, address, branch } = location.state || {};
   
-  const memberId = null; // Replace with actual value if available
+  const auth = useAuth();// Replace with actual value if available
   const addressId = order.address_id;
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function PaymentPage() {
           'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-          member_id: memberId,
+          member_id: auth.memberId,
           order_type: orderTypeHeb(),
           total_price: getTotalPrice(),
           notes: notes,

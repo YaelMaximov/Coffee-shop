@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthProvider';
 import { OrderContext } from '../OrderProvider';
 import './OrderTypePage.css';
-import takeAwayIcon from './take-away.png'; 
-import deliveryIcon from './delivery.png'; 
+import takeAwayIcon from '../imgs/take-away.png';
+import deliveryIcon from '../imgs/delivery.png'; 
 import LoginPage from '../Login/LoginPage';
 
 export default function OrderTypePage() {
