@@ -118,7 +118,22 @@ router.get('/orderDetails/:order_id', async (req, res) => {
         res.status(500).send('Error fetching order details');
     }
 });
+// adminRoutes.js
+router.put('/updateOrderStatus/:order_id', async (req, res) => {
+    const { order_id } = req.params;
+    const { status } = req.body; // מקבל את הסטטוס החדש מבקשת ה-API
 
+    try {
+        const query = `UPDATE Orders SET status = ? WHERE order_id = ?`;
+        await connection.query(query, [status, order_id]);
+
+        res.status(200).send('Order status updated successfully');
+    } catch (error) {
+        console.error('Error updating order status:', error);
+        res.status(500).send('Error updating order status');
+    }
+});
+  
 
 // Ensure to include routes for getting and updating admins if needed
 // e.g., router.get('/getAdmin/:manager_id', adminOperations.getAdminById);

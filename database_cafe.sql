@@ -48,8 +48,13 @@ CREATE TABLE Orders (
     total_price DECIMAL(10, 2) NOT NULL, -- Total price of the order
     notes TEXT, -- Optional notes for the order
     order_date DATE, -- Date of the order
+    order_time DATETIME, -- Time of the order (including date and time)
+    status ENUM('מוכן', 'לא מוכן') DEFAULT 'לא מוכן', -- Status of the order (default is 'לא מוכן')
+    customer_name VARCHAR(255), -- Customer's full name
+    customer_phone VARCHAR(20), -- Customer's phone number
     FOREIGN KEY (member_id) REFERENCES Members(member_id) -- Link to Members table (can be NULL)
 );
+
 
 -- Table: Dishes (מנות)
 CREATE TABLE Dishes (
