@@ -1,48 +1,82 @@
 .payment-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-  }
-  
-  .order-summary-pay {
-    width: 35%;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #f7f7f7;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .payment-form {
-    width: 60%;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-  }
-  
-  .payment-method {
-    margin-top: 20px;
-  }
-  
-  .payment-method label {
-    margin-right: 15px;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px; /* Space between columns */
+}
+
+.order-summary-pay {
+  width: 40%; /* Adjusted width for better proportion */
+  padding: 20px;
+  border-radius: 12px; /* Rounded corners */
+  background-color: #ffffff; /* Clean white background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+  border: 1px solid #e0e0e0; /* Light border for definition */
+}
+
+.payment-form {
+  width: 55%; /* Adjusted width for better proportion */
+  padding: 20px;
+  border-radius: 12px; /* Rounded corners */
+  background-color: #ffffff; /* Clean white background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+  border: 1px solid #e0e0e0; /* Light border for definition */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Spacing between form elements */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px; /* Increased spacing below labels */
+  font-weight: 700; /* Bolder labels for emphasis */
+  font-size: 18px; /* Larger font size for better readability */
+}
+
+.form-group input,
+.form-group textarea {
+  width: calc(100% - 20px); /* Adjusted width */
+  padding: 12px; /* Increased padding for comfort */
+  border: 1px solid #ccc;
+  border-radius: 6px; /* Rounded corners */
+  background-color: #f9f9f9; /* Light background for input fields */
+  font-size: 16px; /* Larger font size for text */
+}
+
+.payment-method {
+  margin-top: 20px; /* Adjusted margin for spacing */
+}
+
+.payment-method label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px; /* Spacing between options */
+  font-size: 18px; /* Larger font size for readability */
+}
+
+.payment-method input[type="radio"] {
+  margin-right: 10px; /* Spacing between radio button and label */
+}
+
+.submit-button {
+  background-color: #4CAF50; /* Primary button color */
+  color: white;
+  border: none;
+  padding: 15px 20px; /* Increased padding for a more prominent button */
+  font-size: 18px; /* Larger font size for better visibility */
+  cursor: pointer;
+  border-radius: 8px; /* Rounded corners */
+  transition: background 0.3s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+.submit-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.message {
+  margin-top: 15px;
+  color: #e74c3c; /* Error message color */
+  font-size: 18px; /* Larger font size for better visibility */
+}
