@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (authData) => {
     setAuth(authData); // שמור את פרטי ההתחברות ב-state
+    localStorage.setItem('userId', authData.userId);
     localStorage.setItem('username', authData.username); // שמור רק את שם המשתמש ב-localStorage
     localStorage.setItem('userRole', authData.role); // שמור את התפקיד ב-localStorage
     // הגדרת ה-accessToken אם זמין

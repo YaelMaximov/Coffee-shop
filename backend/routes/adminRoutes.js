@@ -1,5 +1,6 @@
 // adminRoutes.js
 const express = require('express');
+const connection = require('../db');
 const router = express.Router();
 const { authenticateToken, checkAdmin } = require('../authMiddleware');
 const menuOperations = require('../menuOperations'); 
@@ -22,7 +23,7 @@ router.put('/updateBranch/:branchId', async (req, res) => {
         res.status(500).send('Error updating branch: ' + error.message);
     }
 });
-router.get('getOrdersOfToday',async (req, res) => {
+router.get('/getOrdersOfToday',async (req, res) => {
     try {
       const query = `
           SELECT * FROM Orders

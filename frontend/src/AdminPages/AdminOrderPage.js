@@ -1,27 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../AuthProvider'; // Make sure to import the useAuth hook
+import { useAuth } from '../AuthProvider'; // ייבוא ה-useAuth
 
 export default function AdminOrderPage() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('הכל');
-  
-  const { accessToken } = useAuth(); // Get the access token from useAuth
+  const [filter, setFilter] = useState('הכל'); // New state for filtering
+  const { accessToken, refreshAccessToken } = useAuth(); // שליפת ה-access token מ-context
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
+        let token = accessToken;
+
+        // אם אין access token ננסה לרענן אותו
+        if (!token) {
+          token = await refreshAccessToken();
+        }
+
+        // בקשת הנתונים עם ה-access token בכותרת
         const response = await fetch('http://localhost:3010/admin/getOrdersOfToday', {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}` // Pass the accessToken in the Authorization header
+            'Authorization': `Bearer ${token}`, // הוספת ה-access token בכותרת Authorization
+            'Content-Type': 'application/json'
           }
         });
+
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+
         const data = await response.json();
         setOrders(data);
       } catch (error) {
@@ -32,7 +41,7 @@ export default function AdminOrderPage() {
     };
 
     fetchOrders();
-  }, [accessToken]);
+  }, [accessToken, refreshAccessToken]); // מעקב אחר access token ורענונו
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
@@ -56,7 +65,7 @@ export default function AdminOrderPage() {
         <select id="filter" value={filter} onChange={handleFilterChange}>
           <option value="הכל">הכל</option>
           <option value="משלוח">משלוח</option>
-          <option value='איסוף עצמי'>איסוף עצמי</option>
+          <option value="איסוף עצמי">איסוף עצמי</option>
         </select>
       </div>
 
