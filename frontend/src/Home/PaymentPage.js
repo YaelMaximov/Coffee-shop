@@ -221,23 +221,7 @@ export default function PaymentPage() {
 
   return (
     <div className="payment-container">
-      <div className="order-summary-pay">
-        <h3>סיכום הזמנה</h3>
-        {order.items.map((item, index) => (
-          <div key={index} className="summary-item">
-            <h4>{item.dish}</h4>
-            <p>כמות: {item.quantity}</p>
-            <p>תוספות: {Object.entries(item.extras).flatMap(([category, extras]) => 
-              extras.map(extra => extra.name)
-            ).join(', ')}</p>
-            <p>מחיר: ₪{item.totalPrice.toFixed(2)}</p>
-          </div>
-        ))}
-        {order.orderType === 'delivery' && (
-          <p className="delivery-cost">עלות משלוח: ₪15.00</p>
-        )}
-        <p className="total-price">סה"כ: ₪{getTotalPrice().toFixed(2)}</p>
-      </div>
+
 
       <div className="payment-form">
         <h3>הפרטים שלי</h3>
@@ -338,6 +322,23 @@ export default function PaymentPage() {
 
           <button type="submit" className="submit-payment-button">בצע תשלום</button>
         </form>
+      </div>
+      <div className="order-summary-pay">
+        <h3>סיכום הזמנה</h3>
+        {order.items.map((item, index) => (
+          <div key={index} className="summary-item">
+            <h4>{item.dish}</h4>
+            <p>כמות: {item.quantity}</p>
+            <p>תוספות: {Object.entries(item.extras).flatMap(([category, extras]) => 
+              extras.map(extra => extra.name)
+            ).join(', ')}</p>
+            <p>מחיר: ₪{item.totalPrice.toFixed(2)}</p>
+          </div>
+        ))}
+        {order.orderType === 'delivery' && (
+          <p className="delivery-cost">עלות משלוח: ₪15.00</p>
+        )}
+        <p className="total-price">סה"כ: ₪{getTotalPrice().toFixed(2)}</p>
       </div>
     </div>
   );
