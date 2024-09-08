@@ -78,6 +78,11 @@ function Navbar() {
     }
   };
 
+  const handleOrders = async() => {
+    setIsSidebarOpen(false); // Close the sidebar
+    navigate('/myOrder')
+  }
+
   // Close the dropdown menu if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -140,7 +145,8 @@ function Navbar() {
               </>
             ) : username ? (
               <>
-                <li>שלום, {username}</li>
+                <li>שלום, {username}</li>                
+                <li><a onClick={handleOrders}>ההזמנות שלי</a></li>
                 <li><a onClick={handleLogout}>התנתקות</a></li>
               </>
             ) : (
