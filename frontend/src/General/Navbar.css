@@ -16,9 +16,9 @@
 }
 
 /* Adding margin to the body to prevent overlap */
-body{
+/* body{
     margin-top: 160px;
-}
+} */
 .navbar-list {
     list-style: none;
     display: flex;
@@ -191,6 +191,9 @@ body{
   }
   
   @media (max-width: 768px) {
+    .navbar{
+        min-height: 120px;
+    }
     .navbar-list {
       display: none; /* מסתיר את רשימת הקישורים בבר ניווט במסכים קטנים */
     }

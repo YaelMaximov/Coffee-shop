@@ -273,11 +273,40 @@ img {
   }
 
   /* התאמה כללית לגודל מסך קטן */
-@media (max-width: 768px) {
+  @media (max-width: 768px) {
+    .menu-header h2, h3 {
+      display: none;
+    }
+  
     .category-navigation {
-        display: none;
-      }
-
+      display: flex;
+      flex-wrap: wrap; /* מאפשר קטגוריות לעבור לשורה חדשה */
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 10px;
+      border: none;
+      padding: 0;
+    }
+  
+    .category-navigation ul {
+      display: flex;
+      flex-wrap: wrap; /* מאפשר חלוקה לשתי שורות */
+      justify-content: space-around; /* מבטיח מרווח שווה בין הפריטים */
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .category-navigation ul li {
+      font-size: 20px; /* גודל הכתב נשאר כפי שביקשת */
+      padding: 10px 5px;
+      border-radius: 5px;
+      margin: 5px;
+      width: calc(20% - 10px); /* מחלק ל-5 קטגוריות בשורה */
+      text-align: center;
+      box-sizing: border-box; /* מבטיח שהרוחב לא יחרוג עם ה-padding */
+    }
+  
     .order-page {
       padding: 10px;
     }
@@ -334,14 +363,12 @@ img {
       margin-top: 10px;
     }
   
-    .category-navigation ul li {
-      font-size: 20px;
-    }
-  
     .header-container {
       height: 20vh;
     }
   }
+  
+  
   
   /* התאמה לגודל מסך קטן במיוחד */
   @media (max-width: 480px) {
