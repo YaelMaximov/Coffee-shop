@@ -16,10 +16,9 @@
 }
 
 /* Adding margin to the body to prevent overlap */
-body {
-    margin-top: 120px; /* Same height as the navbar to avoid overlap */
+body{
+    margin-top: 160px;
 }
-
 .navbar-list {
     list-style: none;
     display: flex;
@@ -197,6 +196,7 @@ body {
     .navbar-toggle {
       display: flex; /* מציג את השם והאייקון של ההמבורגר במסכים קטנים */
       justify-content: space-between;
+      margin-left:35px;
       align-items: center;
       width: 100%;
     }
@@ -218,8 +218,6 @@ body {
     .navbar-list {
       display: flex; /* מציג את רשימת הקישורים */
     }
-      body {
-        margin-top: 400px; /* פחות מרווח עבור מסכים קטנים */
-    }
+
 }
   

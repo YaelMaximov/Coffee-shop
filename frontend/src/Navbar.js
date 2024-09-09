@@ -19,6 +19,7 @@ function Navbar() {
   const navigate = useNavigate(); 
   const dropdownRef = useRef(null); 
   const navbarRef = useRef(null);
+
   useEffect(() => {
     setIsRolling(true);
     const timer = setTimeout(() => {
@@ -61,6 +62,10 @@ function Navbar() {
     setIsMenuOpen(!isMenuOpen); // Toggle menu visibility
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false); // Close menu
+  };
+
   const openLoginPopup = () => {
     setIsLoginPopupOpen(true);
     setIsAdminLoginPopupOpen(false); 
@@ -93,10 +98,16 @@ function Navbar() {
     }
   };
 
-  const handleOrders = async() => {
+  const handleOrders = async () => {
     setIsSidebarOpen(false); 
-    navigate('/myOrder')
-  }
+    navigate('/myOrder');
+  };
+
+  const handleLinkClick = () => {
+    if (window.innerWidth <= 768) {
+      closeMenu(); // Close menu on mobile when a link is clicked
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -129,13 +140,13 @@ function Navbar() {
           {role === 'admin' ? (
             <>
               <li onClick={toggleSidebar} className="navbar-link">שלום, {username}</li>
-              <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+              <li><Link to="/branch/1" className="navbar-link" onClick={handleLinkClick}>דף הבית</Link></li>
               <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
                 <img src={logo} alt="Logo" className="logo-image" />
                 <span className="logo-text">קפה הפוך</span>
               </li>
-              <li><Link to="/admin/menu" className="navbar-link">תפריט</Link></li>
-              <li><Link to="/admin/orders" className="navbar-link">הזמנות אונליין</Link></li>
+              <li><Link to="/admin/menu" className="navbar-link" onClick={handleLinkClick}>תפריט</Link></li>
+              <li><Link to="/admin/orders" className="navbar-link" onClick={handleLinkClick}>הזמנות אונליין</Link></li>
             </>
           ) : (
             <>
@@ -144,13 +155,13 @@ function Navbar() {
               ) : (
                 <li onClick={toggleSidebar} className="navbar-link">התחברות</li>
               )}
-              <li><Link to="/branch/1" className="navbar-link">דף הבית</Link></li>
+              <li><Link to="/branch/1" className="navbar-link" onClick={handleLinkClick}>דף הבית</Link></li>
               <li className={`navbar-logo ${isRolling ? 'roll' : ''}`}>
                 <img src={logo} alt="Logo" className="logo-image" />
                 <span className="logo-text">קפה הפוך</span>
               </li>
-              <li><Link to="/menu" className="navbar-link">תפריט</Link></li>
-              <li><Link to="/orderType" className="navbar-link">הזמנות אונליין</Link></li>
+              <li><Link to="/menu" className="navbar-link" onClick={handleLinkClick}>תפריט</Link></li>
+              <li><Link to="/orderType" className="navbar-link" onClick={handleLinkClick}>הזמנות אונליין</Link></li>
             </>
           )}
         </ul>

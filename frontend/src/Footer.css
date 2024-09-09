@@ -1,16 +1,49 @@
 /* Footer.css */
+
+/* כללים כלליים עבור דף האפליקציה */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* לוודא שה-body תופס את כל גובה המסך */
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* עיצוב ה-footer */
 .footer {
-    background-color: #f8f9fa;
-    padding: 20px 0;
-    text-align: center;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+  background-color: #ffffff; /* רקע שחור */
+  color: #aa800b; /* צבע צהוב */
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+  width: 100%;
+  font-size: 0.9rem;
+  box-sizing: border-box; /* כולל padding ברוחב הכולל */
+  margin-top: auto; /* מצמיד את ה-footer לתחתית המסך */
+  overflow-x: hidden; /* מונע גלילה צדית גם ב-footer */
+}
+
+/* עיצוב תוכן ה-footer */
+.footer p {
+  margin: 0;
+}
+
+/* Media queries עבור מסכים קטנים */
+@media (max-width: 600px) {
+  .footer {
+    padding: 0.5rem; /* הפחתת padding למסכים קטנים */
+    font-size: 0.8rem; /* הפחתת גודל טקסט למסכים קטנים */
   }
-  
-  .footer p {
-    margin: 0;
-    color: #333538;
-    font-size: 20px;
-  }
-  
+}
