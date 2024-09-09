@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './DishPopup.css';
+import './css/DishPopup.css';
 
 const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
   const [quantity, setQuantity] = useState(orderItem ? orderItem.quantity : 1);

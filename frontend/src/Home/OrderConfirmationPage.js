@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import './OrderConfirmationPage.css'; // Import your CSS file for styling
+import './css/OrderConfirmationPage.css'; // Import your CSS file for styling
 import { OrderContext } from '../Providers/OrderProvider';
 
 const OrderConfirmationPage = () => {

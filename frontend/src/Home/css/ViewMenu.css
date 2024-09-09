@@ -27,9 +27,8 @@
   text-align: right;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 .menu-page__cover-page {
-  background-image: url('./menu-background.png'), linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+  background-image: url('../../Pictures/menu-background.png'), linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
   background-size: cover;
   background-position: center;
   color: rgb(45, 27, 27);

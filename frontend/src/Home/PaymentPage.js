@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { OrderContext } from '../Providers/OrderProvider';
 import { useAuth } from '../Providers/AuthProvider';
-import './PaymentPage.css';  // Assume you have a CSS file for styling
+import './css/PaymentPage.css';  // Assume you have a CSS file for styling
 
 export default function PaymentPage() {
   const { accessToken } = useAuth(); 
