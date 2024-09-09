@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './MyOrderPage.css'; // קובץ CSS לעיצוב הדף
+import './css/MyOrderPage.css'; // קובץ CSS לעיצוב הדף
 import { useAuth } from '../Providers/AuthProvider';
 
 export default function MyOrderPage() {

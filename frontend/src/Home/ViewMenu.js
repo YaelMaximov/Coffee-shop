@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { useMenu } from '../Providers/MenuProvider';
-import './ViewMenu.css';
+import './css/ViewMenu.css';
 
 export default function MenuPage() {
   const { menu, isLoading, error, refreshMenu } = useMenu();
