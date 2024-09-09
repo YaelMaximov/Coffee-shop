@@ -18,7 +18,7 @@ function Navbar() {
   const location = useLocation();
   const navigate = useNavigate(); 
   const dropdownRef = useRef(null); 
-
+  const navbarRef = useRef(null);
   useEffect(() => {
     setIsRolling(true);
     const timer = setTimeout(() => {
@@ -37,6 +37,21 @@ function Navbar() {
       setRole(''); 
     }
   }, [auth]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 50) {
+        navbarRef.current.classList.add('scrolled');
+      } else {
+        navbarRef.current.classList.remove('scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -68,14 +83,11 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await logout(); 
-      setIsSidebarOpen(false); 
-      setUsername(''); 
-      setRole(''); 
-
-      if (location.pathname.startsWith('/order')) {
-        navigate('/orderType'); 
-      }
+      await logout(); // Use the logout function from AuthProvider
+      setIsSidebarOpen(false); // Close the sidebar
+      setUsername(''); // Clear username
+      setRole(''); // Clear role
+      navigate('/orderType');
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -105,7 +117,7 @@ function Navbar() {
 
   return (
     <div>
-      <nav className="navbar">
+      <nav ref={navbarRef} className="navbar">
         <div className="navbar-toggle">
           <span>שלום, {username}</span>
           <div className="hamburger-icon" onClick={toggleMenu}>

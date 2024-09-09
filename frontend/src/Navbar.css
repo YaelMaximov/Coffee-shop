@@ -218,5 +218,8 @@ body {
     .navbar-list {
       display: flex; /* מציג את רשימת הקישורים */
     }
-  }
+      body {
+        margin-top: 400px; /* פחות מרווח עבור מסכים קטנים */
+    }
+}
   
