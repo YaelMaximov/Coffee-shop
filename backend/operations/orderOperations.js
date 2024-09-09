@@ -212,8 +212,8 @@ exports.getMyorder = async (req, res) => {
   try {
     const [orders] = await connection.query(query, [user_id]);
     if (orders.length === 0) {
-      // החזרת תשובה עם קוד סטטוס 200 עם הודעה שציינה שאין הזמנות
-      return res.status(200).json({ message: 'No orders found', orders: [] });
+      // החזרת תשובה עם קוד סטטוס 200 עם מערך ריק
+      return res.status(200).json([]);
     }
     res.status(200).json(orders);
   } catch (err) {
