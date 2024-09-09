@@ -3,7 +3,7 @@ import { useMenu } from '../Providers/MenuProvider';
 import { useAuth } from '../Providers/AuthProvider';
 import EditPopup from './EditPopup';
 import * as LucideIcons from 'lucide-react';
-import './AdminMenuPage.css';
+import './css/AdminMenuPage.css';
 
 export default function AdminMenuPage() {
   const { menu, isLoading, error, refreshMenu } = useMenu();

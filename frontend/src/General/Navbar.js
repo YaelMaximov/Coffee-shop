@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import logo from './imgs/Design 7.png';
+import logo from '../Pictures/Design 7.png';
 import LoginPopup from '../Login/LoginPage'; 
 import AdminLoginPopup from '../AdminPages/AdminLogin';
 import { useAuth } from '../Providers/AuthProvider'; 

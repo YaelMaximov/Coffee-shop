@@ -1,5 +1,5 @@
 import React from 'react';
-import './EditPopup.css';
+import './css/EditPopup.css';
 
 export default function EditPopup({ dish, onClose, onUpdate }) {
   const [editedDish, setEditedDish] = React.useState(dish);

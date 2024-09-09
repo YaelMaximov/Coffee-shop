@@ -1,7 +1,7 @@
 // EditBranchPopup.js
 
 import React, { useState } from 'react';
-import './EditBranchPopup.css'; // Create this file for styling
+import './css/EditBranchPopup.css'; // Create this file for styling
 
 export default function EditBranchPopup({ branch, onClose, onSave }) {
   const [editedBranch, setEditedBranch] = useState({ ...branch });

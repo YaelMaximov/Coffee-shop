@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../Providers/AuthProvider';
-import deliveryIcon from '../imgs/delivery.png';
-import pickupIcon from '../imgs/take-away.png';
-import './AdminOrderPage.css';
+import deliveryIcon from '../Pictures/delivery.png';
+import pickupIcon from '../Pictures/take-away.png';
+import './css/AdminOrderPage.css';
 
 export default function AdminOrderPage() {
   const [orders, setOrders] = useState([]);
