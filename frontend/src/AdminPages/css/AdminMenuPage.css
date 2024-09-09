@@ -67,6 +67,8 @@
 }
 
 .category-section {
+    padding-top: 160px; /* Adjust this value based on the height of your navbar */
+    position: relative;
     margin-bottom: 60px;
     width: 100%; /* Adjust width to fit within the content container */
     max-width: 1200px; /* Max width for each section */
@@ -80,6 +82,8 @@
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin-top: -160px; /* Move the title up to be visible */
+    padding-top: 160px; /* Ensure there's space for the title */
 }
 
 .dish-carousel {
@@ -103,7 +107,8 @@
 .dish-card {
     position: relative;
     width: 1000px; /* Increased width */
-    height: 600px; /* Increased height */
+    height: 600px; 
+    /* Increased height */
     background-color: #fff;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     overflow: hidden;

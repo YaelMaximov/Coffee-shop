@@ -1,12 +1,9 @@
-/* body {
-    background-color: #f5f1f1;
-    background-image: url('https://cdn.askfavor.com/meals/24912/24912_l.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-  } */
+
   
   .order-history {
-    max-width: 80%;
+    background: url('../../Pictures/admin_order.jpg') no-repeat center center fixed;
+    background-size: cover;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
     background-color: #ffffffa3;
@@ -17,7 +14,7 @@
   
   .order-history h1 {
     text-align: center;
-    color: #333;
+    color: #ffffff;
     margin-bottom: 20px;
     font-size: 36px;
     border-bottom: 2px solid #f0c758;
@@ -69,7 +66,7 @@
   
   .order-history p {
     font-size: 24px;
-    color: #333;
+    color: #ffffff;
     text-align: center;
     margin-top: 20px;
   }

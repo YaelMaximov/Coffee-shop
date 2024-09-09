@@ -5,8 +5,7 @@
 }
 
 .admin-order-page {
-    background: url('https://png.pngtree.com/thumb_back/fw800/background/20231031/pngtree-stylish-coffee-cups-resting-on-a-black-textured-wallpaper-image_13763661.png') no-repeat center center fixed;
-    background-size: cover;
+    background: url('../../Pictures/admin_order.jpg') no-repeat center center fixed;    background-size: cover;
     display: flex;
     max-width: 100%;
     margin: 0 auto;
@@ -100,7 +99,7 @@
 
 .selected-order-details {
     width: 50%;
-    background-color: #fff;
+    background-color: #ffffffdc;
     border-radius: 12px;
     padding: 20px;
     height: 100%;

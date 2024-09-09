@@ -135,7 +135,6 @@ router.put('/updateOrderStatus/:order_id', async (req, res) => {
 });
   
 
-// Ensure to include routes for getting and updating admins if needed
-// e.g., router.get('/getAdmin/:manager_id', adminOperations.getAdminById);
+
 
 module.exports = router;

@@ -101,7 +101,6 @@ const JWT_REFRESH_EXPIRATION = '30d'; // 30 days for refresh token
 
 // Login Logic
 exports.login = async (req, res) => {
-  console.log("login")
   const { email, password } = req.body;
   if (!email || !password){
     return res.status(400).json({message: 'All fields are required'})
@@ -206,7 +205,6 @@ exports.adminLogin = async (req, res) => {
 
 exports.logout =async (req, res) => {
   const cookies = req.cookies;
-  console.log("logout",cookies)
   if (!cookies?.jwt) {
     return res.status(204).json({ message: 'No cookie to clear' }); // שלח תשובה חיובית אם אין קוקי
   }
@@ -218,15 +216,12 @@ exports.logout =async (req, res) => {
     maxAge: 30 * 24 * 60 * 60 * 1000,
     path: '/'
   });
-  console.log("cleared")
   res.status(200).json({ message: 'Cookie cleared' }); // שלח תשובה חיובית אם הקוקי נמחק
 };
 
 exports.refreshToken = async (req, res) => {
-  console.log("refreshToken");
 
   const cookies = req.cookies;
-  // console.log('Cookies:', cookies);
 
   if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorized' });
 
@@ -235,7 +230,6 @@ exports.refreshToken = async (req, res) => {
   jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, async (err, decode) => {
     if (err) return res.status(403).json({ message: 'Forbidden' });
 
-    console.log('Decoded JWT:', decode);
 
     try {
       if (decode.role === 'customer') {

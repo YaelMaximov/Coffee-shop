@@ -147,13 +147,15 @@ body{
 
 /* Dropdown Menu Styling */
 .dropdown-menu {
-    position: absolute;
-    top: 120px; /* Adjusted to be below the fixed navbar */
+    margin-top: 70px;
+    position: fixed; /* Ensure the dropdown stays fixed on the screen */
+    top: 80px; /* Adjust this value to be below the navbar */
     right: 0;
     width: 300px; /* Width for dropdown */
     background-color: #ffffffd7;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    z-index: 1001;
+    z-index: 1001; /* Ensure dropdown is above other elements */
+    /* Optionally, add padding if needed */
 }
 
 .dropdown-list {
