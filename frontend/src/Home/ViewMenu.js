@@ -9,13 +9,18 @@ export default function MenuPage() {
   const flipBookRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [dimensions, setDimensions] = useState({ width: 900, height: 1200 });
-  const dishesPerPage = 4; // מספר המנות בכל עמוד
+  const [isMobileView, setIsMobileView] = useState(false); // מצב תצוגת פלאפון
+
+  const dishesPerPage = 3; // מספר המנות בכל עמוד
 
   useEffect(() => {
     const updateDimensions = () => {
       const width = Math.min(900, window.innerWidth - 40);
       const height = Math.min(1200, window.innerHeight - 80);
       setDimensions({ width, height });
+
+      // בדיקה אם מדובר בתצוגת פלאפון
+      setIsMobileView(window.innerWidth <= 768);
     };
 
     window.addEventListener('resize', updateDimensions);
@@ -24,22 +29,22 @@ export default function MenuPage() {
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
-  if (isLoading) return <div className="loading">טוען תפריט...</div>;
+  if (isLoading) return <div className="menu-page__loading">טוען תפריט...</div>;
 
   if (error) {
     return (
-      <div className="error-container">
+      <div className="menu-page__error-container">
         <p>שגיאה בטעינת התפריט: {error.toString()}</p>
-        <button onClick={refreshMenu} className="refresh-button">נסה שוב</button>
+        <button onClick={refreshMenu} className="menu-page__refresh-button">נסה שוב</button>
       </div>
     );
   }
 
   if (!menu || menu.length === 0) {
     return (
-      <div className="empty-menu">
+      <div className="menu-page__empty-menu">
         <p>אין פריטים בתפריט</p>
-        <button onClick={refreshMenu} className="refresh-button">רענן תפריט</button>
+        <button onClick={refreshMenu} className="menu-page__refresh-button">רענן תפריט</button>
       </div>
     );
   }
@@ -54,15 +59,10 @@ export default function MenuPage() {
   }, {});
 
   const pages = [];
-
-  // יצירת עמודים עם חלוקה לפי קטגוריות ומנות
   Object.keys(categorizedMenu).forEach((category) => {
     const dishes = categorizedMenu[category];
-
     for (let i = 0; i < dishes.length; i += dishesPerPage) {
       const pageDishes = dishes.slice(i, i + dishesPerPage);
-
-      // הוספת כותרת הקטגוריה בעמוד הראשון שלה
       if (i === 0) {
         pages.push({
           categoryTitle: category,
@@ -70,7 +70,7 @@ export default function MenuPage() {
         });
       } else {
         pages.push({
-          categoryTitle: null, // עמודים נוספים לא צריכים כותרת קטגוריה
+          categoryTitle: null,
           dishes: pageDishes
         });
       }
@@ -80,6 +80,34 @@ export default function MenuPage() {
   const handlePageFlip = (e) => {
     setCurrentPage(e.data);
   };
+
+  // תצוגת פלאפון - כרטיסיות
+  if (isMobileView) {
+    return (
+      <div className="menu-page">
+        {Object.keys(categorizedMenu).map((category) => (
+          <div key={category} className="menu-page__category">
+            <h2 className="menu-page__category-title">{category}</h2>
+            <div className="menu-page__card-list">
+              {categorizedMenu[category].map((dish, dishIndex) => (
+                <div key={dishIndex} className="menu-page__dish-card">
+                  <img src={dish.image_url} alt={dish.name} className="menu-page__dish-image" />
+                  <div className="menu-page__dish-details">
+                    <h4 className="menu-page__dish-name">{dish.name}</h4>
+                    <p className="menu-page__dish-description">{dish.description}</p>
+                    <div className="menu-page__dish-footer">
+                      <p className="menu-page__dish-price">{dish.price} ₪</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  
 
   return (
     <div className="menu-page">
@@ -95,28 +123,28 @@ export default function MenuPage() {
         showCover={true}
         mobileScrollSupport={true}
         onFlip={handlePageFlip}
-        className="flip-book"
+        className="menu-page__flip-book"
         ref={flipBookRef}
       >
-        <div className="page cover-page">
-          <div className="cover-content">
-            <h1 className="restaurant-name">קפה הפוך</h1>
+        <div className="menu-page__cover-page">
+          <div className="menu-page__cover-content">
+            <h1 className="menu-page__restaurant-name">קפה הפוך</h1>
           </div>
         </div>
 
         {pages.map((page, pageIndex) => (
-          <div key={pageIndex} className="page">
-            {page.categoryTitle && <h2 className="category-title">{page.categoryTitle}</h2>}
+          <div key={pageIndex} className="menu-page__page">
+            {page.categoryTitle && <h2 className="menu-page__category-title">{page.categoryTitle}</h2>}
             {page.dishes.map((dish, dishIndex) => (
-              <div key={dishIndex} className="dish-container">
-                <div className="dish-item">
-                  <div className="dish-image-container">
-                    <img src={dish.image_url} alt={dish.name} className="dish-image" />
+              <div key={dishIndex} className="menu-page__dish-container">
+                <div className="menu-page__dish-item-menu">
+                  <div className="menu-page__dish-image-container">
+                    <img src={dish.image_url} alt={dish.name} className="menu-page__dish-image-menu" />
                   </div>
-                  <div className="dish-info">
-                    <h4 className="dish-name">{dish.name}</h4>
-                    <p className="dish-description">{dish.description}</p>
-                    <p className="dish-price">{dish.price} ₪</p>
+                  <div className="menu-page__dish-info-menu">
+                    <h4 className="menu-page__dish-name">{dish.name}</h4>
+                    <p className="menu-page__dish-description">{dish.description}</p>
+                    <p className="menu-page__dish-price">{dish.price} ₪</p>
                   </div>
                 </div>
               </div>
@@ -125,16 +153,16 @@ export default function MenuPage() {
         ))}
       </HTMLFlipBook>
 
-      <div className="flip-navigation">
+      <div className="menu-page__flip-navigation">
         <button
-          className="nav-button prev-button"
+          className="menu-page__nav-button menu-page__prev-button"
           onClick={() => flipBookRef.current.pageFlip().flipPrev()}
           disabled={currentPage === 0}
         >
           <ChevronRight size={24} />
         </button>
         <button
-          className="nav-button next-button"
+          className="menu-page__nav-button menu-page__next-button"
           onClick={() => flipBookRef.current.pageFlip().flipNext()}
           disabled={currentPage === pages.length - 1}
         >

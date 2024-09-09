@@ -187,4 +187,7 @@ body {
     .dropdown-menu {
         width: 100%; /* Full width on mobile */
     }
+    body {
+        margin-top: 400px; /* פחות מרווח עבור מסכים קטנים */
+    }
 }

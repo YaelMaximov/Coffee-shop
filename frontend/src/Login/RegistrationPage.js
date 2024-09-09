@@ -27,7 +27,7 @@ export default function RegistrationPage({ onClose }) {
     }
 
     try {
-      const addressResponse = await fetch('http://localhost:3010/auth/address', {
+      const addressResponse = await fetch('http://localhost:3010/public/createAddress', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

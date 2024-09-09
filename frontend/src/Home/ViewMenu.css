@@ -2,11 +2,10 @@
 
 .menu-page {
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f1f1f1; /* צבע בהיר יותר לרקע העמוד */
+  background-color: #f1f1f1;
   font-family: 'Heebo', sans-serif;
   font-size: 18px;
   background: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg') no-repeat center center fixed;
@@ -14,24 +13,22 @@
   overflow: hidden;
 }
 
-.flip-book {
+.menu-page__flip-book {
   margin-top: 20px;
   height: calc(100vh - 40px);
 }
 
-.page {
+.menu-page__page {
   background: #ffffff;
   padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: right;
-  /* border-radius: 12px;  */
-  /* מעוגל פינות לכרטיסיות */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* הצללה קלה לתפריט */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.cover-page {
+.menu-page__cover-page {
   background-image: url('./menu-background.png'), linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
   background-size: cover;
   background-position: center;
@@ -40,112 +37,228 @@
   padding: 20px 0;
 }
 
-.restaurant-name {
+.menu-page__restaurant-name {
   font-family: 'Calibri', serif;
   font-size: 50px;
   margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-.category-title {
+.menu-page__category-title {
   font-family: 'Calibri', serif;
   font-size: 30px;
   text-align: center;
   margin: 0;
   padding: 10px 0;
-  color: #a30b0b;
+  color: #a3660b;
   border-bottom: 2px solid #ddd;
 }
 
-.dish-container {
+.menu-page__dish-container {
   text-align: right;
   padding: 10px;
 }
 
-.dish-item {
+.menu-page__dish-item-menu {
   display: flex;
   align-items: center;
   background-color: #ffffff;
   margin: 5px 0;
   padding: 10px;
   border-radius: 8px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-   /* הצללה קלה לפרטי המנה */
   width: 90%;
-  min-height: 220px;
+  min-height: 260px;
 }
 
-.dish-image-container {
-  flex: 0 0 30%; /* התמונה תופסת 30% מרוחב הכרטיסיה */
-  height: 100%; /* התמונה תתפוס את כל גובה הכרטיסיה */
+.menu-page__dish-image-container {
+  flex: 0 0 30%;
+  height: 100%;
   overflow: hidden;
   border-radius: 8px;
   box-sizing: border-box;
   margin-left: 15px;
 }
 
-.dish-image {
+.menu-page__dish-image-menu {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.dish-item:hover .dish-image {
+.menu-page__dish-item-menu:hover .menu-page__dish-image-menu {
   transform: scale(1.05);
 }
 
-.dish-info {
+.menu-page__dish-info-menu {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: top;
-  padding-left: 10px; /* הוספת רווח פנימי בין התמונה לטקסט */
+  padding-left: 10px;
 }
 
-.dish-name {
+.menu-page__dish-name {
   font-family: 'Calibri', serif;
   font-size: 22px;
   color: #333;
   margin: 0;
 }
 
-.dish-description {
+.menu-page__dish-description {
   font-size: 18px;
   color: #666;
-  margin: 5px 0;
 }
 
-.dish-price {
+.menu-page__dish-price {
   font-size: 20px;
-  color: #333;
-  margin: 5px 0;
+  color: #cc7b11;
 }
 
-.flip-navigation {
+.menu-page__loading,
+.menu-page__error-container,
+.menu-page__empty-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.menu-page__error-container p,
+.menu-page__empty-menu p {
+  font-size: 24px;
+  color: #a30b0b;
+}
+
+.menu-page__refresh-button {
+  background-color: #a30b0b;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.menu-page__flip-navigation {
   position: fixed;
   bottom: 20px;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
+  width: 300px;
 }
 
-.nav-button {
-  background-color: #3e2723;
+.menu-page__nav-button {
+  background-color: #524747;
   border: none;
-  border-radius: 5px;
-  color: white;
-  padding: 8px 16px;
+  border-radius: 50%;
+  padding: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  color: white;
+  font-size: 24px;
 }
 
-.nav-button:disabled {
-  background-color: #9e9e9e;
-  cursor: not-allowed;
+.menu-page__prev-button {
+  margin-right: 10px;
 }
 
-.nav-button:hover:not(:disabled) {
-  background-color: #5d4037;
+.menu-page__next-button {
+  margin-left: 10px;
 }
+/* תצוגת כרטיסיות בפלאפון */
+/* תצוגת כרטיסיות בפלאפון */
+@media (max-width: 768px) {
+  .menu-page__category {
+    margin-top: 20px; /* שינוי המרווח העליון */
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+
+  .menu-page__category-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #ca8319;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+  }
+
+  .menu-page__card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* מרכז את הכרטיסים אופקית */
+    align-items: center; /* מרכז את הכרטיסים אנכית */
+    gap: 10px;
+  }
+
+  .menu-page__dish-card {
+    width: 60%; /* מרווח מקסימלי שיהיה במרכז */
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .menu-page__dish-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .menu-page__dish-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .menu-page__dish-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+  }
+
+  .menu-page__dish-description {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #777;
+  }
+
+  .menu-page__dish-price {
+    font-size: 16px;
+    color: #ca8319;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .menu-page__add-to-cart {
+    display: inline-block;
+    background-color: #ca8319;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .menu-page__add-to-cart:hover {
+    background-color: #a66b15;
+  }
+
+  .menu-page__add-to-cart i {
+    margin-right: 5px;
+  }
+}
+

@@ -17,6 +17,7 @@ function Navbar() {
   const location = useLocation();
   const navigate = useNavigate(); // Initialize useNavigate
   const dropdownRef = useRef(null); // Reference to the dropdown menu
+  const navbarRef = useRef(null); // Reference to the navbar
 
   useEffect(() => {
     setIsRolling(true);
@@ -36,6 +37,21 @@ function Navbar() {
       setRole(''); // Clear role if auth is not set
     }
   }, [auth]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 50) {
+        navbarRef.current.classList.add('scrolled');
+      } else {
+        navbarRef.current.classList.remove('scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -68,12 +84,6 @@ function Navbar() {
       setUsername(''); // Clear username
       setRole(''); // Clear role
       navigate('/orderType');
-      // Check if the current path is the order page
-      // if (location.pathname.startsWith('/order')) {
-      //   navigate('/orderType'); // Redirect to /orderType if on an order page
-      // } else {
-      //   navigate('/l'); // Redirect to login page
-      // }
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -104,7 +114,7 @@ function Navbar() {
 
   return (
     <div>
-      <nav className="navbar">
+      <nav ref={navbarRef} className="navbar">
         <ul className="navbar-list">
           {role === 'admin' ? (
             <>
