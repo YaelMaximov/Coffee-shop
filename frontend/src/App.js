@@ -18,6 +18,7 @@ import AdminOrderPage from './AdminPages/AdminOrderPage';
 import AdminBranchEditPage from './AdminPages/AdminBranchEditPage';
 import PrivateRoute from './PrivateRoutes'; // Import the PrivateRoute component
 import MyOrderPage from './Home/MyOrderPage';
+import Footer from './Footer'; // Import the Footer component
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
                 {/* Redirect to home if no matching route */}
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
+              <Footer />
             </div>
           </Router>
         </OrderProvider>
