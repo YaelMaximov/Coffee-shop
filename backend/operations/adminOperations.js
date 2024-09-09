@@ -1,4 +1,4 @@
-const connection = require('./db');
+const connection = require('../db');
 
 // פונקציה שמחזירה פרטי מנהל לפי המזהה שלו
 exports.getAdminById = async (req, res) => {

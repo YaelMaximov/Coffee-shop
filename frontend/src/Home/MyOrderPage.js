@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './MyOrderPage.css'; // קובץ CSS לעיצוב הדף
-import { useAuth } from '../AuthProvider';
+import { useAuth } from '../Providers/AuthProvider';
 
 export default function MyOrderPage() {
   const user_id = localStorage.getItem('userId'); // קבלת ה-userId מ-localStorage

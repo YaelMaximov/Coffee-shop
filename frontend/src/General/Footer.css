@@ -8,6 +8,7 @@ html, body {
 }
 
 body {
+  margin-top: 150px;
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* לוודא שה-body תופס את כל גובה המסך */

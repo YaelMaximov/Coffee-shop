@@ -1,4 +1,4 @@
-const connection = require('./db');
+const connection = require('../db');
 
 // Create a new order
 // Create a new order

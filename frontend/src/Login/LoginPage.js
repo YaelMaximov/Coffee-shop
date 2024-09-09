@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../AuthProvider'; // ייבוא הקונטקסט
+import { useAuth } from '../Providers/AuthProvider'; // ייבוא הקונטקסט
 import RegistrationPopup from './RegistrationPage'; // ייבוא פופאפ ההרשמה
 import './auth.css';
 

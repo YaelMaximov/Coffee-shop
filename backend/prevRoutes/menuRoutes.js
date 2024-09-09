@@ -1,7 +1,7 @@
 // routes/menuRoutes.js
 const express = require('express');
 const router = express.Router();
-const menuOperations = require('../menuOperations');
+const menuOperations = require('../operations/menuOperations');
 
 
 // Route for getting all dishes

@@ -1,4 +1,4 @@
-const connection = require('./db');
+const connection = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');

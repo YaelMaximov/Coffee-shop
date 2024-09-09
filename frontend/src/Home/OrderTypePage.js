@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthProvider';
-import { OrderContext } from '../OrderProvider';
+import { useAuth } from '../Providers/AuthProvider';
+import { OrderContext } from '../Providers/OrderProvider';
 import './OrderTypePage.css';
-import takeAwayIcon from '../imgs/take-away.png';
-import deliveryIcon from '../imgs/delivery.png'; 
+import takeAwayIcon from '../Pictures/take-away.png';
+import deliveryIcon from '../Pictures/delivery.png'; 
 import LoginPage from '../Login/LoginPage';
 
 export default function OrderTypePage() {

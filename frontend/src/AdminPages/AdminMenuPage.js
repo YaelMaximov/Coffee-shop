@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useMenu } from '../MenuProvider';
-import { useAuth } from '../AuthProvider';
+import { useMenu } from '../Providers/MenuProvider';
+import { useAuth } from '../Providers/AuthProvider';
 import EditPopup from './EditPopup';
 import * as LucideIcons from 'lucide-react';
 import './AdminMenuPage.css';

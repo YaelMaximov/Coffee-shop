@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAuth } from '../AuthProvider'; // Import useAuth hook
+import { useAuth } from '../Providers/AuthProvider'; // Import useAuth hook
 import './BranchPage.css';
 import EditBranchPopup from '../AdminPages/EditBranchPopup'; // Import the new component
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateToken, checkClient } = require('../authMiddleware');
-const orderOperations = require('../orderOperations');
+const orderOperations = require('../operations/orderOperations');
 
 // וידוא שהמשתמש מאומת ושהוא לקוח
 router.use(authenticateToken);

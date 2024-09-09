@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../AuthProvider'; // ייבוא הקונטקסט
+import { useAuth } from '../Providers/AuthProvider'; // ייבוא הקונטקסט
 import { useNavigate } from 'react-router-dom'; // ייבוא useNavigate
 import '../Login/auth.css';
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authOperations = require('../authOperations');
+const authOperations = require('../operations/authOperations');
 const { authenticateToken, checkAdmin, checkClient } = require('../authMiddleware');
 
 // Route for registration

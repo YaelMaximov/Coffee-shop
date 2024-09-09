@@ -1,4 +1,4 @@
-const connection = require('./db');
+const connection = require('../db');
 
 exports.updateBranch = async (branchId, updatedBranch) => {
   const { address, phone, opening_hours, google_maps_link } = updatedBranch;

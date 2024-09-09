@@ -1,23 +1,23 @@
 import './App.css';
 import React from "react";
-import { AuthProvider } from './AuthProvider';
+import { AuthProvider } from '../Providers/AuthProvider';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import MenuPage from "./Home/ViewMenu";
-import { MenuProvider } from './MenuProvider';
-import { OrderProvider } from './OrderProvider';
-import BranchPage from './Home/BranchPage';
-import OrderPage from './Home/OrderPage';
-import OrderTypePage from './Home/OrderTypePage';
-import LoginPage from './Login/LoginPage';
-import RegistrationPage from './Login/RegistrationPage';
+import MenuPage from "../Home/ViewMenu";
+import { MenuProvider } from '../Providers/MenuProvider';
+import { OrderProvider } from '../Providers/OrderProvider';
+import BranchPage from '../Home/BranchPage';
+import OrderPage from '../Home/OrderPage';
+import OrderTypePage from '../Home/OrderTypePage';
+import LoginPage from '../Login/LoginPage';
+import RegistrationPage from '../Login/RegistrationPage';
 import Navbar from './Navbar'; // Import the Navbar component
-import PaymentPage from './Home/PaymentPage';
-import OrderConfirmationPage from './Home/OrderConfirmationPage';
-import AdminMenuPage from './AdminPages/AdminMenuPage';
-import AdminOrderPage from './AdminPages/AdminOrderPage';
-import AdminBranchEditPage from './AdminPages/AdminBranchEditPage';
+import PaymentPage from '../Home/PaymentPage';
+import OrderConfirmationPage from '../Home/OrderConfirmationPage';
+import AdminMenuPage from '../AdminPages/AdminMenuPage';
+import AdminOrderPage from '../AdminPages/AdminOrderPage';
+import AdminBranchEditPage from '../AdminPages/AdminBranchEditPage';
 import PrivateRoute from './PrivateRoutes'; // Import the PrivateRoute component
-import MyOrderPage from './Home/MyOrderPage';
+import MyOrderPage from '../Home/MyOrderPage';
 import Footer from './Footer'; // Import the Footer component
 
 function App() {

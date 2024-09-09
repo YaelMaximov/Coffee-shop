@@ -1,9 +1,9 @@
 // routes/publicRoutes.js
 const express = require('express');
 const router = express.Router();
-const menuOperations = require('../menuOperations'); 
-const branchOperations = require('../branchOperations'); 
-const orderOperations = require('../orderOperations');
+const menuOperations = require('../operations/menuOperations'); 
+const branchOperations = require('../operations/branchOperations'); 
+const orderOperations = require('../operations/orderOperations');
 
 // נתיבים ציבוריים
 router.get('/public', (req, res) => {

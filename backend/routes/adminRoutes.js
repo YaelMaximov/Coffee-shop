@@ -3,8 +3,8 @@ const express = require('express');
 const connection = require('../db');
 const router = express.Router();
 const { authenticateToken, checkAdmin } = require('../authMiddleware');
-const menuOperations = require('../menuOperations'); 
-const branchOperations = require('../branchOperations');
+const menuOperations = require('../operations/menuOperations'); 
+const branchOperations = require('../operations/branchOperations');
 
 // Apply authentication and authorization middleware to all routes
 router.use(authenticateToken);

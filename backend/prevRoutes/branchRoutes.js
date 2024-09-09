@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const branchOperations = require('../branchOperations');
+const branchOperations = require('../operations/branchOperations');
 
 // Route for getting branch details
 router.get('/getBranch/:branch_id', branchOperations.getBranch);

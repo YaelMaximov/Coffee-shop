@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '../Providers/AuthProvider';
 
 function PrivateRoute({ element: Component, requiredRole, ...rest }) {
   const { auth, refreshAccessToken, logout } = useAuth();

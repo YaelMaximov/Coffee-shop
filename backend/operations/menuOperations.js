@@ -1,4 +1,4 @@
-const connection = require('./db');
+const connection = require('../db');
 
 exports.getMenu= async (req, res) => {
     try {
