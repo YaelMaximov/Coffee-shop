@@ -6,39 +6,35 @@ export default function MyOrderPage() {
   const user_id = localStorage.getItem('userId'); // קבלת ה-userId מ-localStorage
   const [orders, setOrders] = useState([]); // הגדרת ברירת מחדל כ-array
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(true);
   const { accessToken } = useAuth();
 
   useEffect(() => {
-    // פונקציה לשליפת ההזמנות מהשרת
     const fetchOrders = async () => {
       try {
         const response = await fetch(`http://localhost:3010/client/customerOrder/${user_id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`, // Ensure the token is correct
+            'Authorization': `Bearer ${accessToken}`, 
           },
         });
-
-        if (response.status === 404) {
-          setError('אין הזמנות להצגה');
-          setOrders([]); // הבטחת שה-orders הוא array גם במקרה של 404
-          return;
-        }
-
+  
         if (!response.ok) {
           throw new Error(`Error fetching orders: ${response.statusText}`);
         }
-
+  
         const data = await response.json();
-
+  
         // הבטחת ש-data הוא מערך
         if (Array.isArray(data)) {
           setOrders(data);
+          if (data.length === 0) {
+            setMessage('אין הזמנות להצגה'); // הצגת הודעה מתאימה אם המערך ריק
+          }
         } else {
-          setError('Data received from the server is not an array');
-          setOrders([]);
+          throw new Error('Data received from the server is not an array');
         }
       } catch (err) {
         setError('Failed to fetch orders');
@@ -47,14 +43,15 @@ export default function MyOrderPage() {
         setLoading(false);
       }
     };
-
+  
     if (user_id) {
-      fetchOrders(); // שליפת ההזמנות אם ה-user_id קיים
+      fetchOrders(); 
     } else {
       setError('No user ID found. Please log in.');
       setLoading(false);
     }
   }, [user_id, accessToken]);
+  
 
   if (loading) {
     return <p>Loading orders...</p>;
@@ -63,8 +60,8 @@ export default function MyOrderPage() {
   return (
     <div className="order-history">
       <h1>ההזמנות שלך</h1>
-      {error ? (
-        <p>{error}</p>
+      {message ? (
+        <p>{message}</p>
       ) : orders.length === 0 ? (
         <p>אין הזמנות להצגה</p>
       ) : (

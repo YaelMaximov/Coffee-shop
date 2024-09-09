@@ -209,17 +209,62 @@
     }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-    .order-list {
-        width: 45%;
+@media (max-width: 480px) {
+    .order-container {
+        flex-direction: column; /* משנה את הכיוון של האלמנטים בטור */
+        align-items: flex-start;
+        padding: 10px;
+        height: auto;
     }
+
+    .filter-container {
+        width: 100%; /* תופס את כל רוחב המסך */
+        margin-bottom: 15px;
+    }
+
+    .order-list {
+        width: 100%; /* תופס את כל רוחב המסך */
+        margin-bottom: 15px; /* מוסיף רווח מתחת לרשימת ההזמנות */
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
     .selected-order-details {
-        width: 50%;
+        width: 100%; /* תופס את כל רוחב המסך */
+        max-height: 60vh; /* מגביל את הגובה כדי לאפשר גלילה אם יש צורך */
+        padding: 15px;
+    }
+
+    .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .order-item p {
+        font-size: 20px; /* גודל פונט קטן יותר למסכים קטנים */
+    }
+
+    .selected-order-details h2 {
+        font-size: 28px; /* גודל כותרת קטן יותר למסכים קטנים */
+    }
+
+    .dish-image {
+        width: 50%; /* קטן יותר כדי להתאים למסך קטן */
+    }
+
+    .dish-details {
+        margin-top: 10px;
+    }
+
+    .extras-list {
+        font-size: 14px; /* גודל פונט קטן יותר */
+        margin-right: 0;
+        height: auto;
+    }
+
+    .extras-list li {
+        padding: 8px;
     }
 }
 
-@media (min-width: 1025px) {
-    .order-list {
-        width: 40%;
-    }
-}
