@@ -53,6 +53,22 @@ export default function PaymentPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const newErrors = {};
+
+    if (!validateCardNumber(cardNumber)) {
+      newErrors.cardNumber = 'מספר כרטיס אשראי לא תקין';
+      setMessage('אחד או יותר מהפרטים שהזנת שגויים');
+    }
+  
+    if (!validateIdNumber(idNumber)) {
+      newErrors.idNumber = 'מספר תעודת זהות לא תקין';
+      setMessage('אחד או יותר מהפרטים שהזנת שגויים');
+    }
+  
+    if (isCardExpired(expirationDate)) {
+      newErrors.expirationDate = 'תוקף הכרטיס פג';
+      setMessage('אחד או יותר מהפרטים שהזנת שגויים');
+    }
   
     try {
       // Step 1: Save the order in the Orders table
@@ -281,7 +297,7 @@ export default function PaymentPage() {
                   value={cardNumber}
                   onChange={(e) => setCardNumber(e.target.value)}
                 />
-                {errors.cardNumber && <p>{errors.cardNumber}</p>}
+                {errors.cardNumber && <p className="error-message">{errors.cardNumber}</p>}
               </div>
               <div className="form-group">
                 <label htmlFor="idNumber">תעודת זהות</label>
@@ -291,7 +307,7 @@ export default function PaymentPage() {
                   value={idNumber}
                   onChange={(e) => setIdNumber(e.target.value)}
                 />
-                {errors.idNumber && <p>{errors.idNumber}</p>}
+                {errors.idNumber && <p className="error-message">{errors.idNumber}</p>}
               </div>
               <div className="form-group">
                 <label htmlFor="expirationDate">תוקף</label>
@@ -301,8 +317,9 @@ export default function PaymentPage() {
                   value={expirationDate}
                   onChange={(e) => setExpirationDate(e.target.value)}
                 />
-                {errors.expirationDate && <p>{errors.expirationDate}</p>}
-              </div>
+                {errors.expirationDate && <p className="error-message">{errors.expirationDate}</p>}
+                {message && <p className="error-message">{message}</p>}
+                </div>
               <div className="form-group">
                 <label htmlFor="cvv">CVV</label>
                 <input

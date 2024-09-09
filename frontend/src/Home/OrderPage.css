@@ -271,3 +271,125 @@ img {
     height: auto;
     object-fit: cover;
   }
+
+  /* התאמה כללית לגודל מסך קטן */
+@media (max-width: 768px) {
+    .category-navigation {
+        display: none;
+      }
+
+    .order-page {
+      padding: 10px;
+    }
+  
+    .search-bar {
+      margin-left: 0;
+      width: 100%;
+      font-size: 16px;
+      padding: 10px;
+    }
+  
+    .content-wrapper {
+      flex-direction: column;
+    }
+  
+    .cart-summary, .menu-list, .category-navigation {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .cart-summary h3, .total-price {
+      text-align: center;
+    }
+  
+    .cart-item {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .cart-item-actions {
+      flex-direction: column;
+    }
+  
+    .cart-item-actions button, .cart-item-actions input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .menu-item {
+      flex-direction: column;
+    }
+  
+    .item-info {
+      flex-direction: column;
+    }
+  
+    .item-info img.dish-image-order {
+      width: 100%;
+      height: auto;
+    }
+  
+    .add-to-cart {
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .category-navigation ul li {
+      font-size: 20px;
+    }
+  
+    .header-container {
+      height: 20vh;
+    }
+  }
+  
+  /* התאמה לגודל מסך קטן במיוחד */
+  @media (max-width: 480px) {
+    body {
+      font-size: large;
+    }
+  
+    .search-bar {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .cart-item h4 {
+      font-size: 24px;
+    }
+  
+    .cart-item p {
+      font-size: 18px;
+    }
+  
+    .cart-item-actions button {
+      font-size: 18px;
+    }
+  
+    .cart-item-actions input {
+      font-size: 18px;
+    }
+  
+    .checkout-button {
+      font-size: 16px;
+      padding: 10px;
+    }
+  
+    .reset-order {
+      font-size: 16px;
+      padding: 8px;
+    }
+  
+    .menu-item {
+      padding: 10px;
+    }
+  
+    .category-navigation ul li {
+      font-size: 18px;
+    }
+  
+    .header-container {
+      height: 15vh;
+    }
+  }
+  

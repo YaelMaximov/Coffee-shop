@@ -75,10 +75,11 @@
   transform: scale(1.02); /* Slightly enlarge on hover */
 }
 
-.message {
-  margin-top: 15px;
-  color: #e74c3c; /* Error message color */
-  font-size: 18px; /* Larger font size for better visibility */
+.error-message {
+  color: red;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  text-align: right;
 }
 
 /* Media queries for responsiveness */
@@ -126,3 +127,4 @@
     font-size: 16px; /* Adjusted message font size */
   }
 }
+
