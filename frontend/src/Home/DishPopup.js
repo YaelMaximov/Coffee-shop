@@ -111,7 +111,7 @@ const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
           
           {Object.entries(groupedExtras).map(([category, extras]) => (
             <div className="extras-category" key={category}>
-              <h3>{category} לבחירה:</h3>
+              <h3>{category} לבחירה</h3>
               <p className="required-extra">חובה לבחור תוספת אחת</p>
               <div className="extras-buttons">
                 {extras.map(extra => (
@@ -139,9 +139,9 @@ const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
 
         <div className="popup-actions">
           <div className="quantity-selector">
-            <button onClick={decreaseQuantity}>-</button>
+            <button  class="quantity-button" onClick={decreaseQuantity}>-</button>
             <span>{quantity}</span>
-            <button onClick={increaseQuantity}>+</button>
+            <button  class="quantity-button" onClick={increaseQuantity}>+</button>
           </div>
           <p className="total-price">סה"כ: ₪{totalPrice}</p>
           <button className="add-to-cart-button" onClick={addToCart}>
