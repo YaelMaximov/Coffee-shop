@@ -3,7 +3,8 @@ const connection = require('../db');
 // Create a new order
 // Create a new order
 exports.createOrder = async (req, res) => {
-  const { member_id, order_type, total_price, notes, customer_name, customer_phone } = req.body;
+  const { order_type, total_price, notes, customer_name, customer_phone } = req.body;
+  const member_id = req.user.userId; 
   console.log("customer",customer_name, customer_phone)
   const query = `
     INSERT INTO Orders (member_id, order_type, total_price, notes, order_date, order_time, status, customer_name, customer_phone)
@@ -206,7 +207,8 @@ exports.createAddress = async (req, res) => {
 
 
 exports.getMyorder = async (req, res) => {
-  const { user_id } = req.params;
+  // const { user_id } = req.params;
+  const user_id = req.user.userId; // קח את ה-userId מה-token
   const query = `SELECT * FROM Orders WHERE member_id = ?`;
 
   try {

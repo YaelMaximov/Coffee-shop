@@ -13,7 +13,7 @@ export default function MyOrderPage() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`http://localhost:3010/client/customerOrder/${user_id}`, {
+        const response = await fetch(`http://localhost:3010/client/customerOrder`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -121,10 +121,11 @@ exports.login = async (req, res) => {
     }
 
     const payload = {
-      userId: customer.id,
+      userId: customer.member_id,
       email: customer.email,
       role: 'customer'
     };
+    console.log("id of the customer",customer.member_id);
     const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: JWT_EXPIRATION });
     const refreshToken = jwt.sign(payload, REFRESH_TOKEN_SECRET, { expiresIn: JWT_REFRESH_EXPIRATION });
 
@@ -176,6 +177,7 @@ exports.adminLogin = async (req, res) => {
       username: manager.username,
       role: 'admin'
     };
+    console.log( "userId:" ,manager.manager_id,)
 
     // Generate access and refresh tokens
     const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: JWT_EXPIRATION });

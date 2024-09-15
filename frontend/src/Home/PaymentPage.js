@@ -79,7 +79,7 @@ export default function PaymentPage() {
           'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-          member_id: memberId,
+        //   member_id: memberId,
           order_type: orderTypeHeb(),
           total_price: getTotalPrice(),
           notes: notes,

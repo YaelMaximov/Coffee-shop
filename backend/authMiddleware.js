@@ -6,7 +6,7 @@ const authenticateToken = async (req, res, next) => {
   const token = authHeader && authHeader.split(' ')[1]; // Extract token from "Bearer TOKEN"
 
   if (token == null) return res.sendStatus(401); // If no token, unauthorized
-  console.log("token",token)
+
   try {
     const user = await new Promise((resolve, reject) => {
       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
@@ -14,6 +14,7 @@ const authenticateToken = async (req, res, next) => {
         resolve(user);
       });
     });
+    console.log("Decoded user ID:", user.userId);  // Ensure this prints correctly
     
     req.user = user; // Attach user info to request object
     next(); // Proceed to next middleware or route
