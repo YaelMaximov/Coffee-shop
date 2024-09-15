@@ -165,7 +165,7 @@ export default function OrderTypePage() {
             <select value={branch} onChange={(e) => setBranch(e.target.value)}>
               <option value="">בחר סניף מהרשימה..</option>
               {branches.map((branch) => (
-                <option key={branch.branch_id} value={branch.branch_id}>
+                <option key={branch.branch_id} value={branch.address}>
                   {branch.name} - {branch.address}
                 </option>
               ))}
