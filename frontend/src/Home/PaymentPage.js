@@ -22,8 +22,6 @@ export default function PaymentPage() {
   const { orderType, address, branch } = location.state || {};
   
 
-
-  const memberId = localStorage.getItem('userId');; // Replace with actual value if available
   const addressId = order.address_id;
 
   useEffect(() => {
@@ -79,7 +77,6 @@ export default function PaymentPage() {
           'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-        //   member_id: memberId,
           order_type: orderTypeHeb(),
           total_price: getTotalPrice(),
           notes: notes,

@@ -139,9 +139,9 @@ const DishPopup = ({ dish, orderItem, onClose, onAddToCart }) => {
 
         <div className="popup-actions">
           <div className="quantity-selector">
-            <button  class="quantity-button" onClick={decreaseQuantity}>-</button>
+            <button  onClick={decreaseQuantity}>-</button>
             <span>{quantity}</span>
-            <button  class="quantity-button" onClick={increaseQuantity}>+</button>
+            <button  onClick={increaseQuantity}>+</button>
           </div>
           <p className="total-price">סה"כ: ₪{totalPrice}</p>
           <button className="add-to-cart-button" onClick={addToCart}>

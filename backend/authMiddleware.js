@@ -17,6 +17,7 @@ const authenticateToken = async (req, res, next) => {
     console.log("Decoded user ID:", user.userId);  // Ensure this prints correctly
     
     req.user = user; // Attach user info to request object
+    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
     next(); // Proceed to next middleware or route
   } catch (err) {
     console.error('Token verification failed:', err);
