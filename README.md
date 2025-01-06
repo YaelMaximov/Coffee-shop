@@ -20,6 +20,8 @@
 
 ###client
 
+### Order Page Client Connected
+![Order Page Client Connected](https://github.com/YaelMaximov/Coffee-shop/blob/main/project%20screenshots/order-page-client-connected.png)
 
 ### Chosen Dish
 ![Chosen Dish](https://github.com/YaelMaximov/Coffee-shop/blob/main/project%20screenshots/chosen-dish.png)
@@ -38,14 +40,6 @@
 ### Menu Admin
 ![Menu Admin](https://github.com/YaelMaximov/Coffee-shop/blob/main/project%20screenshots/menu-admin.png)
 
-
-
-
-
-
-
-### Order Page Client Connected
-![Order Page Client Connected](https://github.com/YaelMaximov/Coffee-shop/blob/main/project%20screenshots/order-page-client-connected.png)
 
 ### Orders Admin
 ![Orders Admin](https://github.com/YaelMaximov/Coffee-shop/blob/main/project%20screenshots/orders-admin.png)
