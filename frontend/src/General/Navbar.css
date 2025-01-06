@@ -1,5 +1,10 @@
-/* Fixed navbar at the top */
-.navbar {
+/* הוסף מרווח עליון ל-body כדי לוודא שהתוכן מתחיל מתחת לסרגל הניווט */
+body {
+    margin-top: 150px; /* Adjust according to the height of your navbar */
+  }
+  
+  /* עיצוב הסרגל */
+  .navbar {
     background-color: #fffffffa;
     padding: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -7,18 +12,16 @@
     top: 0;
     width: 100%;
     z-index: 1000;
-    height: auto; /* גובה אוטומטי כדי לאפשר התאמה בגודל קטן */
+    height: auto; /* גובה אוטומטי */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* מאפשר לשבור שורות אם יש צורך */
+    flex-wrap: wrap;
     transition: top 0.3s;
-}
+  }
+  
 
-/* Adding margin to the body to prevent overlap */
-/* body{
-    margin-top: 160px;
-} */
+
 .navbar-list {
     list-style: none;
     display: flex;
