@@ -4,6 +4,7 @@ import { useMenu } from '../Providers/MenuProvider';
 import { OrderContext } from '../Providers/OrderProvider'; // Import OrderContext
 import './css/OrderPage.css';
 import DishPopup from './DishPopup';
+import top from '../Pictures/order_picture.jpg';
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />;
 
 export default function OrderPage() {
@@ -86,8 +87,8 @@ export default function OrderPage() {
     <div className="order-page">
       <div className="header-container">
         <img
-          src="https://scontent.ftlv1-1.fna.fbcdn.net/v/t39.30808-6/255245272_4902502489769622_2324489355499356995_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=EAvoMnTGp0gQ7kNvgH_vfTF&_nc_ht=scontent.ftlv1-1.fna&oh=00_AYCTVC6T1vVujJuneON1u-MiUcCxWqmXYYRSz-DLVWFT7w&oe=66DDF9CE"
-          alt="תיאור התמונה"
+          src={top}
+          alt="תמונת נושא"
           className="header-image"
         />
       </div>
