@@ -1,1 +1,1 @@
-![all-the-orders-client](project screenshots/all-the-orders-client.png)
+![all-the-orders-client](screenshots/all-the-orders-client.png)
