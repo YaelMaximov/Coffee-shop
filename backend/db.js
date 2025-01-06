@@ -2,6 +2,8 @@ require('dotenv').config(); // טען את משתני הסביבה מהקובץ 
 
 const mysql2 = require('mysql2');
 
+
+
 const connection = mysql2.createConnection({
   connectionLimit: 70,
   host: process.env.DB_HOST,      // השתמש בערכים מתוך משתני הסביבה

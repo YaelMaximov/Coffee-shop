@@ -10,6 +10,7 @@ export default function MenuPage() {
   const [currentPage, setCurrentPage] = useState(0);
   const [dimensions, setDimensions] = useState({ width: 900, height: 1200 });
   const [isMobileView, setIsMobileView] = useState(false); // מצב תצוגת פלאפון
+  const [cardHeights, setCardHeights] = useState({}); // שמירה על גובה הכרטיסים של המנות
 
   const dishesPerPage = 3; // מספר המנות בכל עמוד
 
@@ -28,6 +29,24 @@ export default function MenuPage() {
 
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
+
+  useEffect(() => {
+    // חישוב גובה הדינמי אחרי טענת התוכן
+    const updateCardHeights = () => {
+      const newCardHeights = {};
+      const elements = document.querySelectorAll('.menu-page__dish-card');
+
+      elements.forEach((element, index) => {
+        newCardHeights[index] = element.offsetHeight; // קביעת גובה כל כרטיס
+      });
+
+      setCardHeights(newCardHeights); // עדכון עם הגבהים החדשים
+    };
+
+    if (menu.length > 0) {
+      updateCardHeights(); // עדכון גובה הכרטיסים אחרי טעינת התפריט
+    }
+  }, [menu]); // עדכון כל פעם שהתפריט משתנה
 
   if (isLoading) return <div className="menu-page__loading">טוען תפריט...</div>;
 
@@ -90,7 +109,7 @@ export default function MenuPage() {
             <h2 className="menu-page__category-title">{category}</h2>
             <div className="menu-page__card-list">
               {categorizedMenu[category].map((dish, dishIndex) => (
-                <div key={dishIndex} className="menu-page__dish-card">
+                <div key={dishIndex} className="menu-page__dish-card" style={{ height: cardHeights[dishIndex] }}>
                   <img src={dish.image_url} alt={dish.name} className="menu-page__dish-image" />
                   <div className="menu-page__dish-details">
                     <h4 className="menu-page__dish-name">{dish.name}</h4>
@@ -107,7 +126,6 @@ export default function MenuPage() {
       </div>
     );
   }
-  
 
   return (
     <div className="menu-page">
@@ -117,7 +135,7 @@ export default function MenuPage() {
         size="fixed"
         minWidth={600}
         maxWidth={900}
-        minHeight={800}
+        minHeight={700}
         maxHeight={1200}
         maxShadowOpacity={0.5}
         showCover={true}

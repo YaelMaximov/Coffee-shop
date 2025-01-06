@@ -36,8 +36,6 @@ app.use('/admin', cors(strictCorsOptions), adminRoutes);
 
 
 
-
-
 // Connect to the database
 const connection = require('./db');
 
